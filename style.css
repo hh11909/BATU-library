@@ -1,6 +1,28 @@
-h1{
-    color: brown;
+:root{
+    --background:#F5FBFC;
+    --primary:#08546D;
+    --primary-tint:#83A9B6;
+    --primary-shade:#042A37 ;
+    --secondary:#A8D5BA;
+    --secondary-tint:#D3EADC;
+    --secondary-shade:#546B5D;
+    --accent:#97E3FB;
+    --accent-tint:#CBF1FD;
+    --accent-shade:#4B727E;
+    --primary-container:#9CBBC5;
+    --on-primary-container:#074C62;
+    --secondary-container:#DCEEE3;
+    --on-secondary-container:#546B5D;
+    --accent-container:#D5F4FD;
+    --on-accent-container:#4B727E;
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: poppins;
+    color:var(--primary)
+}
+.account-info{
+    border-right: 1px solid var(--primary-container);
 }
 body{
-    background-color: rgb(4, 255, 0);
+    background-color:var(--background);
 }
