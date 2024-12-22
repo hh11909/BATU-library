@@ -16,13 +16,41 @@
     --accent-container:#D5F4FD;
     --on-accent-container:#4B727E;
 }
+body{
+    background-color:var(--background);
+    height: 2000px;
+}
+a{
+    text-decoration: none;
+}
 h1,h2,h3,h4,h5,h6{
     font-family: poppins;
     color:var(--primary)
 }
-.account-info{
-    border-right: 1px solid var(--primary-container);
+.account-title{
+    border-bottom: 1px solid var(--primary-container);
 }
-body{
-    background-color:var(--background);
+.account-info{
+    
+    border-right: 1px solid var(--primary-container);
+    
+}
+.account-info ul{
+    height: 100vh;/*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*/
+}
+.account-info ul a , .account-info svg{
+    color: var(--primary);
+    font-family: poppins;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight:500;
+}
+.account-info ul .active{
+    background-color: var(--secondary);
+}
+.account-info ul .active svg{
+    color: var(--secondary-shade);
+}
+.privacy-title svg{
+    color: var(--secondary);
 }
