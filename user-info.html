@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    
+    <div>
 
         <nav class="navbar navbar-expand-lg w-100 position-fixed">
             <div class="container-fluid">
@@ -50,15 +50,15 @@
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
-    
+    </div>
 </nav>
 </div>
 <div><br></div>
     <div class="account-content " style="padding-top:1.75rem ;">
-        <div class="container"></div>
+        <div class="container-fluid"></div>
         <div class="row ">
             <div class="col-lg-2  pe-0 z-3">
-                <div class="account-info  position-fixed">
+                <div class="account-info position-fixed ">
 
                     <button class="btn d-lg-none account-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
                         <i class="fa-solid fa-chevron-down " ></i>
@@ -68,24 +68,39 @@
                         
                         <ul class="list-unstyled">
                             <li class="py-5 px-2 py-lg-4 "><a href="" ><i class="fa-solid fa-user pe-4 pt-lg-0 "></i>Profile</a></li>
-                            <li class="py-4 active px-2"><a href=""><i class="fa-solid fa-shield-halved pe-4"></i> Privacy</a></li>
-                            <li class="py-4 px-2"><a href="user-info.html"><i class="fa-solid fa-circle-info pe-4"></i>User information</a></li>
+                            <li class="py-4  px-2"><a href="privacy.html"><i class="fa-solid fa-shield-halved pe-4"></i> Privacy</a></li>
+                            <li class="py-4 active px-2"><a href=""><i class="fa-solid fa-circle-info pe-4"></i>User information</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-10 ">
-                <div class="user-info-content p-0 p-md-2  z-0">
-                    <h1 class="privacy-title text-center px-0 pb-4 py-lg-5 pt-5"><i class="fa-solid fa-shield-halved pe-4"></i> Privacy</h1>
+            <div class="col-lg-10 p-0 p-md-2  z-0">
+                <div class="privacy-content container">
+                    <h1 class="user-info-title text-center px-5 pb-5 py-lg-5 pt-5"><i class="fa-solid fa-circle-info pe-4"></i> User Information</h1>
                     
                     <div class="container">
-                        <h2 class="text-start text-md-center ">Account Access</h2>
-                        <ul class="list-unstyled text-center text-lg-start">
-                            <li><a href=""><h4 class="fw-normal p-5">Email Addresses</h4></a></li>
-                            <li><a href=""><h4 class="fw-normal p-5">Change Phone</h4></a></li>
-                            <li><a href=""><h4 class="fw-normal p-5">Change Password</h4></a></li>
-                            <li><a href=""><h4 class="fw-normal p-5 ">Change Personal Information</h4></a></li>
-                        </ul>
+                        <h2 class="text-start text-md-center">Profile Information</h2>
+                            <div class="container pt-5">
+                                <div class="row">
+                                    <div class="col-lg-3 d-flex justify-content-center p-5">
+                                        <div class="image" style="width: 206px;height: 206px;border-radius: 206px;background-color: rgba(0, 0, 0, 0.375)"></div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">First Name:</span><span class="profile-value fs-4 fw-semibold" id="first-name"> Mohamed</span></p>
+                                        <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Last Name:</span><span class="profile-value fs-4 fw-semibold" id="last-name"> Ashraf</span></p>
+                                        <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Department:</span><span class="profile-value fs-4 fw-semibold" id="department"> Information Technology (IT)</span></p>
+                                        <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Phone:</span><span class="profile-value fs-4 fw-semibold" id="phone"> 01234567890</span></p>
+                                        <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Email:</span><span class="profile-value fs-4 fw-semibold" id="email"> hh4356@gmail.com</span></p>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Academy number:</span><span class="profile-value fs-4 fw-semibold" id="academy-number"> 2320486</span></p>
+                                        <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Gender:</span><span class="profile-value fs-4 fw-semibold" id="academy-number"> male</span></p>
+                                        <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Library’s Friend:</span><span class="profile-value fs-4 fw-semibold" id="lib-friend"> No</span></p>
+                                        <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Age:</span><span class="profile-value fs-4 fw-semibold" id="age"> 22</span></p>
+                                    </div>
+                                </div>
+                               <p class="text-end"><a href="" class="change-info fw-medium">Change information</a></p>
+                            </div>
                     </div>
                 </div>
             </div>

@@ -18,7 +18,7 @@
 }
 body{
     background-color:var(--background);
-    height: 2000px;
+    max-width:99%;
 }
 a{
     text-decoration: none;
@@ -27,16 +27,27 @@ h1,h2,h3,h4,h5,h6{
     font-family: poppins;
     color:var(--primary)
 }
-.account-title{
+
+.account-title,.privacy-title,.user-info-title{
     border-bottom: 1px solid var(--primary-container);
 }
 .account-info{
-    
+    background-color: var(--background);  
     border-right: 1px solid var(--primary-container);
+    border-bottom: 1px solid var(--primary-container);
+    border-radius:5px;
+
+    
     
 }
+.account-btn{
+    border: none;}
+.account-btn:hover{
+    background-color: var(--accent-tint);
+}
+
 .account-info ul{
-    height: 100vh;/*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*/
+    height: 100vh;
 }
 .account-info ul a , .account-info svg{
     color: var(--primary);
@@ -51,6 +62,26 @@ h1,h2,h3,h4,h5,h6{
 .account-info ul .active svg{
     color: var(--secondary-shade);
 }
-.privacy-title svg{
+
+nav{
+    background-color: var(--primary);
+    z-index: 9999;
+    
+}
+
+.privacy-title svg , .user-info-title svg {
     color: var(--secondary);
+}
+.profile-key{
+    color: var(--primary);
+    font-family: poppins;
+
+}
+.profile-value{
+    font-family: quicksand;
+}
+.change-info{
+    font-family: poppins;
+    font-size: 20px;
+    color: var(--accent);
 }
