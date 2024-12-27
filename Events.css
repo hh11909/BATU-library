@@ -1,16 +1,3 @@
-header {
-    background-color: #f0f0f0;
-    padding: 10px;
-    text-align: center;
-}
-
-.container {
-    max-width: 1140px;
-    margin-bottom: 20px auto;
-    padding: 20px;
-    border: none ;
-}
-
 .page-Name{
     text-align: center;
     font-weight: bold;
@@ -26,7 +13,7 @@ header {
 
 }
 .events-icon{
-    display: flex; /* Use flexbox for better alignment */
+    display: flex; /* flexbox for better alignment */
     justify-content: center; /* Center horizontally */
     align-items: center; 
 }
@@ -77,3 +64,8 @@ header {
     border-radius: 10px;
     cursor: pointer;
 }
+
+.navbar-nav {
+    display: flex;
+    gap: 20px;
+  }
