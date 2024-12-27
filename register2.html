@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom Color Scheme */
+        :root {
+            --bs-primary: #08546d; /* الأزرق */
+            --bs-secondary: #A8D5BA; /* اللون المطلوب */
+            --bs-accent: #97e3fb;
+            --green: #28a745;
+            --btn-color: #A8D5BA; /* اللون المطلوب للزر */
+        }
+        body {
+            background-color: var(--bs-secondary);
+            font-family: 'Quicksand', sans-serif;
+            font-weight: bold;
+        }
+        .register-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: var(--bs-white);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .form-label, .form-check-label {
+            font-weight: bold;
+            color: var(--bs-primary); /* الأزرق */
+        }
+        .form-control {
+            border-radius: 20px;
+            border: 1px solid var(--bs-accent);
+        }
+        .btn-custom {
+            background-color: var(--btn-color); /* اللون المطلوب للزر */
+            color: var(--bs-primary);
+            border-radius: 20px;
+            padding: 10px 20px; /* إضافة padding لتحديد حجم الزر */
+            text-align: center;
+            display: inline-block; /* يسمح بتوسيط الزر */
+        }
+        .btn-custom:hover {
+            background-color: #8bd2b1; /* التغيير عند التمرير بالماوس */
+        }
+        /* Style for the circular image */
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--bs-primary);
+        }
+        /* Adjust spacing between fields */
+        .form-group.mb-3 {
+            margin-bottom: 20px;
+        }
+        .welcome-text {
+            text-align: center;
+            color: var(--green);
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        /* Style for the upload button */
+        .btn-upload {
+            background-color: var(--btn-color);
+            color: var(--bs-primary);
+            border-radius: 20px;
+            margin-top: 10px;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .btn-upload:hover {
+            background-color: #8bd2b1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="register-container">
+        <form>
+            <div class="row mb-3">
+                <div class="col-md-4 d-flex justify-content-end align-items-center">
+                    <div class="d-flex justify-content-center">
+                        <input type="file" id="profileImage" class="d-none" accept="image/*" onchange="previewImage()">
+                        <img src="https://via.placeholder.com/150" alt="Profile Image" class="profile-image" id="profileImageDisplay">
+                        <button type="button" class="btn-upload" onclick="document.getElementById('profileImage').click();">
+                            <i class="fas fa-upload"></i> Upload Image
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group mb-3">
+                        <label for="department" class="form-label">Department</label>
+                        <input type="text" class="form-control" id="department" placeholder="Enter your department">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="phoneNumber" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter your phone number">
+                    </div>
+                </div>
+            </div>
+
+            <!-- توسيط الزر في المنتصف -->
+            <div class="d-flex justify-content-center mt-4">
+                <button type="submit" class="btn btn-custom">Finish</button>
+            </div>
+        </form>
+
+        <!-- Welcome text -->
+        <p class="welcome-text">Welcome to the University Library</p>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Image preview JS -->
+<script>
+    function previewImage() {
+        const file = document.getElementById('profileImage').files[0];
+        const reader = new FileReader();
+        reader.onloadend = function() {
+            document.getElementById('profileImageDisplay').src = reader.result;
+        };
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+</body>
+</html>
