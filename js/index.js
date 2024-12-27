@@ -23,13 +23,13 @@ const El = function (tagName, attrs, children) {
     return el;
 };
 const getValueById = (id) => {
-    let value = document.getElementById(id)?.nodeValue;
+    let value = document.getElementById(id).value;
     if (value) {
         return value.trim();
     }
     return null;
 };
-// Sign up Form Submit Function
+// Register Form Submit Function
 const registerUser = async (e) => {
     e.preventDefault();
     const firstName = getValueById('firstName');
@@ -41,45 +41,43 @@ const registerUser = async (e) => {
     const studentId = getValueById('studentId');
     const fullName = `${firstName} ${lastName}`;
     const wantToBeAFriend = getValueById('libraryFriend');
-    let genderField;
-    document.getElementsByName('gender')
-        .forEach((e) => {
-        genderField = e.value;
-    });
-    genderField = document.querySelector('input[name="rate"]:checked')?.value;
-    console.log(genderField);
-    if (email && pass && confirmPass && fullName && studentId) {
-        debugger;
+    let gender = document.querySelector('input[name="gender"]:checked')?.value;
+    if (email && pass && confirmPass && fullName && studentId && gender) {
         if (pass === confirmPass) {
             document.cookie += `&newFriend=${wantToBeAFriend}&studentId=${studentId}`;
-            const res = await fetch(`${_API}/api/signup`, {
-                method: 'POST',
-                mode: 'same-origin',
-                body: JSON.stringify({
-                    fullName,
-                    email,
-                    password: pass,
-                    studentId,
-                    birthdate,
-                    gender: ''
-                })
-            });
-            const { status, } = res;
-            if (status >= 500) {
-                console.log(status, 'Internal Error');
-            }
-            else if (status >= 400) {
-                switch (status) {
-                    case 400: {
-                        console.error(status, 'Bad Request');
-                    }
-                    default: {
-                        console.error(status, 'Error');
+            try {
+                const res = await fetch(`${_API}/api/signup`, {
+                    method: 'POST',
+                    mode: 'same-origin',
+                    body: JSON.stringify({
+                        fullName,
+                        email,
+                        password: pass,
+                        studentId,
+                        birthdate,
+                        gender
+                    })
+                });
+                const { status, } = res;
+                if (status >= 500) {
+                    console.log(status, 'Internal Error');
+                }
+                else if (status >= 400) {
+                    switch (status) {
+                        case 400: {
+                            console.error(status, 'Bad Request');
+                        }
+                        default: {
+                            console.error(status, 'Error');
+                        }
                     }
                 }
+                else if (status > 200) {
+                    console.log(status, 'Success');
+                }
             }
-            else if (status > 200) {
-                console.log(status, 'Success');
+            catch (e) {
+                console.log('SUCCESS IN FORM VALUES');
             }
         }
     }
