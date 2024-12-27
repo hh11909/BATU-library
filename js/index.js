@@ -22,44 +22,70 @@ const El = function (tagName, attrs, children) {
     }
     return el;
 };
+const getValueById = (id) => {
+    let value = document.getElementById(id)?.nodeValue;
+    if (value) {
+        return value.trim();
+    }
+    return null;
+};
 // Sign up Form Submit Function
-const signUpFormSubmit = async (e) => {
+const registerUser = async (e) => {
     e.preventDefault();
-    const name = document.getElementById('form-signup-name');
-    const email = document.getElementById('form-signup-email');
-    const pass = document.getElementById('form-signup-password');
-    let nameValue = name?.nodeValue;
-    let emailValue = email?.nodeValue;
-    let passValue = pass?.nodeValue;
-    if (emailValue && passValue && nameValue) {
-        const res = await fetch(`${_API}/api/signup`, {
-            method: 'POST',
-            mode: 'same-origin',
-            body: JSON.stringify({
-                name: nameValue,
-                email: emailValue,
-                password: passValue
-            })
-        });
-        const { status, } = res;
-        if (status >= 500) {
-            console.log(status, 'Internal Error');
-        }
-        else if (status >= 400) {
-            switch (status) {
-                case 400: {
-                    console.error(status, 'Bad Request');
-                }
-                default: {
-                    console.error(status, 'Error');
+    const firstName = getValueById('firstName');
+    const lastName = getValueById('lastName');
+    const email = getValueById('registerEmail');
+    const pass = getValueById('registerPassword');
+    const confirmPass = getValueById('registerConfirmPassword');
+    const birthdate = getValueById('birthdate');
+    const studentId = getValueById('studentId');
+    const fullName = `${firstName} ${lastName}`;
+    const wantToBeAFriend = getValueById('libraryFriend');
+    let genderField;
+    document.getElementsByName('gender')
+        .forEach((e) => {
+        genderField = e.value;
+    });
+    genderField = document.querySelector('input[name="rate"]:checked')?.value;
+    console.log(genderField);
+    if (email && pass && confirmPass && fullName && studentId) {
+        debugger;
+        if (pass === confirmPass) {
+            document.cookie += `&newFriend=${wantToBeAFriend}&studentId=${studentId}`;
+            const res = await fetch(`${_API}/api/signup`, {
+                method: 'POST',
+                mode: 'same-origin',
+                body: JSON.stringify({
+                    fullName,
+                    email,
+                    password: pass,
+                    studentId,
+                    birthdate,
+                    gender: ''
+                })
+            });
+            const { status, } = res;
+            if (status >= 500) {
+                console.log(status, 'Internal Error');
+            }
+            else if (status >= 400) {
+                switch (status) {
+                    case 400: {
+                        console.error(status, 'Bad Request');
+                    }
+                    default: {
+                        console.error(status, 'Error');
+                    }
                 }
             }
-        }
-        else if (status > 200) {
-            console.log(status, 'Success');
+            else if (status > 200) {
+                console.log(status, 'Success');
+            }
         }
     }
 };
+document.getElementById('registerForm')
+    .addEventListener('submit', registerUser);
 // Login Form Submit Function
 const logInFormSubmit = async (e) => {
     e.preventDefault();
