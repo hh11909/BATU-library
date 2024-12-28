@@ -5,19 +5,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BATU Library</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-  <link rel="stylesheet" href="wishlist-style.css" />
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Quicksand:wght@300..700&display=swap"rel="stylesheet">
 </head>
 
 <body>
-
-  <!-- navigation bar start -->
-  <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top">
+   <!-- navigation bar start -->
+   <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
     <div class="container">
       <!-- logo -->
-      <a class="navbar-brand fs-4 fw-bold" href="#home"><img src="wishlist-images/reading-book.png" alt="Logo"
-          class="logo-img me-2"> BATU Library</a>
+      <a class="navbar-brand fs-4 " href="index.html"><img src="images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
+        <span class="logo-title">
+          BATU Library
+        </span></a>
       <!-- toggle button -->
       <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -34,22 +38,22 @@
         </div>
         <!-- sidebar body -->
         <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
-          <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
+          <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
             <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
               <a href="#account"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
                   width="40" height="40"></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active mx-2" aria-current="page" href="#home">Home</a>
+              <a class="nav-link mx-2" aria-current="page" href="index.html">Home</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="#about">About</a>
+              <a class="nav-link" href="about.html">About</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="#contact">Contact</a>
+              <a class="nav-link" href="">Contact</a><!--to do-->
             </li>
             <li class="nav-item dropdown mx-2">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 Services
               </a>
@@ -58,35 +62,35 @@
                 <li><a class="dropdown-item" href="#explore">Explore</a></li>
                 <li><a class="dropdown-item" href="#borrow">Borrow</a></li>
                 <li>
-                  <Events class="dropdown-item" href="#events">Events</a>
+                  <a class="dropdown-item" href="#events">Events</a><!--to do-->
                 </li>
                 <li>
-                  <Wishlist class="dropdown-item" href="#wishlist">Wishlist</a>
+                  <a class="dropdown-item active" href="wishlist.html">Wishlist</a>
                 </li>
                 <li>
-                  <Borrowed class="dropdown-item" href="#borrowed">Borrowed</a>
+                  <a class="dropdown-item" href="borrowed.html">Borrowed</a>
                 </li>
               </ul>
             </li>
           </ul>
           <!-- login/signup -->
-          <div class="d-flex justify-content-center align-items-center gap-3">
-            <a href="#signup" id="signup"
-              class="text-white border fw-bold text-decoration-none px-3 py-1 rounded-4">Sign Up</a>
-            <a href="#login" id="login" class="primary-color fw-bold text-decoration-none px-3 py-1 rounded-4"
-              style="background-color: #A8D5BA;">Login</a>
+          <div class="d-flex justify-content-center align-items-center ">
+            <a href="login.html" id="login"
+              class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log In</a>
+            <a href="register1.html" id="register" class="btn primary-color main-btn"
+              >Register</a>
           </div>
           <!-- profile -->
           <div class="d-flex align-items-center mt-1 d-none d-lg-block">
             <a href="#account"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3" width="40"
-                height="40"></a>
+                height="40"></a><!--to do-->
           </div>
         </div>
       </div>
     </div>
   </nav>
-  <!-- navigation bar end -->
 
+  <!-- navigation bar end -->
   <!-- wishlist header start-->
   <div class="container mt-5 pt-5">
     <div class="wishlist-header d-flex flex-column justify-content-center align-items-center mt-3">
@@ -272,13 +276,67 @@
     <i class="fa-solid fa-circle-chevron-up" style="color: #08546d; font-size: 40px;"></i>
   </a>
   <!-- scroll up end-->
-
+  <footer class="footer py-5 text-center text-md-start" style="background-color: #08546d; color: #f6fbf2;">
+    <div class="container-fluid footer-grid">
+      <div class="row">
+        <!-- About Section -->
+        <div class="col-md-4 mb-4">
+          <div class="container">
+            <div class=" mb-5 mt-0 align-items-center" href="#">
+              <img src="images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
+              <span class="logo-title">
+                  BATU Library
+                </span>
+              </div>
+          <h5 class="text-uppercase"style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">About Us</h5>
+          <p>
+            The BATU Library is dedicated to providing resources and spaces for learning, collaboration, and growth. Join us in building a community of knowledge.
+          </p>
+        </div>
+        </div>
+        <!-- Quick Links -->
+        <div class="col-md-4 mb-4">
+          
+          <h5 class="text-uppercase"style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html" class="  foorer-link text-decoration-none text-light">Home</a></li>
+            <li><a href="#" class="foorer-link text-decoration-none text-light">Categories</a></li>
+            <li><a href="#" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
+            <li><a href="#" class="foorer-link text-decoration-none text-light">FAQs</a></li>
+            <li><a href="#" class="foorer-link text-decoration-none text-light">About Us</a></li>
+          </ul>
+        </div>
+        <!-- Contact Section -->
+        <div class="col-md-4 mb-4">
+          <h5 class=" text-uppercase "style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">Contact Us</h5>
+          <p>
+            <strong>Email:</strong> @batulibrary.com<br>
+            <strong>Phone:</strong> +1 234 567 8900<br>
+            <strong>Address:</strong> BATU 
+          </p>
+          <div class="social-icons">
+            <a href="#" class="text-light me-3 fs-4 p-2"><i class="fa-brands facebook fa-square-facebook"></i></a>
+            <a href="#" class="text-light me-3 fs-4 p-2"><i class="fa-brands youtube fa-square-youtube"></i></a>
+            <a href="#" class="text-light me-3 fs-4 p-2"><i class="fa-brands linkedin fa-linkedin"></i></a>
+            <a href="#" class="text-light me-3 fs-4 p-2"><i class="fa-brands instagram fa-instagram"></i></a>
+  
+          </div>
+        </div>
+      </div>
+      <hr class="border-light">
+      <div class="row">
+  
+          <div class="col-md-4 text-center">
+            <p class="mb-0">&copy; 2024 <span class="fw-bold" style="color: aquamarine;">BATU Library</span> . All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+  </footer>
   <!-- JS -->
   <script src="js/index.js"></script>
   <script src="wishlist-script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/all.min.js"></script>
 
 </body>
 
