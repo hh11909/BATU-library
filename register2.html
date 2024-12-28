@@ -3,123 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Custom Color Scheme */
-        :root {
-            --bs-primary: #08546d; /* الأزرق */
-            --bs-secondary: #A8D5BA; /* اللون المطلوب */
-            --bs-accent: #97e3fb;
-            --green: #28a745;
-            --btn-color: #A8D5BA; /* اللون المطلوب للزر */
-        }
-        body {
-            background-color: var(--bs-secondary);
-            font-family: 'Quicksand', sans-serif;
-            font-weight: bold;
-        }
-        .register-container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 30px;
-            background: var(--bs-white);
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        .form-label, .form-check-label {
-            font-weight: bold;
-            color: var(--bs-primary); /* الأزرق */
-        }
-        .form-control {
-            border-radius: 20px;
-            border: 1px solid var(--bs-accent);
-        }
-        .btn-custom {
-            background-color: var(--btn-color); /* اللون المطلوب للزر */
-            color: var(--bs-primary);
-            border-radius: 20px;
-            padding: 10px 20px; /* إضافة padding لتحديد حجم الزر */
-            text-align: center;
-            display: inline-block; /* يسمح بتوسيط الزر */
-        }
-        .btn-custom:hover {
-            background-color: #8bd2b1; /* التغيير عند التمرير بالماوس */
-        }
-        /* Style for the circular image */
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--bs-primary);
-        }
-        /* Adjust spacing between fields */
-        .form-group.mb-3 {
-            margin-bottom: 20px;
-        }
-        .welcome-text {
-            text-align: center;
-            color: var(--green);
-            font-size: 18px;
-            margin-top: 20px;
-        }
-        /* Style for the upload button */
-        .btn-upload {
-            background-color: var(--btn-color);
-            color: var(--bs-primary);
-            border-radius: 20px;
-            margin-top: 10px;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-        .btn-upload:hover {
-            background-color: #8bd2b1;
-        }
-    </style>
-</head>
-<body>
+    <title>BATU Library</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap"rel="stylesheet">
 
-<div class="container">
+</head>
+<body class="register-body">
+      <!-- navigation bar start -->
+      <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
+        <div class="container">
+          <!-- logo -->
+          <a class="navbar-brand fs-4 " href="index.html"><img src="images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
+            <span class="logo-title">
+              BATU Library
+            </span></a>
+          <!-- toggle button -->
+          <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <!-- sidebar -->
+          <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel">
+            <!-- sidebar header -->
+            <div class="offcanvas-header text-white border-bottom">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Discover</h5>
+              <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+            </div>
+            <!-- sidebar body -->
+            <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
+              <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
+                <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
+                  <a href="#account"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
+                      width="40" height="40"></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mx-2" aria-current="page" href="index.html">Home</a>
+                </li>
+                <li class="nav-item mx-2">
+                  <a class="nav-link" href="about.html">About</a>
+                </li>
+                <li class="nav-item mx-2">
+                  <a class="nav-link" href="">Contact</a><!--to do-->
+                </li>
+                <li class="nav-item dropdown mx-2">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Services
+                  </a>
+                  <ul class="dropdown-menu mt-3">
+                    <!-- COMMENT: I think the hover text color has low contrast  -->
+                    <li><a class="dropdown-item" href="#explore">Explore</a></li>
+                    <li><a class="dropdown-item" href="#borrow">Borrow</a></li>
+                    <li>
+                      <a class="dropdown-item" href="#events">Events</a><!--to do-->
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="wishlist.html">Wishlist</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="borrowed.html">Borrowed</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <!-- login/signup -->
+              <div class="d-flex justify-content-center align-items-center ">
+                <a href="login.html" id="login"
+                  class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log In</a>
+                <a href="register1.html" id="register" class="btn primary-color main-btn"
+                  >Register</a>
+              </div>
+              <!-- profile -->
+              <div class="d-flex align-items-center mt-1 d-none d-lg-block">
+                <a href="#account"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3" width="40"
+                    height="40"></a><!--to do-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div style="height: 66px;"></div>
+      <!-- navigation bar end -->
+    
+
+  <div class="container">
     <div class="register-container">
         <form>
             <div class="row mb-3">
-                <div class="col-md-4 d-flex justify-content-end align-items-center">
-                    <div class="d-flex justify-content-center">
-                        <input type="file" id="profileImage" class="d-none" accept="image/*" onchange="previewImage()">
+                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                    <div class=" position-relative">
+                        <input type="file" id="profileImage" name="profileImage" class="d-none" accept="image/*" onchange="previewImage()">
                         <img src="https://via.placeholder.com/150" alt="Profile Image" class="profile-image" id="profileImageDisplay">
-                        <button type="button" class="btn-upload" onclick="document.getElementById('profileImage').click();">
-                            <i class="fas fa-upload"></i> Upload Image
-                        </button>
+                        <a type="button" class="btn btn-main rounded-5 px-2 py-1 btn-add-img position-absolute bottom-0 end-0" onclick="document.getElementById('profileImage').click();">
+                            <i class="fas fa-camera"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <div class="form-group mb-3">
                         <label for="department" class="form-label">Department</label>
-                        <input type="text" class="form-control" id="department" placeholder="Enter your department">
+                        <input type="text" class="form-control" id="department" name="department" placeholder="Enter your department">
                     </div>
                     <div class="form-group mb-3">
                         <label for="phoneNumber" class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter your phone number">
+                        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number">
                     </div>
                 </div>
             </div>
 
             <!-- توسيط الزر في المنتصف -->
             <div class="d-flex justify-content-center mt-4">
-                <button type="submit" class="btn btn-custom">Finish</button>
+                <button type="submit" class="btn primary-color main-btn d-block m-auto text-center">Finish</button>
             </div>
         </form>
 
         <!-- Welcome text -->
-        <p class="welcome-text">Welcome to the University Library</p>
+        <p class="welcome-text">Welcome to <span style="color: #28a745;"> BATU University Library</span></p>
     </div>
 </div>
-
+<!-- Footer -->
+<footer class="footer py-5 text-center text-md-start" style="background-color: #08546d; color: #f6fbf2;">
+    <div class="container-fluid footer-grid">
+      <div class="row">
+        <!-- About Section -->
+        <div class="col-md-4 mb-4">
+          <div class="container">
+            <div class=" mb-5 mt-0 align-items-center" href="#">
+              <img src="images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
+              <span class="logo-title">
+                  BATU Library
+                </span>
+              </div>
+          <h5 class="text-uppercase"style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">About Us</h5>
+          <p>
+            The BATU Library is dedicated to providing resources and spaces for learning, collaboration, and growth. Join us in building a community of knowledge.
+          </p>
+        </div>
+        </div>
+        <!-- Quick Links -->
+        <div class="col-md-4 mb-4">
+          
+          <h5 class="text-uppercase"style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="  foorer-link text-decoration-none text-light">Home</a></li>
+            <li><a href="#" class="foorer-link text-decoration-none text-light">Categories</a></li>
+            <li><a href="#" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
+            <li><a href="#" class="foorer-link text-decoration-none text-light">FAQs</a></li>
+            <li><a href="about.html" class="foorer-link text-decoration-none text-light">About Us</a></li>
+          </ul>
+        </div>
+        <!-- Contact Section -->
+        <div class="col-md-4 mb-4">
+          <h5 class=" text-uppercase "style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">Contact Us</h5>
+          <p>
+            <strong>Email:</strong> @batulibrary.com<br>
+            <strong>Phone:</strong> +1 234 567 8900<br>
+            <strong>Address:</strong> BATU 
+          </p>
+          <div class="social-icons">
+            <a href="#" class="text-light me-3 fs-4 p-2"><i class="fa-brands facebook fa-square-facebook"></i></a>
+            <a href="#" class="text-light me-3 fs-4 p-2"><i class="fa-brands youtube fa-square-youtube"></i></a>
+            <a href="#" class="text-light me-3 fs-4 p-2"><i class="fa-brands linkedin fa-linkedin"></i></a>
+            <a href="#" class="text-light me-3 fs-4 p-2"><i class="fa-brands instagram fa-instagram"></i></a>
+  
+          </div>
+        </div>
+      </div>
+      <hr class="border-light">
+      <div class="row">
+  
+          <div class="col-md-4 text-center">
+            <p class="mb-0">&copy; 2024 <span class="fw-bold" style="color: aquamarine;">BATU Library</span> . All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+  </footer>
 <!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/all.min.js"></script>
 <!-- Image preview JS -->
 <script>
     function previewImage() {
