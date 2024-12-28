@@ -510,7 +510,7 @@ Csss
 #togglePassword {
   position:absolute; 
   top :50%; 
-  right :45px; 
+  right :3%; 
   transform :translateY(-50%); 
   color :var(--primary); 
   font-size :16px; 
