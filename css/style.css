@@ -439,21 +439,6 @@ Csss
     font-weight: bold;
     color: var(--primary); /* الأزرق */
 }
-.form-control {
-  padding: 8px 0px 8px 20px;
-  border: 1px solid var(--secondary);
-  border-radius: 30px;
-  font-size: 19px;
-  color: var(--primary);
-}
-.form-control::placeholder {
-  color: #ccc;
-}
-
-.form-control:focus {
-  border-color: #a8d5ba;
-  outline: none;
-}
 
 
 /* Style for the circular image */
@@ -893,7 +878,7 @@ color: var(--primary);
 
 /*start borrowed*/
 /* book cards */
-#borrowed-input{
+.form-control{
   border-color:var(--secondary);
   
 }
