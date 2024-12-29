@@ -1,31 +1,21 @@
-body {
-    display: flex;
-    justify-content: flex-end; /* Align to the right */
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    padding-right: 50px; /* Add right padding for spacing */
-    background-color: #f8f9fa;
+@import url("style.css");
+  .main .container{
+    width: 100%;
+    max-width: 1920px;
   }
-  
   .form-container {
     
     border-radius: 10px;
     padding: 20px;
     background-color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 500px;
-    height: 600px;
+    
   }
   h4{
-    color: #042A37;
+    color: #08546D;
   }
   /* Input field styles */
-  input[type="text"], input[type="email"] {
-    border-radius: 60px; /* Rounded for Full Name and Email */
-    border: 2px solid #A8D5BA;
-    padding: 10px;
-  }
+
   
   textarea {
     border-radius: 36px; /* Rounded for Comment */
@@ -52,33 +42,30 @@ body {
     background-color: #83d1f0; /* Slightly darker blue on hover */
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15); /* Hover shadow effect */
   }
-  .header {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #333;
-  }
+
   
-  .icons-container {
-    position: absolute;
-    top: 50%;
-    left: 50px; /* Aligns the container to the left of the page */
-    transform: translateY(-50%); /* Centers vertically */
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
+
   .icon-label {
-    display: flex;
-    align-items: center;
     gap: 10px;
     color: #08546D;
-    font-size: 32px;
-    font-weight: bold;
+    font-size: 28px;
+    font-weight: 500;
   }
-  
+  .icon-contact{
+    background-color: #A8D5BA;
+    border-left:20px solid #08546D;
+  }
+  .icon-contact svg{
+    color: #08546D;
+    margin: auto;
+  }
   ::placeholder {
     color: #A8D5BA;
+  }
+  @media (min-width: 768px) {
+  
+    .icon-contact svg{
+      max-width: 75%;
+    }
+    
   }
