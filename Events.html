@@ -3,7 +3,7 @@
 	<head>
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" href="css/all.min.css" />
-		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/Events.css" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -19,64 +19,83 @@
 	</head>
 
 	<body>
-		<nav
-			class="navbar navbar-expand-lg navbar-dark position-fixed z-3 w-100"
-			style="background-color: #08546d"
-		>
-			<div class="container px-0">
-				<img
-					src="images/logo.png"
-					alt="Logo"
-					width="48"
-					height="48"
-					class="me-2 p-1 logo"
-				/>
-				<span class="logo-title"> BATU Library </span>
-				<button
-					class="navbar-toggler"
-					type="button"
-					data-bs-toggle="collapse"
-					data-bs-target="#navbarNav"
-					aria-controls="navbarNav"
-					aria-expanded="false"
-					aria-label="Toggle navigation"
-				>
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse px-5" id="navbarNav">
-					<ul class="navbar-nav ms-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="index.html">Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Categories</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="wishlist.html"
-								>Whishlist</a
-							>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="about.html">About</a>
-						</li>
-						<li class="nav-item text-end">
-							<a
-								href="#"
-								class="btn-login nav-link text-50-light ms-5 me-1 d-inline-block"
-								>Login</a
-							>
-							<a
-								href="register1.html"
-								class="btn main-btn btn-reg"
-								>Register</a
-							>
-						</li>
-					</ul>
+		 <!-- navigation bar start -->
+		 <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
+			<div class="container">
+			  <!-- logo -->
+			  <a class="navbar-brand fs-4 " href="index.html"><img src="images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
+				<span class="logo-title">
+				  BATU Library
+				</span></a>
+			  <!-- toggle button -->
+			  <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="offcanvas"
+				data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+			  <!-- sidebar -->
+			  <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+				aria-labelledby="offcanvasNavbarLabel">
+				<!-- sidebar header -->
+				<div class="offcanvas-header text-white border-bottom">
+				  <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Discover</h5>
+				  <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
+					aria-label="Close"></button>
 				</div>
+				<!-- sidebar body -->
+				<div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
+				  <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
+					<li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
+					  <a href="#account"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
+						  width="40" height="40"></a>
+					</li>
+					<li class="nav-item">
+					  <a class="nav-link mx-2" aria-current="page" href="index.html">Home</a>
+					</li>
+					<li class="nav-item mx-2">
+					  <a class="nav-link" href="about.html">About</a>
+					</li>
+					<li class="nav-item mx-2">
+					  <a class="nav-link" href="">Contact</a><!--to do-->
+					</li>
+					<li class="nav-item dropdown mx-2">
+					  <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+						aria-expanded="false">
+						Services
+					  </a>
+					  <ul class="dropdown-menu mt-3">
+						<!-- COMMENT: I think the hover text color has low contrast  -->
+						<li><a class="dropdown-item" href="Explore.html">Explore</a></li>
+						<li>
+						  <a class="dropdown-item active" href="Events.html">Events</a><!--to do-->
+						</li>
+						<li>
+						  <a class="dropdown-item" href="wishlist.html">Wishlist</a>
+						</li>
+						<li>
+						  <a class="dropdown-item" href="borrowed.html">Borrowed</a>
+						</li>
+					  </ul>
+					</li>
+				  </ul>
+				  <!-- login/signup -->
+				  <div class="d-flex justify-content-center align-items-center ">
+					<a href="login.html" id="login"
+					  class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log In</a>
+					<a href="register1.html" id="register" class="btn primary-color main-btn"
+					  >Register</a>
+				  </div>
+				  <!-- profile -->
+				  <div class="d-flex align-items-center mt-1 d-none d-lg-block">
+					<a href="#account"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3" width="40"
+						height="40"></a><!--to do-->
+				  </div>
+				</div>
+			  </div>
 			</div>
-		</nav>
-		<div style="background-color: #08546d; height: 64px"></div>
-
+		  </nav>
+		  <div style="height: 66px;"></div>
+		  <!-- navigation bar end -->
+		
 		<div
 			class="container"
 			style="max-width: 1140px; padding: 20px; border: none"
@@ -97,7 +116,7 @@
 					Questions Are introduced.
 				</p>
 				<p class="event-date">Date: --/--/--</p>
-				<button type="button" class="btn btn-primary btn px-3 py-2 btn-home-sm small-btn">Join</button>
+				<button type="button" class="btn btn-primary main-btn px-3 py-2 btn-home-sm small-btn">Join</button>
 
 			</div>
 
@@ -111,7 +130,7 @@
 					Want To Attend, Reserve Your Place Now.
 				</p>
 				<p class="event-date">Date: --/--/--</p>
-				<button type="button" class="btn btn-primary btn px-3 py-2 btn-home-sm small-btn">Join</button>
+				<button type="button" class="btn btn-primary main-btn btn px-3 py-2 btn-home-sm small-btn">Join</button>
 			</div>
 
 			<div class="event-card">
@@ -125,7 +144,7 @@
 					Questions Are introduced.
 				</p>
 				<p class="event-date">Date: --/--/--</p>
-				<button type="button" class="btn btn-primary btn px-3 py-2 btn-home-sm small-btn">Join</button>
+				<button type="button" class="btn btn-primary main-btn px-3 py-2 btn-home-sm small-btn">Join</button>
 			</div>
 
 			<div class="event-card">
@@ -140,7 +159,7 @@
 				<p class="event-date">Date: --/--/--</p>
 				<div>
 					
-				<button type="button" class="btn btn-primary btn px-3 py-2 btn-home-sm small-btn">Join</button>
+				<button type="button" class="btn btn-primary main-btn px-3 py-2 btn-home-sm small-btn">Join</button>
 				</div>
 			</div>
 		</div>
