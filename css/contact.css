@@ -31,7 +31,6 @@
     border-radius: 30px; /* Rounded corners */
     padding: 10px 20px; /* Add padding */
     font-size: 16px; /* Font size */
-    color: #000; /* Text color */
     font-weight: bold; /* Bold text */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
     transition: all 0.3s ease; /* Smooth hover effect */
