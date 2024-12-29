@@ -173,7 +173,7 @@ h6 {
    
   }
   .main-btn:hover {
-     background-color: #a8d5ba;
+     background-color: #7ca793;
     transform: scale(1.05);
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
     color: var(--primary);
