@@ -1,3 +1,4 @@
+@import url("style.css");
 .page-Name{
     text-align: center;
     font-weight: bold;
@@ -55,14 +56,8 @@
     bottom: 10px ;
     right: 15px ;
     float: right;
-    width: 100px;
-    height: 35px;
-    background-color: #A8D5BA;
-    color: #08546D;
-    font-weight: bold;
     border: none;
     border-radius: 10px;
-    cursor: pointer;
 }
 
 .navbar-nav {
