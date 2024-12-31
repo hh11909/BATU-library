@@ -124,7 +124,10 @@
                   
                   required
                 />
-                <span class="togglePassword"  id="togglePassword" ><i class="fa-solid fa-eye-slash" style="cursor: pointer;"></i></span>
+                <span class="togglePassword"  id="togglePassword" onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                  <i class="fa-solid fa-eye-slash" id="icon1" style="cursor: pointer; display: inline-block"></i>
+                  <i class="fa-solid fa-eye" id="icon2" style="cursor: pointer;display: none;"></i>
+              </span>
               </div>
             </div>
             <a class="forgot-password" href="#">Forgot Password?</a>
@@ -196,18 +199,8 @@
     </div>
 </footer>
 <!-- Bootstrap JS and Fontawesome -->
-<script>
-  const togglePassword = document.getElementById("togglePassword");
-  const passwordField = document.getElementById("password");
-  
-  togglePassword.addEventListener("click", function () {
-    
-    const type = passwordField.type === "password" ? "text" : "password";
-    passwordField.type = type;
-    const icon = this.querySelector('svg');
-    icon.classList.toggle("fa-eye");
-    icon.classList.toggle("fa-eye-slash");
-  });
+<script src="js/hide-pass.js">
+
 </script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/all.min.js"></script>

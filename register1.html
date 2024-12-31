@@ -135,8 +135,9 @@
                         placeholder="Enter your password"
                         required
                       />
-                      <span class="togglePassword" id="togglePassword2">
-                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;"></i>
+                      <span class="togglePassword" id="togglePassword2" onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
+                        <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
                       </span>
                       </div>
                 </div>
@@ -150,8 +151,9 @@
                         placeholder="Confirm your password"
                         required
                       />
-                      <span class="togglePassword" id="togglePassword3">
-                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;"></i>
+                      <span class="togglePassword" id="togglePassword3" onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
+                        <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
                       </span>
                       </div>
                 </div>
@@ -250,7 +252,7 @@
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/all.min.js"></script>
 <!-- js -->
-<script src="js/register1.js">
+<script src="js/hide-pass.js">
 </script>
 </body>
 </html>
