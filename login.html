@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap"rel="stylesheet">
-
+    
 
 </head>
 <body class="register-body">
@@ -120,10 +120,11 @@
                 <input
                   type="password"
                   id="password"
-                  class="form-control rounded-pill py-2"
+                  class="form-control rounded-pill py-2 "
+                  
                   required
                 />
-                <i class="fa-solid fa-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
+                <span class="togglePassword"  id="togglePassword" ><i class="fa-solid fa-eye-slash" style="cursor: pointer;"></i></span>
               </div>
             </div>
             <a class="forgot-password" href="#">Forgot Password?</a>
@@ -196,18 +197,18 @@
 </footer>
 <!-- Bootstrap JS and Fontawesome -->
 <script>
-    const togglePassword = document.getElementById("togglePassword");
-    const passwordField = document.getElementById("password");
-
-    togglePassword.addEventListener("click", function () {
-      
-      const type = passwordField.type === "password" ? "text" : "password";
-      passwordField.type = type;
-
-      this.classList.toggle("fa-eye");
-      this.classList.toggle("fa-eye-slash");
-    });
-  </script>
+  const togglePassword = document.getElementById("togglePassword");
+  const passwordField = document.getElementById("password");
+  
+  togglePassword.addEventListener("click", function () {
+    
+    const type = passwordField.type === "password" ? "text" : "password";
+    passwordField.type = type;
+    const icon = this.querySelector('svg');
+    icon.classList.toggle("fa-eye");
+    icon.classList.toggle("fa-eye-slash");
+  });
+</script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/all.min.js"></script>
 <!-- js -->
