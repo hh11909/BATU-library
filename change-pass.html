@@ -143,8 +143,9 @@
                                         class="form-control rounded-pill py-2"
                                         required
                                       />
-                                      <span class="togglePassword" id="togglePassword1">
-                                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;"></i>
+                                      <span class="togglePassword" id="togglePassword1" onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
+                                        <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
                                       </span>
                                     </div>
                                   </div>
@@ -157,8 +158,9 @@
                                         class="form-control rounded-pill py-2"
                                         required
                                       />
-                                      <span class="togglePassword" id="togglePassword2">
-                                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;"></i>
+                                      <span class="togglePassword" id="togglePassword2" onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
+                                        <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
                                       </span>
                                     </div>
                                   </div>
@@ -171,8 +173,9 @@
                                         class="form-control rounded-pill py-2"
                                         required
                                       />
-                                      <span class="togglePassword" id="togglePassword3">
-                                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;"></i>
+                                      <span class="togglePassword" id="togglePassword3" onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
+                                        <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
                                       </span>
                                       </div>
                                   </div>
@@ -249,9 +252,12 @@
           </footer>
     </div>
 
-    <script src="js/change-pass.js"></script>
+    <script src="js/hide-pass.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/all.min.js"></script>
+    <script>
+
+      </script>
 </body>
 
 </html>
