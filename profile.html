@@ -123,7 +123,7 @@
           <div class=" position-relative ">
             <input type="file" id="profileBigImage" name="profileBigImage" class="d-none" accept="image/*"
               onchange="previewBigImage()">
-            <img src="" alt="Profile Image" class="profile-big-picture d-block container-fluid p-0"
+            <img src="" alt="" class="profile-big-picture d-block container-fluid p-0"
               id="BigImageDisplay">
             <a type="button" class="btn btn-main rounded-5 btn-add-img btn-profile-big-picture position-absolute z-1 "
               onclick="document.getElementById('profileBigImage').click();">
@@ -132,10 +132,12 @@
           </div>
           <div class="profile-card d-flex flex-column justify-content-center align-items-center position-relative">
             <div class=" position-relative user-profile-picture ">
+              <div class="profile-picture-holder">
               <input type="file" id="profileImage" name="profileImage" class="d-none" accept="image/*"
                 onchange="previewImage()">
-              <img src="https://via.placeholder.com/222" alt="Profile Image" class="profile-picture"
-                id="profileImageDisplay">
+                <img src="" alt="" class="profile-picture"
+                  id="profileImageDisplay">
+              </div>
               <a type="button" class="btn btn-main rounded-5 btn-add-img btn-profile-picture position-absolute "
                 onclick="document.getElementById('profileImage').click();">
                 <i class="fas fa-camera fs-3"></i>
@@ -159,7 +161,7 @@
         
         <div class="profile-borrowed-section ">
           <h3 class="p-4">Borrowed Books</h3>
-          <div class="row p-2 ">
+          <div class="row p-2 m-0">
     
               <!-- book1 -->
 
@@ -252,7 +254,7 @@
 
         <div class="book-recommend-section mb-5">
           <h3 class="p-4">Borrowed Books</h3>
-          <div class="row p-2 ">
+          <div class="row p-2 m-0">
     
               <!-- book1 -->
 
@@ -349,7 +351,7 @@
 
 
           <div>
-            <!--Starting readiing groups section-->
+            <!--Starting reading groups section-->
             <div class="container read-groups d-flex flex-column justify-content-center gap-3 read-groups p-0 pb-5">
               <div class="read-group-title ">
                 <h3 class="pt-5 me-3">Reading Groups</h3>
