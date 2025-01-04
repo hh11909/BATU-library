@@ -59,8 +59,3 @@
     border: none;
     border-radius: 10px;
 }
-
-.navbar-nav {
-    display: flex;
-    gap: 20px;
-  }
