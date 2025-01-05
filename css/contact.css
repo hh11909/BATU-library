@@ -58,9 +58,7 @@
     color: #08546D;
     margin: auto;
   }
-  ::placeholder {
-    color: #A8D5BA;
-  }
+  
   @media (min-width: 768px) {
   
     .icon-contact svg{
