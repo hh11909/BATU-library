@@ -39,10 +39,10 @@ const registerUser = async (e) => {
     const confirmPass = getValueById('registerConfirmPassword');
     const birthdate = getValueById('birthdate');
     const studentId = getValueById('studentId');
-    const fullName = `${firstName} ${lastName}`;
     const wantToBeAFriend = getValueById('libraryFriend');
     let gender = document.querySelector('input[name="gender"]:checked')?.value;
-    if (email && pass && confirmPass && fullName && studentId && gender) {
+    if (email && pass && confirmPass && firstName && lastName && studentId && gender) {
+        const fullName = `${firstName} ${lastName}`;
         if (pass === confirmPass) {
             document.cookie += `&newFriend=${wantToBeAFriend}&studentId=${studentId}`;
             try {
@@ -80,6 +80,14 @@ const registerUser = async (e) => {
                 console.log('SUCCESS IN FORM VALUES');
             }
         }
+        else {
+            // TODO: Show alert box with error message of matching password and confirm password
+            console.error("Please, make sure the passwords is identical.");
+        }
+    }
+    else {
+        // TODO: Show alert box with error message 
+        console.error("Please, fill all the fields properly.");
     }
 };
 // Login Form Submit Function
@@ -120,6 +128,10 @@ const loginSubmit = async (e) => {
         else if (status > 200) {
             console.log(status, 'Success');
         }
+    }
+    else {
+        // TODO: Show alert box with error message 
+        console.error("Please, fill email and password fields properly.");
     }
 };
 let paths = location.pathname.split('/');
