@@ -104,25 +104,30 @@
         <h2>Log In</h2>
         <h1 class="welcome-text">Welcome To BATU’s Library!</h1>
       </div>
-      <div class="container px-5">
+      <div class="container px-md-5">
 
 
-        <form id='loginForm' class="px-5">
+        <form class="login-form px-md-5" action="">
           <p>
+
             <label class="field-label " for="email">Email</label>
             <input type="email" id="email" class="form-control rounded-pill py-2" required />
           </p>
           <div>
             <label class="field-label" for="password">Password</label>
             <div class="input-container">
-              <input type="password" id="password" class="form-control rounded-pill py-2" required />
-              <i class="fa-solid fa-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
+              <input type="password" id="password" class="form-control rounded-pill py-2 " required />
+              <span class="togglePassword" id="togglePassword"
+                onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                <i class="fa-solid fa-eye-slash" id="icon1" style="cursor: pointer; display: inline-block"></i>
+                <i class="fa-solid fa-eye" id="icon2" style="cursor: pointer;display: none;"></i>
+              </span>
             </div>
           </div>
           <a class="forgot-password" href="#">Forgot Password?</a>
           <div class="text-center">
 
-            <button class="btn main-btn fs-6 py-1 px-3" type="submit">Log In</button>
+            <button class="btn main-btn fs-5 py-1" type="submit">Log In</button>
           </div>
 
         </form>
@@ -159,7 +164,7 @@
             <li><a href="index.html" class="  foorer-link text-decoration-none text-light">Home</a></li>
             <li><a href="Explore.html" class="foorer-link text-decoration-none text-light">Categories</a></li>
             <li><a href="wishlist.html" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
-            <li><a href="#" class="foorer-link text-decoration-none text-light">FAQs</a></li>
+            <li><a href="index.html#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
             <li><a href="about.html" class="foorer-link text-decoration-none text-light">About Us</a></li>
           </ul>
         </div>
@@ -192,23 +197,13 @@
     </div>
   </footer>
   <!-- Bootstrap JS and Fontawesome -->
-  <script>
-    const togglePassword = document.getElementById("togglePassword");
-    const passwordField = document.getElementById("password");
+  <script src="js/hide-pass.js">
 
-    togglePassword.addEventListener("click", function () {
-
-      const type = passwordField.type === "password" ? "text" : "password";
-      passwordField.type = type;
-
-      this.classList.toggle("fa-eye");
-      this.classList.toggle("fa-eye-slash");
-    });
   </script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/all.min.js"></script>
   <!-- js -->
-  <script src="js/index.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 
 </html>

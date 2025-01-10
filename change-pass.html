@@ -129,42 +129,55 @@
                                   <h2>Change Password</h2>
 
                               </div>
-                              <div class="container px-5">
+                              <div class="container px-md-5">
                       
                               
-                              <form class="login-form px-5" action="">
+                              <form class="login-form px-md-5" action="">
+                                 
                                   <div>
-                                    <label class="field-label " for="email">Current Password</label>
-                                    <input
-                                      type="password"
-                                      id="password"
-                                      class="form-control rounded-pill py-2"
-                                      required
-                                    />
-                                  </div>
-                                  <div>
-                                    <label class="field-label" for="password">New Password</label>
+                                    <label class="field-label" for="current-password">Current Password</label>
                                     <div class="input-container">
                                       <input
                                         type="password"
-                                        id="password"
+                                        id="current-password"
                                         class="form-control rounded-pill py-2"
                                         required
                                       />
-                                      <i class="fa-solid fa-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
+                                      <span class="togglePassword" id="togglePassword1" onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
+                                        <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
+                                      </span>
                                     </div>
                                   </div>
                                   <div>
-                                    <label class="field-label" for="password">Confirm new Password</label>
+                                    <label class="field-label" for="new-password">New Password</label>
                                     <div class="input-container">
                                       <input
                                         type="password"
-                                        id="password"
+                                        id="new-password"
                                         class="form-control rounded-pill py-2"
                                         required
                                       />
-                                      <i class="fa-solid fa-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
+                                      <span class="togglePassword" id="togglePassword2" onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
+                                        <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
+                                      </span>
                                     </div>
+                                  </div>
+                                  <div>
+                                    <label class="field-label " for="confirm-password">Confirm new Password</label>
+                                    <div class="input-container">
+                                      <input
+                                        type="password"
+                                        id="confirm-password"
+                                        class="form-control rounded-pill py-2"
+                                        required
+                                      />
+                                      <span class="togglePassword" id="togglePassword3" onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
+                                        <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
+                                      </span>
+                                      </div>
                                   </div>
                                   
                                   <div class="text-center pt-5">
@@ -207,7 +220,7 @@
                     <li><a href="index.html" class="  foorer-link text-decoration-none text-light">Home</a></li>
                     <li><a href="Explore.html" class="foorer-link text-decoration-none text-light">Categories</a></li>
                     <li><a href="wishlist.html" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
-                    <li><a href="#" class="foorer-link text-decoration-none text-light">FAQs</a></li>
+                    <li><a href="index.html#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
                     <li><a href="about.html" class="foorer-link text-decoration-none text-light">About Us</a></li>
                   </ul>
                 </div>
@@ -238,9 +251,13 @@
               </div>
           </footer>
     </div>
-    
+
+    <script src="js/hide-pass.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/all.min.js"></script>
+    <script>
+
+      </script>
 </body>
 
 </html>
