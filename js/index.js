@@ -96,7 +96,6 @@ const loginSubmit = async (e) => {
     const email = getValueById('email');
     const pass = getValueById('password');
     if (email && pass) {
-        console.log(email, pass);
         const res = await fetch(`${_API}/api/login`, {
             method: 'POST',
             mode: 'same-origin',

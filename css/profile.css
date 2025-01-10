@@ -55,6 +55,14 @@
   right: 5%;
   bottom: -27.85px;
 }
+.profile-picture-holder{
+  background-color:gainsboro;
+  width: 222px;
+  height: 222px;
+  border-radius: 50%;
+  padding: 0%;
+  margin: 0%;
+}
 .profile-picture {
   width: 222px;
   height: 222px;
@@ -80,7 +88,7 @@
 #bio{
   background-color: var(--background);
   border: none;
- width: 250px;
+ width: 100%;
  
 }
 #bio::placeholder{
@@ -94,7 +102,35 @@
 #bio:active{
   border: none;
 }
-/*start profile-content*/
+@media (max-width: 768px) {
+  .profile-card{
+    width: 100%;
+    left: -6%;
+  }
+  .profile-picture-holder{
+    width: 150px;
+    height: 150px;
+  }
+  .profile-picture {
+    width: 150px;
+    height: 150px;
+  }
+  .user-profile-picture{
+    width: 150px;
+  }
+  .btn-profile-picture{
+    bottom: 3%;
+    right: 0px;
+    padding: 12px;
+  }
+  .btn-profile-big-picture{
+    padding: 12px;
+    right: 5%;
+    bottom: -27.85px;
+  }
+
+}
+/*end profile-content*/
 
 /*start borrowed-books section*/
 .profile-borrowed-section{

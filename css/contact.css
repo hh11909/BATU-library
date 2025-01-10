@@ -58,13 +58,15 @@
     color: #08546D;
     margin: auto;
   }
-  ::placeholder {
-    color: #A8D5BA;
-  }
+  
   @media (min-width: 768px) {
   
     .icon-contact svg{
       max-width: 75%;
     }
-    
+  }
+  @media(max-width: 768px){
+    .icon-label, .icon-contact svg{
+      font-size: 18px;
+    }
   }

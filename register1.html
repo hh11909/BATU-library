@@ -127,11 +127,35 @@
             <div class="form-row mb-3">
                 <div class="form-group">
                     <label for="password" class="form-label" >Password</label>
-                    <input type="password" class="form-control rounded-pill" id="password" name="password" placeholder="Enter your password" required>
+                    <div class="input-container">
+                      <input
+                        type="password"
+                        id="new-password"
+                        class="form-control rounded-pill py-2"
+                        placeholder="Enter your password"
+                        required
+                      />
+                      <span class="togglePassword" id="togglePassword2" onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
+                        <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
+                      </span>
+                      </div>
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control rounded-pill" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                    <div class="input-container">
+                      <input
+                        type="password"
+                        id="confirm-password"
+                        class="form-control rounded-pill py-2"
+                        placeholder="Confirm your password"
+                        required
+                      />
+                      <span class="togglePassword" id="togglePassword3" onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
+                        <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
+                      </span>
+                      </div>
                 </div>
             </div>
 
@@ -146,11 +170,11 @@
                 <div class="form-group">
                     <label class="form-label">Gender</label><br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input " type="radio" name="gender" id="male" value="Male" checked>
+                        <input class="form-check-input " type="radio" name="gender" id="male" value="Male" required>
                         <label class="form-check-label" for="male">Male</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="female" value="Female">
+                        <input class="form-check-input" type="radio" name="gender" id="female" value="Female" re>
                         <label class="form-check-label" for="female">Female</label>
                     </div>
                 </div>
@@ -194,7 +218,7 @@
             <li><a href="index.html" class="  foorer-link text-decoration-none text-light">Home</a></li>
             <li><a href="Explore.html" class="foorer-link text-decoration-none text-light">Categories</a></li>
             <li><a href="wishlist.html" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
-            <li><a href="#" class="foorer-link text-decoration-none text-light">FAQs</a></li>
+            <li><a href="index.html#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
             <li><a href="about.html" class="foorer-link text-decoration-none text-light">About Us</a></li>
           </ul>
         </div>
@@ -228,6 +252,7 @@
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/all.min.js"></script>
 <!-- js -->
-<script src="assets/js/main.js"></script>
+<script src="js/hide-pass.js">
+</script>
 </body>
 </html>
