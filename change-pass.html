@@ -173,7 +173,7 @@
                     </div>
 
                     <div class="text-center pt-5">
-                      <button class="btn main-btn fs-5 py-1" type="submit">Change</button>
+                      <button class="btn main-btn fs-5 py-1" id="change" onclick="changePassword()" type="submit">Change</button>
                     </div>
 
                   </form>
@@ -249,7 +249,26 @@
       </div>
     </footer>
   </div>
-
+  <script>
+     function changePassword() {
+      let currentPassword = document.getElementById("current-password").value;
+      let newPassword = document.getElementById("new-password").value;
+      let confirmPassword = document.getElementById("confirm-password").value;
+      let changebtn = document.getElementById("change");
+      if (currentPassword === "" || newPassword === "" || confirmPassword === "") {
+        changebtn.setAttribute("type", "button");
+        alert("Please fill in all fields.");
+      }
+      else if (newPassword !== confirmPassword) {
+        changebtn.setAttribute("type", "button");
+        alert("Passwords do not match. Please try again.");
+      }
+      else {
+        changebtn.setAttribute("type", "submit");
+        alert("Password has been successfully changed!");
+      }
+    }
+  </script>
   <script src="js/hide-pass.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/all.min.js"></script>
