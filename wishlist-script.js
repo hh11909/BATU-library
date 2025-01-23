@@ -31,7 +31,6 @@ const [loves, setLoves] = stater(new Array(BOOKS.length).fill(false));
 
 
 
-console.log(AUTHORS)
 let bookEls = BOOKS.map((e, i) =>
   El('div', { class: 'col-lg-2 col-md-4 col-sm-6 col-6 mb-4', key: e.id },
     El('div', { class: 'card h-100 border-0' }, [
@@ -63,7 +62,6 @@ let bookEls = BOOKS.map((e, i) =>
 
 
 window.onload = () => {
-  console.log(bookEls.length)
   const booksContainer = document.querySelector('#books-container')
   for (let e of bookEls) {
     booksContainer.appendChild(e)
