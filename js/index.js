@@ -58,36 +58,77 @@ const registerUser = async (e) => {
                         gender
                     })
                 });
-                const { status, } = res;
+                const { status, } = await res.json();
                 if (status >= 500) {
-                    console.log(status, 'Internal Error');
+                    showError(`Error ${status}: Internal Error`);
                 }
                 else if (status >= 400) {
                     switch (status) {
                         case 400: {
-                            console.error(status, 'Bad Request');
+                            showError(`Error ${status}: Bad Request`);
                         }
                         default: {
-                            console.error(status, 'Error');
+                            showError(`Error ${status}`);
                         }
                     }
                 }
                 else if (status > 200) {
-                    console.log(status, 'Success');
+                    showSuccess('Success');
                 }
             }
             catch (e) {
-                console.log('SUCCESS IN FORM VALUES');
+                showError('Error in connection');
             }
         }
         else {
-            // TODO: Show alert box with error message of matching password and confirm password
-            console.error("Please, make sure the passwords is identical.");
+            showError("Please, make sure the passwords is identical.");
         }
     }
     else {
-        // TODO: Show alert box with error message 
-        console.error("Please, fill all the fields properly.");
+        showError("Please, fill all the fields properly.");
+    }
+};
+// Register User photo and department
+const registerUserInfo = async (e) => {
+    e.preventDefault();
+    const department = getValueById('department');
+    const phoneNumber = getValueById('phoneNumber');
+    const img = document.getElementById('profileImage').files[0];
+    if (img && phoneNumber && department) {
+        try {
+            const res = await fetch(`${_API}/api/signup`, {
+                method: 'POST',
+                mode: 'same-origin',
+                body: JSON.stringify({
+                    department,
+                    phoneNumber,
+                    img
+                })
+            });
+            const { status, } = await res.json();
+            if (status >= 500) {
+                showError(`Error ${status}: Internal Error`);
+            }
+            else if (status >= 400) {
+                switch (status) {
+                    case 400: {
+                        showError(`Error ${status}: Bad Request`);
+                    }
+                    default: {
+                        showError(`Error ${status}`);
+                    }
+                }
+            }
+            else if (status > 200) {
+                showSuccess(`Success`);
+            }
+        }
+        catch (e) {
+            showError('Error in connection');
+        }
+    }
+    else {
+        showError('Please, Fill all fields properly.\nAnd make sure you uploaded the image');
     }
 };
 // Login Form Submit Function
@@ -104,47 +145,83 @@ const loginSubmit = async (e) => {
                 password: pass
             })
         });
-        const { status, } = res;
+        const { status, } = await res.json();
         if (status >= 500) {
             console.log(status, 'Internal Error');
+            showError(`Error ${status}: Internal Error`);
         }
         else if (status >= 400) {
             switch (status) {
                 case 400: {
                     console.error(status, 'Bad Request');
+                    showError(`Error ${status}: Bad Request`);
                 }
                 case 401: {
-                    console.error(status, 'Unauthorized');
+                    showError(`Error ${status}: Unauthorized`);
                 }
                 case 404: {
                     console.error(status, 'Not Found');
+                    showError(`Error ${status}: Not Found`);
                 }
                 default: {
-                    console.error(status, 'Error');
+                    showError(`Error ${status}`);
                 }
             }
         }
         else if (status > 200) {
-            console.log(status, 'Success');
+            showSuccess(`Success`);
         }
     }
     else {
-        // TODO: Show alert box with error message 
-        console.error("Please, fill email and password fields properly.");
+        showError("Please, fill email and password fields properly.");
     }
 };
+function showError(message) {
+    const errorAlert = document.getElementById('errorAlert');
+    const errorMessage = document.getElementById('errorMessage');
+    // Set the error message
+    errorMessage.textContent = message;
+    // Show the alert (Bootstrap's "show" class and remove "d-none")
+    errorAlert.classList.remove('d-none');
+    errorAlert.classList.add('show');
+}
+function hideError() {
+    const errorAlert = document.getElementById('errorAlert');
+    // Hide the alert (Bootstrap's "fade" and "d-none" class)
+    errorAlert.classList.remove('show');
+    errorAlert.classList.add('d-none');
+}
+function showSuccess(message) {
+    const sucessAlert = document.getElementById('successAlert');
+    const sucessMessage = document.getElementById('successMessage');
+    // Set the sucess message
+    sucessMessage.textContent = message;
+    // Show the alert (Bootstrap's "show" class and remove "d-none")
+    sucessAlert.classList.remove('d-none');
+    sucessAlert.classList.add('show');
+}
+function hideSuccess() {
+    const sucessAlert = document.getElementById('successAlert');
+    // Hide the alert (Bootstrap's "fade" and "d-none" class)
+    sucessAlert.classList.remove('show');
+    sucessAlert.classList.add('d-none');
+}
 let paths = location.pathname.split('/');
 switch (paths[paths.length - 1]) {
     case 'register1.html': {
         document.getElementById('registerForm')
             .addEventListener('submit', registerUser);
+        break;
     }
     case "login.html": {
         document.getElementById('loginForm')
             .addEventListener('submit', loginSubmit);
+        break;
     }
-    case 'index.html': {
-        // console.log('ss')
+    case 'register2.html': {
+        document.getElementById('registerUserInfo')
+            .addEventListener('submit', registerUserInfo);
+        break;
     }
 }
 // DATABASE
