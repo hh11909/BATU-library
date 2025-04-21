@@ -51,9 +51,29 @@
          }
          mysqli_close($cn);
          return $user;
-         
        }
-   }
+
+       public function store_student_image($student_image ,$student_ID){
+        $qry = "UPDATE Students SET student_image = '$student_image' WHERE student_ID = $student_ID";
+        // $qry = "INSERT INTO Students (student_image) WHERE student_ID = $student_ID
+        // VALUES ($student_image)"; (this is wrong 😐)
+        require_once("config.php");
+        $cn = mysqli_connect(DB_HOST_NAME,DB_USER_NAME,DB_USER_PASSWORD,DB_NAME);
+        $rslt = mysqli_query($cn, $qry);
+        mysqli_close($cn);
+        return $rslt;
+       }
+
+
+       public function store_profile_image($profile_image ,$student_ID){
+        $qry = "UPDATE Students SET profile_image = '$profile_image' WHERE student_ID = $student_ID";
+        require_once("config.php");
+        $cn = mysqli_connect(DB_HOST_NAME,DB_USER_NAME,DB_USER_PASSWORD,DB_NAME);
+        $rslt = mysqli_query($cn, $qry);
+        mysqli_close($cn);
+        return $rslt;
+       }
+      }
    class Friend extends Student{
      public $is_friend=1;
      
