@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BATU Library</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/all.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Quicksand:wght@300..700&display=swap"rel="stylesheet">
+        <style>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BATU Library</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/account.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap"rel="stylesheet">
-
-</head>
-
+        </style>
+      </head>
+       
+  
 <body>
-    
    <!-- navigation bar start -->
    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
     <div class="container">
       <!-- logo -->
-      <a class="navbar-brand fs-4 " href="index.html"><img src="images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
+      <a class="navbar-brand fs-4 " href="index.php"><img src="images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
         <span class="logo-title">
           BATU Library
         </span></a>
@@ -43,17 +43,17 @@
         <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
           <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
             <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-              <a href="profile.html"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
+              <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
                   width="40" height="40"></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-2" aria-current="page" href="index.html">Home</a>
+              <a class="nav-link mx-2" aria-current="page" href="index.php">Home</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="about.html">About</a>
+              <a class="nav-link active" href="about.php">About</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="contact.html">Contact</a><!--to do-->
+              <a class="nav-link" href="contact.php">Contact</a><!--to do-->
             </li>
             <li class="nav-item dropdown mx-2">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -62,30 +62,30 @@
               </a>
               <ul class="dropdown-menu mt-3">
                 <!-- COMMENT: I think the hover text color has low contrast  -->
-                <li><a class="dropdown-item" href="Explore.html">Explore</a></li>
+                <li><a class="dropdown-item" href="Explore.php">Explore</a></li>
                 
                 <li>
-                  <a class="dropdown-item" href="Events.html">Events</a><!--to do-->
+                  <a class="dropdown-item" href="Events.php">Events</a><!--to do-->
                 </li>
                 <li>
-                  <a class="dropdown-item" href="wishlist.html">Wishlist</a>
+                  <a class="dropdown-item" href="wishlist.php">Wishlist</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="borrowed.html">Borrowed</a>
+                  <a class="dropdown-item" href="borrowed.php">Borrowed</a>
                 </li>
               </ul>
             </li>
           </ul>
           <!-- login/signup -->
           <div class="d-flex justify-content-center align-items-center ">
-            <a href="login.html" id="login"
+            <a href="login.php" id="login"
               class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log In</a>
-            <a href="register1.html" id="register" class="btn primary-color main-btn"
+            <a href="register1.php" id="register" class="btn primary-color main-btn"
               >Register</a>
           </div>
           <!-- profile -->
           <div class="d-flex align-items-center mt-1 d-none d-lg-block">
-            <a href="profile.html"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3" width="40"
+            <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3" width="40"
                 height="40"></a><!--to do-->
           </div>
         </div>
@@ -94,47 +94,48 @@
   </nav>
   <div style="height: 66px;"></div>
   <!-- navigation bar end -->
-    <div class="account-content ">
-        <div class="row m-0 "  style="max-width: 100%;">
-          <div class="col-lg-2  p-0 z-3">
-            <div class="account-info z-0 h-100">
     
-              <button class="btn d-lg-none account-btn " type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                <i class="fa-solid fa-chevron-down "></i>
-              </button>
-              <div class="collapse  d-lg-block " id="collapseWidthExample">
-                <h3 class="account-title text-center mx-2 mb-0 p-4">Account</h3>
-    
-                <ul class="list-unstyled">
-                  <li class="py-4  px-2 "><a href="profile.html"><i
-                        class="fa-solid fa-user pe-4 pt-lg-0 "></i>Profile</a></li>
-                  <li class="py-4 active px-2"><a href="privacy.html"><i class="fa-solid fa-shield-halved pe-4"></i>Privacy</a>
-                  </li>
-                  <li class="py-4  ps-2 pe-1"><a href="user-info.html"><i class="fa-solid fa-circle-info pe-3"></i>User
-                      information</a></li>
-                </ul>
+        <header class="header">
+          <div class="container pt-4 my-4">
+            <h1 class=" about-title border-0 text-center px-0 pb-md-3 py-lg-3 ms-md-4 mb-3 pt-5"><i class="fa-solid fa-circle-info pe-4"></i>About Us</h1>
+            <p class="subtitle text-center">The BATU Library is dedicated to supporting the university's academic and research priorities</p>
+          </div>
+        </header>
+        
+        <main class="about-section p-0 m-0">
+          <div class="card-container">
+            <!-- Card 1 -->
+            <div class="photo-card mx-3">
+              <img src="images/liberarian.jpg" alt="Our Librarians" class="card-image">
+              <div class="card-content">
+                <h2>Our Librarians and Supporters</h2>
+                <p>Get to know the passionate individuals who work behind the scenes to make your library experience better.</p>
+                <a href="#" class="card-link"><i class="fa-regular fa-address-card"></i> Get to Know Us</a>
+              </div>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="photo-card mx-3">
+              <img src="images/together.jpg" alt="Community and Friends" class="card-image">
+              <div class="card-content">
+                <h2>Together for Knowledge</h2>
+                <p>Library friends who support and contribute to our vibrant library community.</p>
+                <a href="#" class="card-link"><i class="fa-solid fa-users"></i> Community and Friends</a>
+              </div>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="photo-card mx-3">
+              <img src="images/service.jpg"alt="Explore Services" class="card-image">
+<div class="card-content">
+                <h2>Explore Our Services</h2>
+                <p>Explore the range of services our library provides, from book borrowing to study spaces.</p>
+                <a href="#" class=" card-link"><i class="fa-solid fa-cloud fa-cloud"></i> Explore Our Services</a>
               </div>
             </div>
           </div>
-            <div class="col-lg-10 m-0 p-0">
-                <div class="user-info-content p-0  z-0">
-                    <h2 class="privacy-title text-center px-0 pb-3 py-lg-3 me-4 mb-3 pt-5"><i class="fa-solid fa-shield-halved pe-4"></i> Privacy</h2>
-                    
-                    <div class="container mt-3">
-                        <h3 class="text-start text-md-center ">Account Access</h3>
-                        <ul class="list-unstyled text-center text-lg-start">
-                            <li><a href=""><h5 class="fw-normal p-5">Email Addresses</h5></a></li>
-                            <li><a href=""><h5 class="fw-normal p-5">Change Phone</h5></a></li>
-                            <li><a href="change-pass.html"><h5 class="fw-normal p-5">Change Password</h5></a></li>
-                            <li><a href=""><h5 class="fw-normal p-5 ">Change Personal Information</h5></a></li>
-                        </ul>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        <footer class="footer py-5 text-center text-md-start m-0 w-100" style="background-color: #08546d; color: #f6fbf2;">
+        </main>
+        <footer class="footer py-5 text-center text-md-start" style="background-color: #08546d; color: #f6fbf2;">
             <div class="container-fluid footer-grid">
               <div class="row">
                 <!-- About Section -->
@@ -157,11 +158,11 @@
                   
                   <h5 class="text-uppercase"style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">Quick Links</h5>
                   <ul class="list-unstyled">
-                    <li><a href="index.html" class="  foorer-link text-decoration-none text-light">Home</a></li>
-                    <li><a href="Explore.html" class="foorer-link text-decoration-none text-light">Categories</a></li>
-                    <li><a href="wishlist.html" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
-                    <li><a href="index.html#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
-                    <li><a href="about.html" class="foorer-link text-decoration-none text-light">About Us</a></li>
+                    <li><a href="index.php" class="  foorer-link text-decoration-none text-light">Home</a></li>
+                    <li><a href="Explore.php" class="foorer-link text-decoration-none text-light">Categories</a></li>
+                    <li><a href="wishlist.php" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
+                    <li><a href="index.php#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
+                    <li><a href="about.php" class="foorer-link text-decoration-none text-light">About Us</a></li>
                   </ul>
                 </div>
                 <!-- Contact Section -->
@@ -190,10 +191,13 @@
                 </div>
               </div>
           </footer>
-    </div>
-    
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/all.min.js"></script>
-</body>
+          
 
-</html>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/all.min.js"></script>
+
+      </body>
+
+      </html>
+
+

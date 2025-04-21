@@ -21,7 +21,7 @@
    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
     <div class="container">
       <!-- logo -->
-      <a class="navbar-brand fs-4 " href="index.html"><img src="images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
+      <a class="navbar-brand fs-4 " href="index.php"><img src="images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
         <span class="logo-title">
           BATU Library
         </span></a>
@@ -43,17 +43,17 @@
         <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
           <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
             <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-              <a href="profile.html"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
+              <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
                   width="40" height="40"></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-2" aria-current="page" href="index.html">Home</a>
+              <a class="nav-link mx-2" aria-current="page" href="index.php">Home</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="about.html">About</a>
+              <a class="nav-link" href="about.php">About</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="contact.html">Contact</a><!--to do-->
+              <a class="nav-link" href="contact.php">Contact</a><!--to do-->
             </li>
             <li class="nav-item dropdown mx-2">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -62,30 +62,30 @@
               </a>
               <ul class="dropdown-menu mt-3">
                 <!-- COMMENT: I think the hover text color has low contrast  -->
-                <li><a class="dropdown-item" href="Explore.html">Explore</a></li>
+                <li><a class="dropdown-item" href="Explore.php">Explore</a></li>
                 
                 <li>
-                  <a class="dropdown-item" href="Events.html">Events</a><!--to do-->
+                  <a class="dropdown-item" href="Events.php">Events</a><!--to do-->
                 </li>
                 <li>
-                  <a class="dropdown-item" href="wishlist.html">Wishlist</a>
+                  <a class="dropdown-item" href="wishlist.php">Wishlist</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="borrowed.html">Borrowed</a>
+                  <a class="dropdown-item" href="borrowed.php">Borrowed</a>
                 </li>
               </ul>
             </li>
           </ul>
           <!-- login/signup -->
           <div class="d-flex justify-content-center align-items-center ">
-            <a href="login.html" id="login"
+            <a href="login.php" id="login"
               class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log In</a>
-            <a href="register1.html" id="register" class="btn primary-color main-btn"
+            <a href="register1.php" id="register" class="btn primary-color main-btn"
               >Register</a>
           </div>
           <!-- profile -->
           <div class="d-flex align-items-center mt-1 d-none d-lg-block">
-            <a href="profile.html"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3" width="40"
+            <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3" width="40"
                 height="40"></a><!--to do-->
           </div>
         </div>
@@ -107,11 +107,11 @@
                 <h3 class="account-title text-center mx-2 mb-0 p-4">Account</h3>
     
                 <ul class="list-unstyled">
-                  <li class="py-4  px-2 "><a href="profile.html"><i
+                  <li class="py-4  px-2 "><a href="profile.php"><i
                         class="fa-solid fa-user pe-4 pt-lg-0 "></i>Profile</a></li>
-                  <li class="py-4 active px-2"><a href="privacy.html"><i class="fa-solid fa-shield-halved pe-4"></i>Privacy</a>
+                  <li class="py-4 active px-2"><a href="privacy.php"><i class="fa-solid fa-shield-halved pe-4"></i>Privacy</a>
                   </li>
-                  <li class="py-4  ps-2 pe-1"><a href="user-info.html"><i class="fa-solid fa-circle-info pe-3"></i>User
+                  <li class="py-4  ps-2 pe-1"><a href="user-info.php"><i class="fa-solid fa-circle-info pe-3"></i>User
                       information</a></li>
                 </ul>
               </div>
@@ -119,76 +119,16 @@
           </div>
             <div class="col-lg-10 m-0 p-0">
                 <div class="user-info-content p-0  z-0">
-                    <h2 class="privacy-title text-center px-0 pb-3 py-lg-3 mx-4 mb-3 pt-5"><i class="fa-solid fa-shield-halved pe-4"></i> Privacy</h2>
+                    <h2 class="privacy-title text-center px-0 pb-3 py-lg-3 me-4 mb-3 pt-5"><i class="fa-solid fa-shield-halved pe-4"></i> Privacy</h2>
                     
                     <div class="container mt-3">
-                      
-                        <div class="container">
-                          <div class="register-container">
-                              <div class="register-header">
-                                  <h2>Change Password</h2>
-
-                              </div>
-                              <div class="container px-md-5">
-                      
-                              
-                              <form class="login-form px-md-5" action="">
-                                 
-                                  <div>
-                                    <label class="field-label" for="current-password">Current Password</label>
-                                    <div class="input-container">
-                                      <input
-                                        type="password"
-                                        id="current-password"
-                                        class="form-control rounded-pill py-2"
-                                        required
-                                      />
-                                      <span class="togglePassword" id="togglePassword1" onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
-                                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
-                                        <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
-                                      </span>
-                                    </div>
-                                  </div>
-                                  <div>
-                                    <label class="field-label" for="new-password">New Password</label>
-                                    <div class="input-container">
-                                      <input
-                                        type="password"
-                                        id="new-password"
-                                        class="form-control rounded-pill py-2"
-                                        required
-                                      />
-                                      <span class="togglePassword" id="togglePassword2" onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
-                                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
-                                        <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
-                                      </span>
-                                    </div>
-                                  </div>
-                                  <div>
-                                    <label class="field-label " for="confirm-password">Confirm new Password</label>
-                                    <div class="input-container">
-                                      <input
-                                        type="password"
-                                        id="confirm-password"
-                                        class="form-control rounded-pill py-2"
-                                        required
-                                      />
-                                      <span class="togglePassword" id="togglePassword3" onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
-                                        <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
-                                        <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
-                                      </span>
-                                      </div>
-                                  </div>
-                                  
-                                  <div class="text-center pt-5">
-                                      <button class="btn main-btn fs-5 py-1" type="submit">Change</button>
-                                  </div>
-                                  
-                                </form>
-                              <p class="text-center mt-3">If you have Any problem please <a href="contact.html" class="login">Contact Us!</a></p>
-                          </div>
-                          </div>
-                      </div>
+                        <h3 class="text-start text-md-center ">Account Access</h3>
+                        <ul class="list-unstyled text-center text-lg-start">
+                            <li><a href=""><h5 class="fw-normal p-5">Email Addresses</h5></a></li>
+                            <li><a href=""><h5 class="fw-normal p-5">Change Phone</h5></a></li>
+                            <li><a href="change-pass.php"><h5 class="fw-normal p-5">Change Password</h5></a></li>
+                            <li><a href=""><h5 class="fw-normal p-5 ">Change Personal Information</h5></a></li>
+                        </ul>
                         
                     </div>
                 </div>
@@ -217,11 +157,11 @@
                   
                   <h5 class="text-uppercase"style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">Quick Links</h5>
                   <ul class="list-unstyled">
-                    <li><a href="index.html" class="  foorer-link text-decoration-none text-light">Home</a></li>
-                    <li><a href="Explore.html" class="foorer-link text-decoration-none text-light">Categories</a></li>
-                    <li><a href="wishlist.html" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
-                    <li><a href="index.html#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
-                    <li><a href="about.html" class="foorer-link text-decoration-none text-light">About Us</a></li>
+                    <li><a href="index.php" class="  foorer-link text-decoration-none text-light">Home</a></li>
+                    <li><a href="Explore.php" class="foorer-link text-decoration-none text-light">Categories</a></li>
+                    <li><a href="wishlist.php" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
+                    <li><a href="index.php#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
+                    <li><a href="about.php" class="foorer-link text-decoration-none text-light">About Us</a></li>
                   </ul>
                 </div>
                 <!-- Contact Section -->
@@ -251,13 +191,9 @@
               </div>
           </footer>
     </div>
-
-    <script src="js/hide-pass.js"></script>
+    
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/all.min.js"></script>
-    <script>
-
-      </script>
 </body>
 
 </html>
