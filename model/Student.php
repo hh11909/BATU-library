@@ -4,78 +4,69 @@ require_once("Crud.php");
 require_once("errors.php");
 use model\Crud;
 class Student{
-    // public $student_ID;
-    // public $name;
-    // public $academy_number;
-    // public $phone;
-    // public $gender;
-    // public $department_ID;
-    // public $email;
-    // private $password;
-    // public $student_image;
-    // public $profile_image;
-    // public $is_friend=0;
-    // public $admin_ID;
-    // public $created_at;
-    // public $updated_at;
+  
     private $table="Students";
     private $fields=["name","academy_number","phone","gender","department_ID","email","password","admin_ID","is_friend"];//,"student_image","profile_image","is_friend", //with update
-    // function __construct($student_ID=null,$name=null,$academy_number=null,$phone=null,$gender=null,$departmentID=null,$email=null,$password=null,$student_image=null,$profile_image=null,$is_friend=null,$admin_ID=null,$created_at=null,$updated_at=null)
-    // {
-    //   $this->student_ID=$student_ID;
-    //   $this->name=$name;
-    //   $this->academy_number=$academy_number;
-    //   $this->phone=$phone;
-    //   $this->gender=$gender;
-    //   $this->department_ID=$departmentID;
-    //   $this->email=$email;
-    //   $this->password=$password;
-    //   $this->student_image=$student_image;
-    //   $this->profile_image=$profile_image;
-    //   $this->is_friend=$is_friend;
-    //   $this->admin_ID=$admin_ID;
-    //   $this->created_at=$created_at;
-    //   $this->updated_at=$updated_at;
-    // }
-        function create($name,$academy_number,$phone,$gender,$department_ID,$email,$password,$admin_ID,$is_friend=0){
-        require('dbcon.php');
-        $name = htmlspecialchars($name);
-        $academy_number =htmlspecialchars(filter_var($academy_number,FILTER_SANITIZE_NUMBER_INT));
-        $phone=htmlspecialchars($phone);
-        $gender=htmlspecialchars($gender);
-        $department_ID = htmlspecialchars(filter_var($academy_number,FILTER_SANITIZE_NUMBER_INT));
-        $email = htmlspecialchars(filter_var($email,FILTER_SANITIZE_EMAIL));
-        $password= htmlspecialchars(md5($password));
-        $admin_ID=htmlspecialchars(filter_var($admin_ID,FILTER_SANITIZE_NUMBER_INT));
-        $is_friend= htmlspecialchars(filter_var($is_friend,FILTER_SANITIZE_NUMBER_INT));
-        if(empty(trim($name))){
-            return error422("Enter student's name!");
+    
+     function create($name,$academy_number,$phone,$gender,$department_ID,$email,$password,$admin_ID,$is_friend=0){
+      require('dbcon.php');
+      if(empty(trim($name))){
+          return error422("Enter student's name!");
+        }
+        elseif(empty(trim($academy_number))){
+          return error422("Enter student's academy number!"); 
+        }
+        elseif(empty($phone)){
+          return error422("Enter student's phone!"); 
+        }
+        elseif(empty(trim($gender))){
+          return error422("Enter student's gender!");   
+        }
+        elseif(empty(trim($department_ID))){
+          return error422("Enter student's department ID!");   
+        }
+        elseif(empty(trim($email))){
+          return error422("Enter student's email!");   
+        }
+        elseif(empty(trim($password))){
+          return error422("Enter student's password!");   
+        }
+        elseif(empty(trim($adminID))){
+          return error422("Enter your admin ID!");   
+        }
+        else{
+          $name = trim(filter_var($name,FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+          $academy_number =trim(htmlspecialchars(filter_var($academy_number,FILTER_SANITIZE_NUMBER_INT)));
+          $phone=trim(htmlspecialchars(filter_var($phone,FILTER_SANITIZE_NUMBER_INT)));
+          $gender=trim(filter_var($gender,FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+          $department_ID = htmlspecialchars(filter_var($academy_number,FILTER_SANITIZE_NUMBER_INT));
+          $email = trim(htmlspecialchars(filter_var($email,FILTER_SANITIZE_EMAIL)));
+          $password= md5(htmlspecialchars($password));
+          $admin_ID=htmlspecialchars(filter_var($admin_ID,FILTER_SANITIZE_NUMBER_INT));
+          $is_friend= htmlspecialchars(filter_var($is_friend,FILTER_SANITIZE_NUMBER_INT));
+          if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+            return error422("Enter Validate Email!");   
           }
-          elseif(empty(trim($academy_number))){
-            return error422("Enter student's academy number!"); 
+          elseif(filter_var($academy_number,FILTER_VALIDATE_INT)){
+            return error422("Enter Validate academy number!");   
           }
-          elseif(empty($phone)){
-            return error422("Enter student's phone!"); 
+          elseif(filter_var($phone,FILTER_VALIDATE_INT)){
+            return error422("Enter Validate academy phone!");   
           }
-          elseif(empty(trim($gender))){
-            return error422("Enter student's gender!");   
+          elseif(filter_var($department_ID,FILTER_VALIDATE_INT)){
+            return error422("Enter Validate academy phone!");   
           }
-          elseif(empty(trim($department_ID))){
-            return error422("Enter student's department ID!");   
+          elseif(filter_var($admin_ID,FILTER_VALIDATE_INT)){
+            return error422("Enter Validate academy phone!");   
           }
-          elseif(empty(trim($email))){
-            return error422("Enter student's email!");   
-          }
-          elseif(empty(trim($password))){
-            return error422("Enter student's password!");   
-          }
-          elseif(empty(trim($adminID))){
-            return error422("Enter your admin ID!");   
+          elseif(filter_var($is_friend,FILTER_VALIDATE_BOOLEAN)){
+            return error422("Enter Validate academy phone!");   
           }
           else{
-              $vals=[$name,$academy_number,$phone,$gender,$department_ID,$email,$password,$admin_ID,$is_friend];
-              return Crud::create($this->table,$this->fields,$vals);
+            $vals=[$name,$academy_number,$phone,$gender,$department_ID,$email,$password,$admin_ID,$is_friend];
+            return Crud::create($this->table,$this->fields,$vals);
           }
+        }
      }
      function read($filterCols=array(),$filterVals=array()){
          if(empty($filterCols)&&empty($filterVals)){
