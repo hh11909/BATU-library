@@ -4,10 +4,9 @@ require_once("Crud.php");
 require_once("errors.php");
 use model\Crud;
 class Student{
-  
+
     private $table="Students";
-    private $fields=["name","academy_number","phone","gender","department_ID","email","password","admin_ID","is_friend"];//,"student_image","profile_image","is_friend", //with update
-    
+    private $fields=["name","academy_number","phone","gender","department_ID","email","password","admin_ID","is_friend"];//,,"profile_image","student_image"
      function create($name,$academy_number,$phone,$gender,$department_ID,$email,$password,$admin_ID,$is_friend=0){
       require('dbcon.php');
       if(empty(trim($name))){
@@ -45,22 +44,22 @@ class Student{
           $admin_ID=htmlspecialchars(filter_var($admin_ID,FILTER_SANITIZE_NUMBER_INT));
           $is_friend= htmlspecialchars(filter_var($is_friend,FILTER_SANITIZE_NUMBER_INT));
           if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
-            return error422("Enter Validate Email!");   
+            return error422("Invalid Email!");   
           }
           elseif(filter_var($academy_number,FILTER_VALIDATE_INT)){
-            return error422("Enter Validate academy number!");   
+            return error422("Invalid Academy Number!");   
           }
           elseif(filter_var($phone,FILTER_VALIDATE_INT)){
-            return error422("Enter Validate academy phone!");   
+            return error422("Invalid Academy Phone!");   
           }
           elseif(filter_var($department_ID,FILTER_VALIDATE_INT)){
-            return error422("Enter Validate academy phone!");   
+            return error422("Invalid Academy Phone!");   
           }
           elseif(filter_var($admin_ID,FILTER_VALIDATE_INT)){
-            return error422("Enter Validate academy phone!");   
+            return error422("Invalid Phone Number!");   
           }
           elseif(filter_var($is_friend,FILTER_VALIDATE_BOOLEAN)){
-            return error422("Enter Validate academy phone!");   
+            return error422("Invalid Is_friend Bool Value!");   
           }
           else{
             $vals=[$name,$academy_number,$phone,$gender,$department_ID,$email,$password,$admin_ID,$is_friend];
@@ -109,7 +108,7 @@ class Student{
      }
 }
      
-    
+  
     
    
 
