@@ -44,7 +44,8 @@ class Student{
     function getAdmin_ID(){
       return $this->admin_ID;
     }
-    function login($email,$password){
+
+    static function login($email,$password){
       if(empty($email)){
         error422("Enter Your Email");
       }
@@ -61,7 +62,7 @@ class Student{
           $stuModel= new model\Student();
           $cols=['email','password'];
           $vals=[$email,$password];
-          $result=($stuModel->read($cols,$vals));
+          $result=$stuModel->read($cols,$vals);
           $result=json_decode($result);
           $result=$result["data"];
           if(isset($result)){
@@ -83,6 +84,6 @@ class Student{
     }
 }
 class Friend extends Student{
-
+  
 }
 ?>
