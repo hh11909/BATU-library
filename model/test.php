@@ -16,12 +16,17 @@
 // // var_dump($arr);
 // echo $x->read();
 // // echo Crud::read("students");
-$query="select * from employees;";
-$cn= mysqli_connect("localhost","root","","test");
-$result=mysqli_query($cn,$query);
-$res=mysqli_fetch_all($result,MYSQLI_ASSOC);
-echo "<pre>";
-var_dump($res);
-echo "</pre>";
+// $query="select * from employees;";
+// $cn= mysqli_connect("localhost","root","","test");
+// $result=mysqli_query($cn,$query);
+// $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+// echo "<pre>";
+// var_dump($res);
+// echo "</pre>";
+$user=["name"=>"mohamed","Age"=>10];
+
+$x=serialize($user);
+$x=unserialize($x);
+var_dump($x);
 
 ?>
