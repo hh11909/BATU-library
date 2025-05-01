@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 namespace controller;
 require_once("Student.php");
 use controller\Student;
@@ -38,3 +39,28 @@ class User{
   }
 }
 
+=======
+
+namespace Controller;
+
+class User
+{
+  protected int $ID;
+  public string $name;
+  public string $email;
+  protected string $password;
+
+  public function setPassword($password): void
+  {
+    $this->password = $password;
+  }
+  public function getID(): int
+  {
+    return $this->ID;
+  }
+  public function setID($ID): void
+  {
+    $this->ID = $ID;
+  }
+}
+>>>>>>> 3bb14c1 (Added an abstract User class and made Admin class but it's not finished)
