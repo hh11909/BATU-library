@@ -94,8 +94,26 @@ class Crud
         for ($i = 0; $i < count($filterCols); $i++) {
           $filter = $filter . $filterCols[$i] . " = '" . $filterVals[$i] . "' &&";
         }
-        $filter = substr($filter, 0, -2);
-        $qry = $qry . $filter . ";";
+        $filter = substr($filter, 0, -4);
+        $qry = $qry . $filter . "LIMIT 1;";
+      }
+      $result = mysqli_query($cn, $qry);
+      if ($result) {
+        $data = [
+          'status' => 200,
+          'Message' => "Deleted Successfully"
+        ];
+        mysqli_close($cn);
+        header("HTTP/1.0 200 OK");
+        return json_encode($data);
+      } else {
+        $data = [
+          'status' => 404,
+          'Message' => "Not Found"
+        ];
+        mysqli_close($cn);
+        header("HTTP/1.0 404 Not Found");
+        return json_encode($data);
       }
     }
     $result = mysqli_query($cn, $qry);
