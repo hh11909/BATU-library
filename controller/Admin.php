@@ -3,6 +3,7 @@
 namespace controller;
 
 use controller\User;
+use model\Admin;
 
 class Admin extends User
 {
@@ -11,12 +12,11 @@ class Admin extends User
   protected string $password;
 
   public function __construct(
-    int $admin_ID,
     string $name,
     string $email,
-    string $password
+    string $password,
+    ?int $id
   ) {
-    $this->setID($admin_ID);
     $this->name = $name;
     $this->email = $email;
     $this->password = $password;
@@ -43,10 +43,10 @@ class Admin extends User
         if (isset($result)) {
           if ($arr = mysqli_fetch_assoc($result)) {
             $user = new Admin(
-              $arr["admin_ID"],
               $arr["name"],
               $arr["email"],
               $arr["password"],
+              $arr["id"],
             );
             return $user;
           }

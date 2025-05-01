@@ -2,6 +2,12 @@
 
 namespace controller;
 
+use model\Student as StudentModel;
+
+require_once(__DIR__ . "/../model/Student.php");
+require_once(__DIR__ . "/User.php");
+require_once(__DIR__ . "/../model/errors.php");
+
 use model;
 
 require("../model/errors");
@@ -82,8 +88,59 @@ class Student
             }
             return $user;
           }
+        } else {
+          return;
+        }
+      }
+
+      //in Admin class+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      function storeStudent(Student $student)
+      {
+        if (empty(trim($student->name))) {
+          return error422("Enter student's name!");
+        } elseif (empty(trim($student->academy_number))) {
+          return error422("Enter student's academy number!");
+        } elseif (empty($student->phone)) {
+          return error422("Enter student's phone!");
+        } elseif (empty(trim($student->gender))) {
+          return error422("Enter student's gender!");
+        } elseif (empty(trim($student->department_ID))) {
+          return error422("Enter student's department ID!");
+        } elseif (empty(trim($student->email))) {
+          return error422("Enter student's email!");
+        } elseif (empty(trim($student->password))) {
+          return error422("Enter student's password!");
+        } elseif (empty(trim($student->admin_ID))) {
+          return error422("Enter your admin ID!");
+        } else {
+          $name = trim(filter_var($student->name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+          $academy_number = trim(htmlspecialchars(filter_var($student->academy_number, FILTER_SANITIZE_NUMBER_INT)));
+          $phone = trim(htmlspecialchars(filter_var($student->phone, FILTER_SANITIZE_NUMBER_INT)));
+          $gender = trim(filter_var($student->gender, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+          $department_ID = htmlspecialchars(filter_var($student->department_ID, FILTER_SANITIZE_NUMBER_INT));
+          $email = trim(htmlspecialchars(filter_var($student->email, FILTER_SANITIZE_EMAIL)));
+          $password = md5(htmlspecialchars($student->password));
+          $admin_ID = htmlspecialchars(filter_var($student->admin_ID, FILTER_SANITIZE_NUMBER_INT));
+          $is_friend = htmlspecialchars(filter_var($student->is_friend, FILTER_SANITIZE_NUMBER_INT));
+          if (!filter_var($student->email, FILTER_VALIDATE_EMAIL)) {
+            return error422("Invalid Email!");
+          } elseif (filter_var($student->academy_number, FILTER_VALIDATE_INT)) {
+            return error422("Invalid Academy Number!");
+          } elseif (filter_var($student->phone, FILTER_VALIDATE_INT)) {
+            return error422("Invalid Academy Phone!");
+          } elseif (filter_var($student->department_ID, FILTER_VALIDATE_INT)) {
+            return error422("Invalid Academy Phone!");
+          } elseif (filter_var($student->admin_ID, FILTER_VALIDATE_INT)) {
+            return error422("Invalid Phone Number!");
+          } elseif (filter_var($student->is_friend, FILTER_VALIDATE_BOOLEAN)) {
+            return error422("Invalid Is_friend Bool Value!");
+          } else {
+            $stu = new StudentModel();
+            return $stu->create($student);
+          }
         }
       }
     }
   }
+}
 class Friend extends Student {}
