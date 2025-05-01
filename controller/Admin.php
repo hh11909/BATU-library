@@ -25,7 +25,7 @@ class Admin extends User
     $this->password = $password;
   }
 
-  public static function login(string $email, string $password)
+  public static function login(string $email, string $password): Admin | null
   {
     if (empty($email)) {
       error422("Enter Your Email");
@@ -37,7 +37,7 @@ class Admin extends User
       if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         error422("Invalid Email!");
       } else {
-        $stuModel = new model\Admin();
+        $stuModel = new \model\Admin();
         $cols = ['email', 'password'];
         $vals = [$email, $password];
         $result = $stuModel->read($cols, $vals);
@@ -45,11 +45,18 @@ class Admin extends User
         $result = $result["data"];
         if (isset($result)) {
           if ($arr = mysqli_fetch_assoc($result)) {
+            $user = new Admin(
+              $arr["admin_ID"],
+              $arr["name"],
+              $arr["email"],
+              $arr["password"],
+            );
             return $user;
           }
         }
       }
     }
+    return null;
   }
 }
 >>>>>>> 3bb14c1 (Added an abstract User class and made Admin class but it's not finished)

@@ -50,7 +50,7 @@ class User
   public string $email;
   protected string $password;
 
-  public function setPassword($password): void
+  public function setPassword(string $password): void
   {
     $this->password = $password;
   }
@@ -58,7 +58,7 @@ class User
   {
     return $this->ID;
   }
-  public function setID($ID): void
+  public function setID(int $ID): void
   {
     $this->ID = $ID;
   }
