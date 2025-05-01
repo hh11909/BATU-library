@@ -1,129 +1,99 @@
 <?php
-  namespace model;  
-  class Crud{
-    static function create($tableName,$object){
-      require('dbcon.php');
+namespace model;
 
-      $qry= "INSERT INTO $tableName (";
-      $cols="";
-      $vals="";
-      foreach($object as $col=>$val){
-        $cols=$cols."$col,";
-        $vals=$vals."$val,";
-      }
-      $qry=$qry.$cols;
-      $qry=substr($qry,0,-1);    
-      $qry=$qry.") VALUES (";
-      $qry=$qry.$vals;
-      $qry=substr($qry,0,-1);
-      $qry=$qry.");";   
-      $result= mysqli_query($cn,$qry);
-      if($result){
-          $data=[
-            'status'=>201,
-            'Message'=> "Created Successfully" 
-          ];
-          mysqli_close($cn);
-          header("HTTP/1.0 201 Created");
-          return json_encode($data);
-      }
-      else{
-        $data=[
-          'status'=>500,
-          'Message'=> "Internal Server Error" 
-        ];
-        mysqli_close($cn);
-         header("HTTP/1.0 500 Internal Server Error");
-         return json_encode($data);
-      }
-    }
-    static function read($tableName,$filterCols=array(),$filterVals=array()){
-      require('dbcon.php');
-      $qry= "SELECT * from $tableName;";
-      if(!empty($filterCols)&&!empty($filterVals)){
-        $qry= substr($qry,0,-1); 
-        $filter=" WHERE ";
-        for($i=0;$i<count($filterCols);$i++){
-          $filter=$filter.$filterCols[$i]." LIKE '%".$filterVals[$i]."%' AND ";
-        }
-        $filter=substr($filter,0,-4);
-        $qry=$qry.$filter.";";
-      }
+class Crud
+{
+  static function create($tableName, $cols = array(), $vals = array())
+  {
+    require('./dbcon.php');
 
-      $qry_run= mysqli_query($cn,$qry);
-      if($qry_run){
-        if(mysqli_num_rows($qry_run)>0){
-          $res= mysqli_fetch_all($qry_run,MYSQLI_ASSOC);
-          $data=[
-            'status'=>200,
-            'Message'=> "Found Successfully" ,
-            'data'=> $res
-          ];
-          mysqli_close($cn);
-          header("HTTP/1.0 200 OK");
-          return json_encode($data);
-        }
-        else{
-          $data=[
-            'status'=>404,
-            'Message'=> "Not Found" 
-           ];
-           mysqli_close($cn);
-           header("HTTP/1.0 404 Not Found");
-          //  return json_encode($data);
-        }
-      }
+    $qry = "INSERT INTO $tableName (";
+    foreach ($cols as $col) {
+      $qry = $qry . "$col,";
     }
-    static function update($tableName,$updateCols=array(),$updateVals=array(),$filterCols=array(),$filterVals=array()){
-      require('dbcon.php');
-      $qry= "UPDATE $tableName SET ";
-      $update="";
-      $filter="";
-      if(!empty($updateCols)&&!empty($updateVals)){
-        for($i=0;$i<count($updateCols);$i++){
-          $update=$update.$updateCols[$i]." = '".$updateVals[$i]."' ,";
-        }
-        $update=substr($update,0,-1);
-        $qry=$qry.$update.";";
-        if(!empty($filterCols)&&!empty($filterVals)){
-          $qry=substr($qry,0,-1);
-          $qry=$qry."WHERE ";
-          for($i=0;$i<count($filterCols);$i++){
-            $filter=$filter.$filterCols[$i]." = '".$filterVals[$i]."' &&";
-          }
-          $filter=substr($filter,0,-2);
-          $qry=$qry.$filter.";";
-        }
-      } 
-      $result= mysqli_query($cn,$qry);
-      if($result){
-        $data=[
-          'status'=>200,
-          'Message'=> "Updated Successfully" 
+    //$qr="INSERT INTO Students (name,age,"
+    $qry = substr($qry, 0, -1);
+    $qry = $qry . ") VALUES (";
+    foreach ($vals as $val) {
+      $qry = $qry . "'$val',";
+    }
+    $qry = substr($qry, 0, -1);
+    $qry = $qry . ");";
+    $result = mysqli_query($cn, $qry);
+    if ($result) {
+      $data = [
+        'status' => 201,
+        'Message' => "User Created Successfully"
+      ];
+      mysqli_close($cn);
+      header("HTTP/1.0 201 Created");
+      return json_encode($data);
+    } else {
+      $data = [
+        'status' => 500,
+        'Message' => "Internal Server Error"
+      ];
+      mysqli_close($cn);
+      header("HTTP/1.0 500 Internal Server Error");
+      return json_encode($data);
+    }
+  }
+  static function read($tableName, $filterCols = array(), $filterVals = array())
+  {
+    require('dbcon.php');
+    $qry = "SELECT * from $tableName;";
+    if (!empty($filterCols) && !empty($filterVals)) {
+      $qry = substr($qry, 0, -1);
+      $filter = " WHERE ";
+      for ($i = 0; $i < count($filterCols); $i++) {
+        $filter = $filter . $filterCols[$i] . "LIKE '%" . $filterVals[$i] . "%' AND ";
+      }
+      $filter = substr($filter, 0, -4);
+      $qry = $qry . $filter . ";";
+    }
+
+    $qry_run = mysqli_query($cn, $qry);
+    if ($qry_run) {
+      if (mysqli_num_rows($qry_run) > 0) {
+        $res = mysqli_fetch_all($qry_run, MYSQLI_ASSOC);
+        $data = [
+          'status' => 200,
+          'Message' => "Users Found Successfully",
+          'data' => $res
         ];
         mysqli_close($cn);
         header("HTTP/1.0 200 OK");
         return json_encode($data);
-      }
-      else{
-        $data=[
-          'status'=>500,
-          'Message'=> "Internal Server Error" 
+      } else {
+        $data = [
+          'status' => 404,
+          'Message' => "No User Found"
         ];
         mysqli_close($cn);
-        header("HTTP/1.0 500 Internal Server Error");
-        return json_encode($data);
+        header("HTTP/1.0 404 No User Found");
+        //  return json_encode($data);
       }
     }
-    static function delete($tableName,$filterCols=array(),$filterVals=array()){
-      require('dbcon.php');
-      $qry= "DELETE FROM $tableName;";
-      if(!empty($filterCols)&&!empty($filterVals)){
-        $qry= substr($qry,0,-1); 
-        $filter=" WHERE ";
-        for($i=0;$i<count($filterCols);$i++){
-          $filter=$filter.$filterCols[$i]." = '".$filterVals[$i]."' AND ";
+  }
+  static function update($tableName, $updateCols = array(), $updateVals = array(), $filterCols = array(), $filterVals = array())
+  {
+    require('dbcon.php');
+    $qry = "UPDATE $tableName SET ";
+    $update = "";
+    $filter = "";
+    if (!empty($updateCols) && !empty($updateVals)) {
+      for ($i = 0; $i < count($updateCols); $i++) {
+        $update = $update . $updateCols[$i] . " = '" . $updateVals[$i] . "' ,";
+      }
+      $update = substr($update, 0, -1);
+      $qry = $qry . $update . ";";
+      if (!empty($filterCols) && !empty($filterVals)) {
+        $qry = substr($qry, 0, -1);
+        $qry = $qry . "WHERE ";
+        for ($i = 0; $i < count($filterCols); $i++) {
+          $filter = $filter . $filterCols[$i] . " = '" . $filterVals[$i] . "' &&";
         }
+<<<<<<< HEAD
         $filter=substr($filter,0,-4);
         $qry=$qry.$filter."LIMIT 1;";
       }
@@ -145,6 +115,61 @@
         mysqli_close($cn);
         header("HTTP/1.0 404 Not Found");
         return json_encode($data);
+=======
+        $filter = substr($filter, 0, -2);
+        $qry = $qry . $filter . ";";
+>>>>>>> 9d29c20 (Just confgured somethings to work with me, and those changed caused by my prettier and for my php extension to figure out what where)
       }
     }
+    $result = mysqli_query($cn, $qry);
+    if ($result) {
+      $data = [
+        'status' => 200,
+        'Message' => "User Updated Successfully"
+      ];
+      mysqli_close($cn);
+      header("HTTP/1.0 200 OK");
+      return json_encode($data);
+    } else {
+      $data = [
+        'status' => 500,
+        'Message' => "Internal Server Error"
+      ];
+      mysqli_close($cn);
+      header("HTTP/1.0 500 Internal Server Error");
+      return json_encode($data);
+    }
+  }
+  static function delete($tableName, $filterCols = array(), $filterVals = array())
+  {
+    require('dbcon.php');
+    $qry = "DELETE FROM $tableName;";
+    if (!empty($filterCols) && !empty($filterVals)) {
+      $qry = substr($qry, 0, -1);
+      $filter = " WHERE ";
+      for ($i = 0; $i < count($filterCols); $i++) {
+        $filter = $filter . $filterCols[$i] . " = '" . $filterVals[$i] . "' AND ";
+      }
+      $filter = substr($filter, 0, -4);
+      $qry = $qry . $filter . "LIMIT 1;";
+    }
+    $result = mysqli_query($cn, $qry);
+    if ($result) {
+      $data = [
+        'status' => 200,
+        'Message' => "User Deleted Successfully"
+      ];
+      mysqli_close($cn);
+      header("HTTP/1.0 200 OK");
+      return json_encode($data);
+    } else {
+      $data = [
+        'status' => 404,
+        'Message' => "User Not Found"
+      ];
+      mysqli_close($cn);
+      header("HTTP/1.0 404 Not Found");
+      return json_encode($data);
+    }
+  }
 }
