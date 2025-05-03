@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+
 use Controller\User;
 
 class Admin extends User

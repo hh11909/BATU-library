@@ -1,0 +1,26 @@
+{
+  "name": "nonoteam/batu-library",
+  "type": "project",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Model\\": "model/",
+      "Controller\\": "controller/",
+      "Api\\": "api/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "dev": [
+      "Composer\\Config::disableProcessTimeout",
+      "@php -S 127.0.0.1:1800"
+    ]
+  },
+  "config": {
+    "optimize-autoloader": true
+  }
+}

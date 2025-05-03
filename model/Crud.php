@@ -1,13 +1,11 @@
 <?php
 
-namespace model;
+namespace Model;
 
 class Crud
 {
   static function create($tableName, $cols = array(), $vals = array())
   {
-    require('./dbcon.php');
-
     $qry = "INSERT INTO $tableName (";
     foreach ($cols as $col) {
       $qry = $qry . "$col,";

@@ -1,6 +1,7 @@
 <?php
 
-namespace model;
+namespace Model;
+
 
 class Admin
 {
