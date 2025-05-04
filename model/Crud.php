@@ -1,20 +1,19 @@
 <?php
   namespace model;  
   class Crud{
-    static function create($tableName,$object){
+    static function create($tableName,$cols,$vals){
       require('dbcon.php');
 
       $qry= "INSERT INTO $tableName (";
-      $cols="";
-      $vals="";
-      foreach($object as $col=>$val){
-        $cols=$cols."$col,";
-        $vals=$vals."$val,";
+      
+      foreach($cols as $col){
+        $qry=$qry."$col,";
       }
-      $qry=$qry.$cols;
       $qry=substr($qry,0,-1);    
       $qry=$qry.") VALUES (";
-      $qry=$qry.$vals;
+      foreach($vals as $val){
+        $qry=$qry."$val,";
+      }
       $qry=substr($qry,0,-1);
       $qry=$qry.");";   
       $result= mysqli_query($cn,$qry);
