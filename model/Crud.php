@@ -1,4 +1,5 @@
 <?php
+
 namespace model;
 
 class Crud
@@ -93,32 +94,8 @@ class Crud
         for ($i = 0; $i < count($filterCols); $i++) {
           $filter = $filter . $filterCols[$i] . " = '" . $filterVals[$i] . "' &&";
         }
-<<<<<<< HEAD
-        $filter=substr($filter,0,-4);
-        $qry=$qry.$filter."LIMIT 1;";
-      }
-      $result= mysqli_query($cn,$qry);
-      if($result){
-        $data=[
-          'status'=>200,
-          'Message'=> "Deleted Successfully" 
-        ];
-        mysqli_close($cn);
-        header("HTTP/1.0 200 OK");
-        return json_encode($data);
-      }
-      else{
-        $data=[
-          'status'=>404,
-          'Message'=> "Not Found" 
-        ];
-        mysqli_close($cn);
-        header("HTTP/1.0 404 Not Found");
-        return json_encode($data);
-=======
         $filter = substr($filter, 0, -2);
         $qry = $qry . $filter . ";";
->>>>>>> 9d29c20 (Just confgured somethings to work with me, and those changed caused by my prettier and for my php extension to figure out what where)
       }
     }
     $result = mysqli_query($cn, $qry);
