@@ -6,8 +6,10 @@ use model\Crud;
 class Student{
 
     private $table="Students";
-     function create($student){
-            return Crud::create($this->table,$student);
+    private $fields=["name","academy_number","phone","gender","department_ID","email","password","admin_ID","is_friend"];//,,"profile_image","student_image"
+    function create($name,$academy_number,$phone,$gender,$department_ID,$email,$password,$admin_ID,$is_friend=0){
+        $vals=[$name,$academy_number,$phone,$gender,$department_ID,$email,$password,$admin_ID,$is_friend];
+        return Crud::create($this->table,$this->fields,$vals);     
      }
      function read($filterCols=array(),$filterVals=array()){
          if(empty($filterCols)&&empty($filterVals)){
