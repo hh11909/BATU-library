@@ -1,8 +1,8 @@
 <?php
 
-namespace Controller;
+namespace controller;
 
-use Controller\User;
+use controller\User;
 
 class Admin extends User
 {

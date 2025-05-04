@@ -1,24 +1,42 @@
 <?php
 
-namespace Controller;
+namespace controller;
+
+require_once("Student.php");
+
+use controller\Student;
 
 class User
 {
-  protected int $ID;
-  public string $name;
-  public string $email;
-  protected string $password;
+  public $id;
+  public $name;
+  public $email;
+  protected $password;
+  public $role;
+  public $created_at;
+  public $updated_at;
 
-  public function setPassword(string $password): void
+  static function login($email, $password)
   {
-    $this->password = $password;
-  }
-  public function getID(): int
-  {
-    return $this->ID;
-  }
-  public function setID(int $ID): void
-  {
-    $this->ID = $ID;
+    if (empty($email)) {
+      error422("Enter Your Email");
+    } elseif (empty($password)) {
+      error422("Enter Your Password");
+    } else {
+      $email = trim(htmlspecialchars(filter_var($email, FILTER_SANITIZE_EMAIL)));
+      $password = md5(htmlspecialchars($password));
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return error422("Invalid Email!");
+      } else {
+        $result = Student::login($email, $password);
+        if (empty($result)) {
+          $result = Admin::login($email, $password);
+          if (empty($result)) {
+            return error422("Please Register Now!");
+          }
+        }
+        return $result;
+      }
+    }
   }
 }
