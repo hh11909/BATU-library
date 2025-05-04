@@ -3,10 +3,11 @@
 namespace controller;
 
 require_once("Student.php");
+require_once("../model/Admin.php");
 require_once("Admin.php");
 
-use controller\Student;
 use controller\Admin;
+use controller\Student;
 
 class User
 {

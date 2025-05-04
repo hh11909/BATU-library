@@ -1,0 +1,22 @@
+{
+  "name": "nonoteam/batu-library",
+  "type": "project",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "model\\": "model/",
+      "controller\\": "controller/",
+      "api\\": "api/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "dev": [
+      "php -S 127.0.0.1:1800"
+    ]
+  }
+}

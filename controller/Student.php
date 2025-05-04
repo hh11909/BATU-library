@@ -130,3 +130,4 @@ class Student extends User
     }
   }
 }
+class Friend extends Student {}
