@@ -2,11 +2,10 @@
 
 namespace controller;
 
-use controller\User;
-use model\Admin;
-
 require_once("User.php");
 require_once(__DIR__ . "/../model/Admin.php");
+
+use controller\User;
 
 
 class Admin extends User

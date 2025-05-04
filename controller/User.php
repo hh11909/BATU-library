@@ -3,7 +3,6 @@
 namespace controller;
 
 require_once("Student.php");
-require_once("../model/Admin.php");
 require_once("Admin.php");
 
 use controller\Admin;
