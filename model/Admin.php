@@ -2,11 +2,11 @@
 
 namespace model;
 
-require_once("./Crud.php");
+require_once("Crud.php");
 
 class Admin
 {
-
+  private $result = [];
   private $table = "Admins";
   private $fields = ["name", "email", "password"];
   /**

@@ -42,17 +42,16 @@ class Crud
   static function read($tableName, $filterCols = array(), $filterVals = array())
   {
     require('dbcon.php');
-    $qry = "SELECT * from $tableName;";
+    $qry = "SELECT * from $tableName ";
     if (!empty($filterCols) && !empty($filterVals)) {
       $qry = substr($qry, 0, -1);
       $filter = " WHERE ";
       for ($i = 0; $i < count($filterCols); $i++) {
-        $filter = $filter . $filterCols[$i] . "LIKE '%" . $filterVals[$i] . "%' AND ";
+        $filter = $filter . $filterCols[$i] . " LIKE '%" . $filterVals[$i] . "%' AND ";
       }
       $filter = substr($filter, 0, -4);
       $qry = $qry . $filter . ";";
     }
-
     $qry_run = mysqli_query($cn, $qry);
     if ($qry_run) {
       if (mysqli_num_rows($qry_run) > 0) {
