@@ -4,16 +4,13 @@ namespace controller;
 
 use controller\User;
 
-require_once("./User.php");
-require_once(__DIR__ . "/model/Admin.php");
+require_once("User.php");
+require_once(__DIR__ . "/../model/Admin.php");
 
 
 class Admin extends User
 {
-  public string $name;
-  public string $email;
-  protected string $password;
-
+  public $role = "admin";
   public function __construct(
     string $name,
     string $email,
@@ -27,6 +24,18 @@ class Admin extends User
     $this->email = $email;
     $this->password = $password;
   }
+  public function to_json(): string | null
+  {
+    if ($this->name && $this->email && $this->password) {
+      $arr = [];
+      $arr['id'] = $this->id;
+      $arr['name'] = $this->name;
+      $arr['email'] = $this->email;
+      $arr['role'] = $this->role;
+      return json_encode($arr);
+    }
+    return null;
+  }
   static function login(string $email, string $password): Admin | null
   {
     if (empty($email)) {
@@ -36,28 +45,28 @@ class Admin extends User
     } else {
       $email = trim(htmlspecialchars(filter_var($email, FILTER_SANITIZE_EMAIL)));
       $password = md5(htmlspecialchars($password));
-      if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         error422("Invalid Email!");
       } else {
         $stuModel = new \model\Admin();
         $cols = ['email', 'password'];
         $vals = [$email, $password];
         $result = $stuModel->read($cols, $vals);
-        $result = json_decode($result);
+        $result = json_decode($result, true);
         $result = $result["data"];
         if (isset($result)) {
-          if ($arr = mysqli_fetch_assoc($result)) {
+          if ($arr = $result[0]) {
             $user = new Admin(
-              $arr["admin_ID"],
               $arr["name"],
               $arr["email"],
               $arr["password"],
+              $arr["id"],
             );
             return $user;
           }
         }
       }
     }
-    return null;
+    return error422("No Result");
   }
 }
