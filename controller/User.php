@@ -17,7 +17,6 @@ class User
   public $role;
   public $created_at;
   public $updated_at;
-
   static function login(string $email, string $password)
   {
     if (empty($email)) {

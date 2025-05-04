@@ -1,4 +1,7 @@
-<?php
+There are some edits in Crud.php in read method
+take a look at it.
+
+and you will be conflicted with how much con<?php
 
 namespace controller;
 
