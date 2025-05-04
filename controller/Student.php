@@ -86,6 +86,4 @@ class Student
       }
     }
   }
-}
 class Friend extends Student {}
-

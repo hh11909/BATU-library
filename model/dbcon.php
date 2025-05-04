@@ -6,4 +6,3 @@ if (!$cn) {
   die("connection failed: " . mysqli_connect_error());
   # mysqli_close($cn);
 }
-
