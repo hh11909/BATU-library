@@ -4,6 +4,7 @@ namespace controller;
 
 require_once("Student.php");
 require_once("../model/Admin.php");
+require_once("Admin.php");
 
 use controller\Admin;
 use controller\Student;
@@ -18,7 +19,7 @@ class User
   public $created_at;
   public $updated_at;
 
-  static function login($email, $password)
+  static function login(string $email, string $password)
   {
     if (empty($email)) {
       error422("Enter Your Email");

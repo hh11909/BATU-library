@@ -6,7 +6,7 @@ use controller\User;
 use model\Admin;
 
 require_once("./User.php");
-require_once(__DIR__ . "/model/Admin.php");
+require_once(__DIR__ . "/../model/Admin.php");
 
 
 class Admin extends User
@@ -21,12 +21,14 @@ class Admin extends User
     string $password,
     ?int $id
   ) {
+    if ($id != null) {
+      $this->id = $id;
+    }
     $this->name = $name;
     $this->email = $email;
     $this->password = $password;
   }
-
-  public static function login(string $email, string $password): Admin | null
+  static function login(string $email, string $password): Admin | null
   {
     if (empty($email)) {
       error422("Enter Your Email");
