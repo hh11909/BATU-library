@@ -7,26 +7,6 @@ class Admin
 
   private $table = "Admins";
   private $fields = ["name", "email", "password"];
-  function create(string $name, string $email, string $password): string | false
-  {
-    if (empty(trim($name))) {
-      return error422("Enter student's name!");
-    } elseif (empty(trim($email))) {
-      return error422("Enter student's email!");
-    } elseif (empty(trim($password))) {
-      return error422("Enter student's password!");
-    } else {
-      $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-      $email = trim(htmlspecialchars(filter_var($email, FILTER_SANITIZE_EMAIL)));
-      $password = md5(htmlspecialchars($password));
-      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        return error422("Invalid Email!");
-      } else {
-        $vals = [$name, $email, $password];
-        return Crud::create($this->table, $this->fields, $vals);
-      }
-    }
-  }
   /**
    * @param array<string> $filterCols
    * @param array<string> $filterVals
