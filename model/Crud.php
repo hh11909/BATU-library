@@ -1,4 +1,5 @@
 <?php
+
 namespace model;
 
 class Crud
@@ -15,7 +16,11 @@ class Crud
     $qry = substr($qry, 0, -1);
     $qry = $qry . ") VALUES (";
     foreach ($vals as $val) {
-      $qry = $qry . "'$val',";
+      if (gettype($val) == 'integer') {
+        $qry = $qry . "$val,";
+      } else {
+        $qry = $qry . "'$val',";
+      }
     }
     $qry = substr($qry, 0, -1);
     $qry = $qry . ");";
