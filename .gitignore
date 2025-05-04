@@ -1,10 +1,12 @@
 .nvim.lua
 tsconfig*
 .gitkeep
-ts
-js
+ts/
+js/
 **/config.php
 .index.php
 vendor/
 .env
 composer*
+tests/
+composer.json
