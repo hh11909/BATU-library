@@ -1,30 +1,31 @@
 <?php
   namespace model;  
   class Crud{
-    static function create($tableName,$cols=array(),$vals=array()){
+    static function create($tableName,$object){
       require('dbcon.php');
 
       $qry= "INSERT INTO $tableName (";
-      foreach($cols as $col){
-        $qry=$qry."$col,";
+      $cols="";
+      $vals="";
+      foreach($object as $col=>$val){
+        $cols=$cols."$col,";
+        $vals=$vals."$val,";
       }
-      //$qr="INSERT INTO Students (name,age,"
+      $qry=$qry.$cols;
       $qry=substr($qry,0,-1);    
       $qry=$qry.") VALUES (";
-      foreach($vals as $val){
-        $qry=$qry."'$val',";
-      }
+      $qry=$qry.$vals;
       $qry=substr($qry,0,-1);
       $qry=$qry.");";   
       $result= mysqli_query($cn,$qry);
       if($result){
-       $data=[
-        'status'=>201,
-        'Message'=> "User Created Successfully" 
-       ];
-       mysqli_close($cn);
-       header("HTTP/1.0 201 Created");
-       return json_encode($data);
+          $data=[
+            'status'=>201,
+            'Message'=> "Created Successfully" 
+          ];
+          mysqli_close($cn);
+          header("HTTP/1.0 201 Created");
+          return json_encode($data);
       }
       else{
         $data=[
@@ -43,7 +44,7 @@
         $qry= substr($qry,0,-1); 
         $filter=" WHERE ";
         for($i=0;$i<count($filterCols);$i++){
-          $filter=$filter.$filterCols[$i]."LIKE '%".$filterVals[$i]."%' AND ";
+          $filter=$filter.$filterCols[$i]." LIKE '%".$filterVals[$i]."%' AND ";
         }
         $filter=substr($filter,0,-4);
         $qry=$qry.$filter.";";
@@ -55,7 +56,7 @@
           $res= mysqli_fetch_all($qry_run,MYSQLI_ASSOC);
           $data=[
             'status'=>200,
-            'Message'=> "Users Found Successfully" ,
+            'Message'=> "Found Successfully" ,
             'data'=> $res
           ];
           mysqli_close($cn);
@@ -65,10 +66,10 @@
         else{
           $data=[
             'status'=>404,
-            'Message'=> "No User Found" 
+            'Message'=> "Not Found" 
            ];
            mysqli_close($cn);
-           header("HTTP/1.0 404 No User Found");
+           header("HTTP/1.0 404 Not Found");
           //  return json_encode($data);
         }
       }
@@ -98,7 +99,7 @@
       if($result){
         $data=[
           'status'=>200,
-          'Message'=> "User Updated Successfully" 
+          'Message'=> "Updated Successfully" 
         ];
         mysqli_close($cn);
         header("HTTP/1.0 200 OK");
@@ -130,7 +131,7 @@
       if($result){
         $data=[
           'status'=>200,
-          'Message'=> "User Deleted Successfully" 
+          'Message'=> "Deleted Successfully" 
         ];
         mysqli_close($cn);
         header("HTTP/1.0 200 OK");
@@ -139,7 +140,7 @@
       else{
         $data=[
           'status'=>404,
-          'Message'=> "User Not Found" 
+          'Message'=> "Not Found" 
         ];
         mysqli_close($cn);
         header("HTTP/1.0 404 Not Found");
