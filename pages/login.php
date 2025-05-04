@@ -115,16 +115,16 @@
           <button type="button" class="btn-close" aria-label="Close" onclick="hideSuccess()"></button>
         </div>
 
-        <form class="login-form px-md-5" action="" id='loginForm'>
+        <form class="login-form px-md-5" action="../api/user/login.php" method="post" id='loginForm'>
           <p>
 
             <label class="field-label " for="email">Email</label>
-            <input type="email" id="email" class="form-control rounded-pill py-2" required />
+            <input type="email" id="email" name="email" class="form-control rounded-pill py-2" required />
           </p>
           <div>
             <label class="field-label" for="password">Password</label>
             <div class="input-container">
-              <input type="password" id="password" class="form-control rounded-pill py-2 " required />
+              <input type="password" id="password" name="password" class="form-control rounded-pill py-2 " required />
               <span class="togglePassword" id="togglePassword"
                 onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
                 <i class="fa-solid fa-eye-slash" id="icon1" style="cursor: pointer; display: inline-block"></i>
