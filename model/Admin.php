@@ -2,6 +2,8 @@
 
 namespace model;
 
+require_once("./Crud.php");
+
 class Admin
 {
 
