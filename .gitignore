@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 .env
 .gitkeep
 .nvim.lua
@@ -7,3 +8,15 @@ js
 ts
 tsconfig.json
 vendor
+=======
+.nvim.lua
+tsconfig*
+.gitkeep
+ts
+js
+**/config.php
+.index.php
+vendor/
+.env
+composer*
+>>>>>>> Stashed changes

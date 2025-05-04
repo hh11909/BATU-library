@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-class
-=======
 <?php
 
 namespace Controller;
@@ -63,4 +60,3 @@ class Admin extends User
     return null;
   }
 }
->>>>>>> 3bb14c1 (Added an abstract User class and made Admin class but it's not finished)
