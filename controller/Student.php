@@ -3,10 +3,10 @@
 namespace controller;
 
 use model\Student as StudentModel;
-use controller\User;
 
 require_once(__DIR__ . "/../model/Student.php");
 require_once(__DIR__ . "/User.php");
+require_once(__DIR__ . "/Friend.php");
 require_once(__DIR__ . "/../model/errors.php");
 
 class Student extends User
@@ -55,7 +55,7 @@ class Student extends User
     return $this->admin_ID;
   }
 
-  static function login($email, $password)
+  static function login($email, $password): Student | Friend | null
   {
     $stuModel = new StudentModel();
     $cols = ['email', 'password'];
@@ -77,9 +77,8 @@ class Student extends User
         }
         return $user;
       }
-    } else {
-      return;
     }
+    return null;
   }
   function create()
   {
@@ -136,8 +135,4 @@ class Student extends User
       return $stu->create($student);
     }
   }
-}
-class Friend extends Student
-{
-  public $is_friend = 1;
 }

@@ -38,35 +38,30 @@ class Admin extends User
   }
   static function login(string $email, string $password): Admin | null
   {
-    if (empty($email)) {
-      error422("Enter Your Email");
-    } elseif (empty($password)) {
-      error422("Enter Your Password");
+    $email = trim(htmlspecialchars(filter_var($email, FILTER_SANITIZE_EMAIL)));
+    $password = md5(htmlspecialchars($password));
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      error422("Invalid Email!");
     } else {
-      $email = trim(htmlspecialchars(filter_var($email, FILTER_SANITIZE_EMAIL)));
-      $password = md5(htmlspecialchars($password));
-      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        error422("Invalid Email!");
-      } else {
-        $stuModel = new \model\Admin();
-        $cols = ['email', 'password'];
-        $vals = [$email, $password];
-        $result = $stuModel->read($cols, $vals);
-        $result = json_decode($result, true);
-        $result = $result["data"];
-        if (isset($result)) {
-          if ($arr = $result[0]) {
-            $user = new Admin(
-              $arr["name"],
-              $arr["email"],
-              $arr["password"],
-              $arr["id"],
-            );
-            return $user;
-          }
+      $stuModel = new \model\Admin();
+      $cols = ['email', 'password'];
+      $vals = [$email, $password];
+      $result = $stuModel->read($cols, $vals);
+      $result = json_decode($result, true);
+      $result = $result["data"];
+      if (isset($result)) {
+        if ($arr = $result[0]) {
+          $user = new Admin(
+            $arr["name"],
+            $arr["email"],
+            $arr["password"],
+            $arr["id"],
+          );
+          return $user;
         }
       }
     }
-    return error422("No Result");
+    error422("No Result");
+    return null;
   }
 }

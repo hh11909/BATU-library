@@ -4,23 +4,19 @@ namespace model;
 
 class Crud
 {
-  static function create($tableName, $cols = array(), $vals = array())
+  static function create($tableName, $cols, $vals)
   {
-    require('./dbcon.php');
+    require('dbcon.php');
 
     $qry = "INSERT INTO $tableName (";
+
     foreach ($cols as $col) {
       $qry = $qry . "$col,";
     }
-    //$qr="INSERT INTO Students (name,age,"
     $qry = substr($qry, 0, -1);
     $qry = $qry . ") VALUES (";
     foreach ($vals as $val) {
-      if (gettype($val) == 'integer') {
-        $qry = $qry . "$val,";
-      } else {
-        $qry = $qry . "'$val',";
-      }
+      $qry = $qry . "$val,";
     }
     $qry = substr($qry, 0, -1);
     $qry = $qry . ");";
@@ -28,7 +24,7 @@ class Crud
     if ($result) {
       $data = [
         'status' => 201,
-        'Message' => "User Created Successfully"
+        'Message' => "Created Successfully"
       ];
       mysqli_close($cn);
       header("HTTP/1.0 201 Created");
@@ -46,7 +42,7 @@ class Crud
   static function read($tableName, $filterCols = array(), $filterVals = array())
   {
     require('dbcon.php');
-    $qry = "SELECT * from $tableName ";
+    $qry = "SELECT * from $tableName;";
     if (!empty($filterCols) && !empty($filterVals)) {
       $qry = substr($qry, 0, -1);
       $filter = " WHERE ";
@@ -56,13 +52,14 @@ class Crud
       $filter = substr($filter, 0, -4);
       $qry = $qry . $filter . ";";
     }
+
     $qry_run = mysqli_query($cn, $qry);
     if ($qry_run) {
       if (mysqli_num_rows($qry_run) > 0) {
         $res = mysqli_fetch_all($qry_run, MYSQLI_ASSOC);
         $data = [
           'status' => 200,
-          'Message' => "Users Found Successfully",
+          'Message' => "Found Successfully",
           'data' => $res
         ];
         mysqli_close($cn);
@@ -71,10 +68,10 @@ class Crud
       } else {
         $data = [
           'status' => 404,
-          'Message' => "No User Found"
+          'Message' => "Not Found"
         ];
         mysqli_close($cn);
-        header("HTTP/1.0 404 No User Found");
+        header("HTTP/1.0 404 Not Found");
         //  return json_encode($data);
       }
     }
@@ -105,7 +102,7 @@ class Crud
     if ($result) {
       $data = [
         'status' => 200,
-        'Message' => "User Updated Successfully"
+        'Message' => "Updated Successfully"
       ];
       mysqli_close($cn);
       header("HTTP/1.0 200 OK");
@@ -137,7 +134,7 @@ class Crud
     if ($result) {
       $data = [
         'status' => 200,
-        'Message' => "User Deleted Successfully"
+        'Message' => "Deleted Successfully"
       ];
       mysqli_close($cn);
       header("HTTP/1.0 200 OK");
@@ -145,7 +142,7 @@ class Crud
     } else {
       $data = [
         'status' => 404,
-        'Message' => "User Not Found"
+        'Message' => "Not Found"
       ];
       mysqli_close($cn);
       header("HTTP/1.0 404 Not Found");

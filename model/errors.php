@@ -10,4 +10,3 @@ function error422($message)
   return json_encode($data);
   exit();
 }
-
