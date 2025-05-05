@@ -1,0 +1,11 @@
+.nvim.lua
+tsconfig*
+.gitkeep
+ts/
+js/
+**/config.php
+.index.php
+vendor/
+.env
+composer*
+composer.json
