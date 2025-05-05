@@ -69,4 +69,27 @@ class Admin extends User
     }
     return error422("No Result");
   }
+  private function check(): true
+  {
+    if (empty($this->email) || empty($this->password) || empty($this->id) || $this->role != 'admin') {
+      error422("Admin is not authorized");
+    }
+    return true;
+  }
+  public function updatePassword(string $newPassword)
+  {
+    $newPassword = md5(htmlspecialchars($newPassword));
+    $model = new \model\Admin();
+    $cols = ['password'];
+    $vals = [$newPassword];
+    $filterCols = ['email', 'admin_ID'];
+    $filterVals = [$this->email, $this->id];
+    if ($this->check()) {
+      $result = $model->update($cols, $vals, $filterCols, $filterVals);
+      $result = json_decode($result, true);
+      echo json_encode([
+        "status" => $result['status']
+      ]);
+    }
+  }
 }
