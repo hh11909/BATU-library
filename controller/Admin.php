@@ -67,11 +67,12 @@ class Admin extends User
         }
       }
     }
-    return error422("No Result");
+    error422("No Result");
+    return null;
   }
   private function check(): true
   {
-    if (empty($this->email) || empty($this->password) || empty($this->id) || $this->role != 'admin') {
+    if (empty($this->email) || empty($this->id) || $this->role != 'admin') {
       error422("Admin is not authorized");
     }
     return true;
