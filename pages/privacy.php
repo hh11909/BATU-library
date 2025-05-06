@@ -83,7 +83,7 @@
           <div class="d-flex justify-content-center align-items-center ">
             <a href="login.php" id="login" class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log
               In</a>
-            <a href="register1.php" id="register" class="btn primary-color main-btn">Register</a>
+              <!-- removed the register  //omar -->
           </div>
           <!-- profile -->
           <div class="d-flex align-items-center mt-1 d-none d-lg-block">
