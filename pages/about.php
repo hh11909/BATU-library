@@ -4,23 +4,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Styled Button</title>
-  <link rel="stylesheet" href="css/all.min.css">
+  <title>BATU Library</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/contact.css">
+  <link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Quicksand:wght@300..700&display=swap"
     rel="stylesheet">
+  <style>
 
+  </style>
 </head>
 
+
 <body>
+  <!-- navigation bar start -->
   <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
     <div class="container">
       <!-- logo -->
-      <a class="navbar-brand fs-4 " href="index.html"><img src="images/logo.png" alt="Logo" width="48" height="48"
+      <a class="navbar-brand fs-4 " href="index.php"><img src="images/logo.png" alt="Logo" width="48" height="48"
           class="me-2 p-1 logo">
         <span class="logo-title">
           BATU Library
@@ -43,114 +47,100 @@
         <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
           <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
             <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-              <a href="profile.html"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3 "
+              <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
                   width="40" height="40"></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-2" aria-current="page" href="index.html">Home</a>
+              <a class="nav-link mx-2" aria-current="page" href="index.php">Home</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="about.html">About</a>
+              <a class="nav-link active" href="about.php">About</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link active" href="contact.html">Contact</a><!--to do-->
+              <a class="nav-link" href="contact.php">Contact</a><!--to do-->
             </li>
             <li class="nav-item dropdown mx-2">
-              <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="f
-                alse">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 Services
               </a>
               <ul class="dropdown-menu mt-3">
                 <!-- COMMENT: I think the hover text color has low contrast  -->
-                <li><a class="dropdown-item" href="Explore.html">Explore</a></li>
+                <li><a class="dropdown-item" href="Explore.php">Explore</a></li>
 
                 <li>
-                  <a class="dropdown-item" href="Events.html">Events</a><!--to do-->
+                  <a class="dropdown-item" href="Events.php">Events</a><!--to do-->
                 </li>
                 <li>
-                  <a class="dropdown-item" href="wishlist.html">Wishlist</a>
+                  <a class="dropdown-item" href="wishlist.php">Wishlist</a>
                 </li>
                 <li>
-                  <a class="dropdown-item " href="borrowed.html">Borrowed</a>
+                  <a class="dropdown-item" href="borrowed.php">Borrowed</a>
                 </li>
               </ul>
             </li>
           </ul>
           <!-- login/signup -->
           <div class="d-flex justify-content-center align-items-center ">
-            <a href="login.html" id="login" class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log
+            <a href="login.php" id="login" class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log
               In</a>
-            <a href="register1.html" id="register" class="btn primary-color main-btn">Register</a>
+            <a href="register1.php" id="register" class="btn primary-color main-btn">Register</a>
           </div>
           <!-- profile -->
           <div class="d-flex align-items-center mt-1 d-none d-lg-block">
-            <a href="profile.html"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
+            <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
                 width="40" height="40"></a><!--to do-->
           </div>
         </div>
       </div>
     </div>
   </nav>
+  <div style="height: 66px;"></div>
   <!-- navigation bar end -->
-  <div class="main d-flex align-items-center" style="min-height: calc(100vh - 390px)">
 
-    <div class="container  my-5 pt-5">
-      <header class="header ">
-        <h1 class=" about-title border-0 text-center px-0 py-3 py-lg-3 ms-md-4 mb-3 pt-md-5"><i
-            class="fa-solid fa-phone-volume pe-3 "></i>Contact Us</h1>
-      </header>
-      <div class="row">
-        <div class="col-lg-8 align-items-center text-start">
-          <!-- displaying the icons -->
-          <div class="icons-container h-100 d-flex flex-column justify-content-center ">
-            <div class="icon-label m-3">
-              <i class="fas fa-home "></i>
-              Borg El Arab Technological University
-            </div>
-            <div class="icon-label m-3">
-              <i class="fas fa-envelope"></i>
-              example@batechu.com
-            </div>
-            <div class="icon-label m-3">
-              <i class="fas fa-phone"></i>
-              +201234567890
-            </div>
-            <div class="icon-label icon-contact text-center text-md-start   px-md-5 my-5">
-              <a href="#" class=" me-3 fs-1 px-2 py-md-1 d-inline-block mx-md-4"><i
-                  class="fa-brands facebook fa-square-facebook"></i></a>
-              <a href="#" class=" me-3 fs-1 px-2 py-md-1 d-inline-block mx-md-4"><i
-                  class="fa-brands youtube fa-youtube"></i></a>
-              <a href="#" class=" me-3 fs-1 px-2 py-md-1 d-inline-block mx-md-4"><i
-                  class="fa-brands linkedin fa-linkedin"></i></a>
-              <a href="#" class=" me-3 fs-1 px-2 py-md-1 d-inline-block mx-md-4"><i
-                  class="fa-brands instagram fa-instagram"></i></a>
+  <header class="header">
+    <div class="container pt-4 my-4">
+      <h1 class=" about-title border-0 text-center px-0 pb-md-3 py-lg-3 ms-md-4 mb-3 pt-5"><i
+          class="fa-solid fa-circle-info pe-4"></i>About Us</h1>
+      <p class="subtitle text-center">The BATU Library is dedicated to supporting the university's academic and research
+        priorities</p>
+    </div>
+  </header>
 
-            </div>
-          </div>
+  <main class="about-section p-0 m-0 d-lg-flex align-items-center" style="min-height: calc(100vh - 630px)">
+    <div class="card-container">
+      <!-- Card 1 -->
+      <div class="photo-card mx-3">
+        <img src="images/liberarian.jpg" alt="Our Librarians" class="card-image">
+        <div class="card-content">
+          <h2>Our Librarians and Supporters</h2>
+          <p>Get to know the passionate individuals who work behind the scenes to make your library experience better.
+          </p>
+          <a href="#" class="card-link"><i class="fa-regular fa-address-card"></i> Get to Know Us</a>
         </div>
-        <div class="col-lg-4">
-          <div class="container"></div>
-          <div class="form-container m-auto">
-            <h4>send message</h4>
-            <form action="" method="get">
-              <div class="mb-3">
+      </div>
 
-                <input type="text" class="form-control rounded-pill" id="username" placeholder="FullName">
-              </div>
-              <div class="mb-3">
-                <input type="email" class="form-control rounded-pill" id="email" placeholder="example@gmail.com">
-              </div>
-              <div class="mb-3">
-                <textarea class="form-control rounded-3" id="comment" rows="9"
-                  placeholder="type your Message"></textarea>
-              </div>
-              <button type="submit" class="btn-submit btn main-btn rounded-pill">Send Message</button>
-            </form>
-          </div>
+      <!-- Card 2 -->
+      <div class="photo-card mx-3">
+        <img src="images/together.jpg" alt="Community and Friends" class="card-image">
+        <div class="card-content">
+          <h2>Together for Knowledge</h2>
+          <p>Library friends who support and contribute to our vibrant library community.</p>
+          <a href="#" class="card-link"><i class="fa-solid fa-users"></i> Community and Friends</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="photo-card mx-3">
+        <img src="images/service.jpg" alt="Explore Services" class="card-image">
+        <div class="card-content">
+          <h2>Explore Our Services</h2>
+          <p>Explore the range of services our library provides, from book borrowing to study spaces.</p>
+          <a href="#" class=" card-link"><i class="fa-solid fa-cloud fa-cloud"></i> Explore Our Services</a>
         </div>
       </div>
     </div>
-  </div>
+  </main>
   <footer class="footer py-5 text-center text-md-start" style="background-color: #08546d; color: #f6fbf2;">
     <div class="container-fluid footer-grid">
       <div class="row">
@@ -175,11 +165,11 @@
 
           <h5 class="text-uppercase" style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">Quick Links</h5>
           <ul class="list-unstyled">
-            <li><a href="index.html" class="  foorer-link text-decoration-none text-light">Home</a></li>
-            <li><a href="Explore.html" class="foorer-link text-decoration-none text-light">Categories</a></li>
-            <li><a href="wishlist.html" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
-            <li><a href="index.html#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
-            <li><a href="about.html" class="foorer-link text-decoration-none text-light">About Us</a></li>
+            <li><a href="index.php" class="  foorer-link text-decoration-none text-light">Home</a></li>
+            <li><a href="Explore.php" class="foorer-link text-decoration-none text-light">Categories</a></li>
+            <li><a href="wishlist.php" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
+            <li><a href="index.php#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
+            <li><a href="about.php" class="foorer-link text-decoration-none text-light">About Us</a></li>
           </ul>
         </div>
         <!-- Contact Section -->
@@ -212,9 +202,10 @@
   </footer>
 
 
-  <script src="js/all.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/all.min.js"></script>
   <script src="js/index.js"></script>
+
 </body>
 
 </html>

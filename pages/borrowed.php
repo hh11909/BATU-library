@@ -15,12 +15,13 @@
     rel="stylesheet">
 </head>
 
-<body>
+<body class="body-borrowed">
+
   <!-- navigation bar start -->
   <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
     <div class="container">
       <!-- logo -->
-      <a class="navbar-brand fs-4 " href="index.html"><img src="images/logo.png" alt="Logo" width="48" height="48"
+      <a class="navbar-brand fs-4 " href="index.php"><img src="images/logo.png" alt="Logo" width="48" height="48"
           class="me-2 p-1 logo">
         <span class="logo-title">
           BATU Library
@@ -43,67 +44,66 @@
         <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
           <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
             <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-              <a href="profile.html"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
+              <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3 "
                   width="40" height="40"></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-2" aria-current="page" href="index.html">Home</a>
+              <a class="nav-link mx-2" aria-current="page" href="index.php">Home</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="about.html">About</a>
+              <a class="nav-link" href="about.php">About</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="contact.html">Contact</a><!--to do-->
+              <a class="nav-link" href="contact.php">Contact</a><!--to do-->
             </li>
             <li class="nav-item dropdown mx-2">
-              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
+              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="f
+                alse">
                 Services
               </a>
               <ul class="dropdown-menu mt-3">
                 <!-- COMMENT: I think the hover text color has low contrast  -->
-                <li><a class="dropdown-item active" href="Explore.html">Explore</a></li>
+                <li><a class="dropdown-item" href="Explore.php">Explore</a></li>
 
                 <li>
-                  <a class="dropdown-item" href="Events.html">Events</a><!--to do-->
+                  <a class="dropdown-item" href="Events.php">Events</a><!--to do-->
                 </li>
                 <li>
-                  <a class="dropdown-item " href="wishlist.html">Wishlist</a>
+                  <a class="dropdown-item" href="wishlist.php">Wishlist</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="borrowed.html">Borrowed</a>
+                  <a class="dropdown-item active" href="borrowed.php">Borrowed</a>
                 </li>
               </ul>
             </li>
           </ul>
           <!-- login/signup -->
           <div class="d-flex justify-content-center align-items-center ">
-            <a href="login.html" id="login" class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log
+            <a href="login.php" id="login" class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log
               In</a>
-            <a href="register1.html" id="register" class="btn primary-color main-btn">Register</a>
+            <a href="register1.php" id="register" class="btn primary-color main-btn">Register</a>
           </div>
           <!-- profile -->
           <div class="d-flex align-items-center mt-1 d-none d-lg-block">
-            <a href="profile.html"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
+            <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
                 width="40" height="40"></a><!--to do-->
           </div>
         </div>
       </div>
     </div>
   </nav>
-
   <!-- navigation bar end -->
-  <!-- Explore header start-->
+  <!-- wishlist header start-->
   <div class="container mt-5 pt-5">
-    <div class="explore-header page-header d-flex flex-column justify-content-center align-items-center mt-3">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <h1 class="mt-3">Explore</h1>
+    <div class="page-header d-flex flex-column justify-content-center align-items-center mt-3">
+      <i class="fa-solid fa-book-open"></i>
+      <h1 class="mt-3">Borrowed Books</h1>
     </div>
 
     <!-- Search Bar -->
     <div class="search-bar mb-4 text-center">
       <div class="input-group mt-3 w-75 w-lg-50 mx-auto">
-        <input type="text" class="form-control custom-input rounded-pill py-2" placeholder=" Search "
+        <input type="text" class="form-control custom-input rounded-pill py-2" placeholder=" Search Borrowed Books"
           aria-label="Search Wishlist">
       </div>
     </div>
@@ -222,23 +222,190 @@
       </div>
     </div>
   </div>
-  <!-- Explore header end-->
+  <!-- wishlist header end-->
 
-  <!-- books section start -->
+  <!-- borrowed section start -->
+
   <div class="container mt-5">
-    <div class="row justify-content-center" id='books-container'>
-      <div class="row">
-        <div class="col">
-          <h5 class="mb-1 ms-1 ms-sm-3 ms-md-4 ms-lg-1 ms-xl-2 fw-bold primary-color">Results Found: </h5>
+    <div class="row row-cols-1 row-cols-lg-2 g-4">
+      <!-- Book 1 -->
+      <div class="col-lg-6 mb-3">
+        <div class="card border rounded mx-auto">
+          <div class="row g-0">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+              <img src="wishlist-images/book1.jpg" class="img-fluid mx-auto d-block rounded"
+                style="max-width: 150px; margin: 20px auto;" alt="Book Cover">
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+              <div class="card-body p-2">
+                <div class="mb-3 row">
+                  <label for="fullName" class="col-sm-4 col-form-label">Full Name:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label for="id" class="col-sm-4 col-form-label">ID:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label for="takenDate" class="col-sm-4 col-form-label">Taken Date:</label>
+                  <div class="col-sm-8">
+                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+                <div class="mb-1 row">
+                  <label for="returnedDate" class="col-sm-4 col-form-label">Returned Date:</label>
+                  <div class="col-sm-8">
+                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center p-2 mb-2">
+            Python Programming for Biology
+          </div>
         </div>
       </div>
-      <!-- books  -->
+      <!-- Book 2 -->
+      <div class="col-lg-6 mb-3">
+        <div class="card border rounded mx-auto">
+          <div class="row g-0">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+              <img src="wishlist-images/book2.jpg" class="img-fluid mx-auto d-block rounded"
+                style="max-width: 150px; margin: 20px auto;" alt="Book Cover">
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+              <div class="card-body p-2">
+                <div class="mb-3 row">
+                  <label for="fullName2" class="col-sm-4 col-form-label">Full Name:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label for="id2" class="col-sm-4 col-form-label">ID:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label for="takenDate2" class="col-sm-4 col-form-label">Taken Date:</label>
+                  <div class="col-sm-8">
+                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+                <div class="mb-1 row">
+                  <label for="returnedDate2" class="col-sm-4 col-form-label">Returned Date:</label>
+                  <div class="col-sm-8">
+                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center p-2 mb-2">
+            Data Visualization
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <!-- book section end -->
+  <div class="container mt-5">
+    <div class="row row-cols-1 row-cols-lg-2 g-4">
+      <!-- Book 3 -->
+      <div class="col-lg-6 mb-3">
+        <div class="card border rounded mx-auto">
+          <div class="row g-0">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+              <img src="wishlist-images/book3.jpg" class="img-fluid mx-auto d-block rounded"
+                style="max-width: 150px; margin: 20px auto;" alt="Book Cover">
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+              <div class="card-body p-2">
+                <div class="mb-3 row">
+                  <label for="fullName" class="col-sm-4 col-form-label">Full Name:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label for="id" class="col-sm-4 col-form-label">ID:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label for="takenDate" class="col-sm-4 col-form-label">Taken Date:</label>
+                  <div class="col-sm-8">
+                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+                <div class="mb-1 row">
+                  <label for="returnedDate" class="col-sm-4 col-form-label">Returned Date:</label>
+                  <div class="col-sm-8">
+                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center p-2 mb-2">
+            Algorithms to Live By
+          </div>
+        </div>
+      </div>
+      <!-- Book 4 -->
+      <div class="col-lg-6 mb-3">
+        <div class="card border rounded mx-auto">
+          <div class="row g-0">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+              <img src="wishlist-images/book4.jpg" class="img-fluid mx-auto d-block rounded"
+                style="max-width: 150px; margin: 20px auto;" alt="Book Cover">
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+              <div class="card-body p-2">
+                <div class="mb-3 row">
+                  <label for="fullName2" class="col-sm-4 col-form-label">Full Name:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label for="id2" class="col-sm-4 col-form-label">ID:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label for="takenDate2" class="col-sm-4 col-form-label">Taken Date:</label>
+                  <div class="col-sm-8">
+                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+                <div class="mb-1 row">
+                  <label for="returnedDate2" class="col-sm-4 col-form-label">Returned Date:</label>
+                  <div class="col-sm-8">
+                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center p-2 mb-2">
+            Design for How People Think
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- borrowed section end -->
   <!-- pagination start-->
-  <nav aria-label="Page navigation" class="d-flex justify-content-center">
+  <nav aria-label="Page navigation" class="d-flex justify-content-center mt-3">
     <ul class="pagination mb-0 flex-wrap">
       <li class="page-item">
         <a class="page-link" href="#">
@@ -302,11 +469,11 @@
 
           <h5 class="text-uppercase" style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">Quick Links</h5>
           <ul class="list-unstyled">
-            <li><a href="index.html" class="  foorer-link text-decoration-none text-light">Home</a></li>
-            <li><a href="Explore.html" class="foorer-link text-decoration-none text-light">Categories</a></li>
-            <li><a href="wishlist.html" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
-            <li><a href="index.html#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
-            <li><a href="about.html" class="foorer-link text-decoration-none text-light">About Us</a></li>
+            <li><a href="index.php" class="  foorer-link text-decoration-none text-light">Home</a></li>
+            <li><a href="Explore.php" class="foorer-link text-decoration-none text-light">Categories</a></li>
+            <li><a href="wishlist.php" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
+            <li><a href="index.php#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
+            <li><a href="about.php" class="foorer-link text-decoration-none text-light">About Us</a></li>
           </ul>
         </div>
         <!-- Contact Section -->
@@ -338,11 +505,10 @@
     </div>
   </footer>
   <!-- JS -->
-  <script src="js/index.js"></script>
-  <script src="wishlist-script.js"></script>
+  <script src="borrowed-script.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/all.min.js"></script>
-
+  <script src="js/index.js"></script>
 </body>
 
 </html>
