@@ -1,7 +1,11 @@
 <?php
+
 namespace controller;
-use model;
+
 require("../model/errors.php");
-class Friend extends Student{
-public $is_friend=1;
+require(__DIR__ . "/Student.php");
+class Friend extends Student
+{
+  public $is_friend = 1;
 }
+

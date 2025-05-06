@@ -8,5 +8,4 @@ js/
 vendor/
 .env
 composer*
-tests/
 composer.json

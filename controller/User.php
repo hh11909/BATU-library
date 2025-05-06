@@ -2,11 +2,9 @@
 
 namespace controller;
 
-require_once("Student.php");
-require_once("Admin.php");
-
-use controller\Admin;
-use controller\Student;
+require_once(__DIR__ . "/Student.php");
+require_once(__DIR__ . "/Admin.php");
+require_once(__DIR__ . "/Friend.php");
 
 class User
 {
@@ -18,27 +16,39 @@ class User
   public $created_at;
   public $updated_at;
 
-  static function login(string $email, string $password)
+  private static function validate(string $email, string $password): true
   {
     if (empty($email)) {
       error422("Enter Your Email");
     } elseif (empty($password)) {
       error422("Enter Your Password");
-    } else {
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      error422("Your Email is not Valid");
+    }
+    return true;
+  }
+
+  static function login(string $email, string $password): Admin | Student | Friend | null
+  {
+    if (self::validate($email, $password)) {
       $email = trim(htmlspecialchars(filter_var($email, FILTER_SANITIZE_EMAIL)));
       $password = md5(htmlspecialchars($password));
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        return error422("Invalid Email!");
+        error422("Invalid Email!");
+        return null;
       } else {
         $result = Student::login($email, $password);
         if (empty($result)) {
           $result = Admin::login($email, $password);
           if (empty($result)) {
-            return error422("Please Register Now!");
+            error422("Please Register Now!");
+            return null;
           }
         }
         return $result;
       }
     }
+    error422("User Not Found");
+    return null;
   }
 }

@@ -5,6 +5,7 @@ namespace model;
 require_once("Crud.php");
 require_once("errors.php");
 
+use controller\Student as ControllerStudent;
 use model\Crud;
 
 class Student
@@ -12,51 +13,10 @@ class Student
 
   private $table = "Students";
   private $fields = ["name", "academy_number", "phone", "gender", "department_ID", "email", "password", "admin_ID", "is_friend"]; //,,"profile_image","student_image"
-  function create($name, $academy_number, $phone, $gender, $department_ID, $email, $password, $admin_ID, $is_friend = 0)
+  function create(ControllerStudent $student)
   {
-    if (empty(trim($name))) {
-      return error422("Enter student's name!");
-    } elseif (empty(trim($academy_number))) {
-      return error422("Enter student's academy number!");
-    } elseif (empty($phone)) {
-      return error422("Enter student's phone!");
-    } elseif (empty(trim($gender))) {
-      return error422("Enter student's gender!");
-    } elseif (empty(trim($department_ID))) {
-      return error422("Enter student's department ID!");
-    } elseif (empty(trim($email))) {
-      return error422("Enter student's email!");
-    } elseif (empty(trim($password))) {
-      return error422("Enter student's password!");
-    } elseif (empty(trim($admin_ID))) {
-      return error422("Enter your admin ID!");
-    } else {
-      $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-      $academy_number = trim(htmlspecialchars(filter_var($academy_number, FILTER_SANITIZE_NUMBER_INT)));
-      $phone = trim(htmlspecialchars(filter_var($phone, FILTER_SANITIZE_NUMBER_INT)));
-      $gender = trim(filter_var($gender, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-      $department_ID = htmlspecialchars(filter_var($department_ID, FILTER_SANITIZE_NUMBER_INT));
-      $email = trim(htmlspecialchars(filter_var($email, FILTER_SANITIZE_EMAIL)));
-      $password = md5(htmlspecialchars($password));
-      $admin_ID = htmlspecialchars(filter_var($admin_ID, FILTER_SANITIZE_NUMBER_INT));
-      $is_friend = htmlspecialchars(filter_var($is_friend, FILTER_SANITIZE_NUMBER_INT));
-      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        return error422("Invalid Email!");
-      } elseif (filter_var($academy_number, FILTER_VALIDATE_INT)) {
-        return error422("Invalid Academy Number!");
-      } elseif (filter_var($phone, FILTER_VALIDATE_INT)) {
-        return error422("Invalid Academy Phone!");
-      } elseif (filter_var($department_ID, FILTER_VALIDATE_INT)) {
-        return error422("Invalid Academy Phone!");
-      } elseif (filter_var($admin_ID, FILTER_VALIDATE_INT)) {
-        return error422("Invalid Phone Number!");
-      } elseif (filter_var($is_friend, FILTER_VALIDATE_BOOLEAN)) {
-        return error422("Invalid Is_friend Bool Value!");
-      } else {
-        $vals = [$name, $academy_number, $phone, $gender, $department_ID, $email, $password, $admin_ID, $is_friend];
-        return Crud::create($this->table, $this->fields, $vals);
-      }
-    }
+    $vals = [$student->name, $student->academy_number, $student->phone, $student->gender, $student->department_ID, $student->email, $student->getPassword(), $student->getAdmin_ID(), $student->is_friend ? 0 : 1];
+    return Crud::create($this->table, $this->fields, $vals);
   }
   function read($filterCols = array(), $filterVals = array())
   {
