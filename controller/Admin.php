@@ -38,8 +38,6 @@ class Admin extends User
   }
   static function login(string $email, string $password): Admin | null
   {
-    $email = trim(htmlspecialchars(filter_var($email, FILTER_SANITIZE_EMAIL)));
-    $password = md5(htmlspecialchars($password));
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       error422("Invalid Email!");
     } else {
@@ -55,7 +53,7 @@ class Admin extends User
             $arr["name"],
             $arr["email"],
             $arr["password"],
-            $arr["id"],
+            $arr["admin_ID"],
           );
           return $user;
         }
@@ -66,7 +64,7 @@ class Admin extends User
   }
   private function check(): true
   {
-    if (empty($this->email) || empty($this->id) || $this->role != 'admin') {
+    if (empty($this->email) || empty($this->password) || empty($this->id) || $this->role != 'admin') {
       error422("Admin is not authorized");
     }
     return true;
