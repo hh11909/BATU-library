@@ -42,6 +42,8 @@ class User
           $result = Admin::login($email, $password);
           if (empty($result)) {
             error422("Please Register Now!");
+            header("HTTP/1.0 302 Redirect");
+            header("Location: /pages/register1.html");
             return null;
           }
         }

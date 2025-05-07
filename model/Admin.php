@@ -6,9 +6,7 @@ require_once("Crud.php");
 
 class Admin
 {
-  private $result = [];
   private $table = "Admins";
-  private $fields = ["name", "email", "password"];
   /**
    * @param array<string> $filterCols
    * @param array<string> $filterVals

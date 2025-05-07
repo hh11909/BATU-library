@@ -52,7 +52,6 @@ class Crud
       $filter = substr($filter, 0, -4);
       $qry = $qry . $filter . ";";
     }
-
     $qry_run = mysqli_query($cn, $qry);
     if ($qry_run) {
       if (mysqli_num_rows($qry_run) > 0) {
@@ -72,9 +71,16 @@ class Crud
         ];
         mysqli_close($cn);
         header("HTTP/1.0 404 Not Found");
-        //  return json_encode($data);
+        return json_encode($data);
       }
     }
+    $data = [
+      'status' => 500,
+      'Message' => "Server Error"
+    ];
+    mysqli_close($cn);
+    header("HTTP/1.0 500 Server Error");
+    return json_encode($data);
   }
   static function update($tableName, $updateCols = array(), $updateVals = array(), $filterCols = array(), $filterVals = array())
   {
