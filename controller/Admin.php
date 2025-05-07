@@ -85,4 +85,114 @@ class Admin extends User
       ]);
     }
   }
+  public function read(?int $id = null): string | null
+  {
+    $model = new \model\Admin();
+    $cols = ['admin_ID'];
+    if ($id) {
+      $vals = [$id];
+    } else {
+      $vals = [$this->id];
+    }
+    $result = $model->read($cols, $vals);
+    $result = json_decode($result, true);
+    $status = $result['status'];
+    $result = $result['data'][0];
+    $result = [
+      "id" => $result['admin_ID'],
+      "name" => $result['name'],
+      "email" => $result['email'],
+      'role' => $this->role
+    ];
+    $result = json_encode([
+      'status' => $status,
+      'data' => $result
+    ]);
+    echo $result;
+    return $result;
+  }
+  /**
+   * @param array<string> $keys
+   * @param array<mixed> $values
+   */
+  public function update(array $keys, array $values): void
+  {
+    $model = new \model\Admin();
+    $filterCols = ['email', 'admin_ID'];
+    $filterVals = [$this->email, $this->id];
+    $passwordIndex = array_keys($keys, 'password')[0];
+    if ($this->check()) {
+      if ($passwordIndex !== null) {
+        $values[$passwordIndex] = md5(htmlspecialchars($values[$passwordIndex]));
+      }
+      var_dump($values);
+      if (array_keys($keys, 'id')[0] || array_keys($keys, 'admin_ID')[0]) {
+        error422('Unauthorized', 401);
+      }
+      $result = $model->update($keys, $values, $filterCols, $filterVals);
+      $result = json_decode($result, true);
+      $updated = $this->read();
+      $updated = json_decode($updated, true);
+      $updated = $updated['data'];
+      if ($passwordIndex !== null) {
+        $admin = $this->login($updated['email'], $values[$passwordIndex]);
+      } else {
+        $admin = $this->login($updated['email'], $this->password);
+      }
+      $_SESSION['user'] = serialize($admin);
+      echo json_encode([
+        "status" => $result['status']
+      ]);
+    }
+  }
+  /**
+   * @param int[]|int $ids
+   */
+  public function delete(array | int | null $ids = null): void
+  {
+    $model = new \model\Admin();
+    if ($this->check()) {
+      if (is_array($ids)) {
+        $allIsGood = true;
+        $statuses = [];
+        for ($i = 0; $i < count($ids); $i++) {
+          $filterCols = ['admin_ID'];
+          $filterVals = [$ids[$i]];
+          $result = $model->delete($filterCols, $filterVals);
+          $result = json_decode($result, true);
+          $allIsGood = $result['status'] >= 200 && $result['status'] < 300;
+          var_dump($allIsGood, $result['status']);
+          if (!$allIsGood) {
+            array_push($statues, [
+              "id" => $ids[$i],
+              'status' => $result['status']
+            ]);
+          }
+        }
+        if (!count($statuses)) {
+          echo json_encode([
+            "status" => $result['status']
+          ]);
+        } else {
+          echo json_encode($statuses);
+        }
+      } else if ($ids) {
+        $filterCols = ['admin_ID'];
+        $filterVals = [$ids];
+        $result = $model->delete($filterCols, $filterVals);
+        $result = json_decode($result, true);
+        echo json_encode([
+          "status" => $result['status']
+        ]);
+      } else {
+        $filterCols = ['email', 'admin_ID'];
+        $filterVals = [$this->email, $this->id];
+        $result = $model->delete($filterCols, $filterVals);
+        $result = json_decode($result, true);
+        echo json_encode([
+          "status" => $result['status']
+        ]);
+      }
+    }
+  }
 }
