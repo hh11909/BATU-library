@@ -1,0 +1,111 @@
+.main-container {
+	min-height: 80vh;
+	background: none;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 400;
+
+	.book-container {
+		height: 80vh;
+
+		.book-image-container {
+			max-width: 350px;
+
+			.book-image {
+				width: 100%;
+				border-radius: 12%;
+				filter: drop-shadow(0px 0px 3px #000);
+				object-fit: cover;
+			}
+		}
+
+		.book-details {
+			height: 100%;
+
+			.book-text {
+				padding-top: 64px;
+				height: 100%;
+
+				h3 {
+					font-weight: 600;
+				}
+
+				h3,
+				h4 {
+					font-family: 'Quicksand', sans-serif;
+					margin-top: 16px;
+				}
+
+				span,
+				p {
+					color: #555;
+					padding-inline-start: 16px;
+				}
+
+			}
+		}
+
+		.card {
+			border-radius: 32px;
+			text-align: left;
+			border-color: var(--primary-tint);
+
+			.card-title {
+				font-weight: 600;
+			}
+
+			.footer {
+				button {
+					background-color: var(--accent);
+					border: none;
+					border-radius: 500px;
+				}
+			}
+		}
+	}
+
+	.divider {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		margin: 2em 0em;
+
+		:first-child {
+			background-color: var(--accent-tint);
+			width: 80%;
+			height: 2px;
+		}
+	}
+
+	.book-divider {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+
+		:first-child {
+			background-color: var(--accent-tint);
+			height: 80%;
+			width: 2px;
+		}
+	}
+
+
+}
+
+@media (min-width: 1170px) {
+	.book-details {
+		width: 50%;
+	}
+}
+
+@media (max-width: 1170px) {
+	.book-container {
+		.book-details {
+			width: 40%;
+			padding-inline-start: 24px !important;
+
+			.book-text {}
+		}
+	}
+}
