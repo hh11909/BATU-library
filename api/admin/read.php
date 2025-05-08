@@ -3,7 +3,7 @@
 session_start();
 require_once(__DIR__ . "/../../controller/Admin.php");
 require_once(__DIR__ . "/../../model/errors.php");
-require_once(__DIR__ . "/../../config.php");
+require_once(__DIR__ . "/../config.php");
 
 use controller\Admin;
 
@@ -24,5 +24,4 @@ if ($admin->role !== 'admin') {
 }
 
 $data = getData();
-
 $admin->read($data['id']);

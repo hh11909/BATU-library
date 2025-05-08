@@ -3,7 +3,7 @@
 session_start();
 require_once(__DIR__ . "/../../controller/Admin.php");
 require_once(__DIR__ . "/../../model/errors.php");
-require_once(__DIR__ . "/../../config.php");
+require_once(__DIR__ . "/../config.php");
 
 use controller\Admin;
 
@@ -25,9 +25,11 @@ if ($admin->role !== 'admin') {
 
 $data = getData();
 
-if (count($data)) {
+if ($data['ids']) {
   $admin->delete($data['ids']);
-} else {
+} else if ($data['id']) {
   $admin->delete($data['id']);
 }
+error422("Provide `id` or `ids` of admins you want to delete", 403);
+
 die();
