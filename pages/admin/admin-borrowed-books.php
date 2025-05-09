@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin-style.css" />
+  <link rel="stylesheet" href="../css/admin-style.css" />
 </head>
 
 <body>
@@ -17,8 +17,8 @@
    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
     <div class="container">
       <!-- logo -->
-      <a class="navbar-brand fs-4" href="index.html">
-        <img src="images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
+      <a class="navbar-brand fs-4" href="../index.html">
+        <img src="../images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
         <span class="logo-title">BATU Library</span>
       </a>
       <!-- toggle button -->
@@ -39,23 +39,23 @@
         <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
           <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link mx-2" aria-current="page" href="index.html">Home</a>
+              <a class="nav-link mx-2" aria-current="page" href="../index.html">Home</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="about.html">About</a>
+              <a class="nav-link" href="../about.html">About</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="contact.html">Contact</a>
+              <a class="nav-link" href="../contact.html">Contact</a>
             </li>
             <li class="nav-item dropdown mx-2">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Services
               </a>
               <ul class="dropdown-menu mt-3">
-                <li><a class="dropdown-item" href="Explore.html">Explore</a></li>
-                <li><a class="dropdown-item" href="Events.html">Events</a></li>
-                <li><a class="dropdown-item" href="wishlist.html">Wishlist</a></li>
-                <li><a class="dropdown-item" href="borrowed.html">Borrowed</a></li>
+                <li><a class="dropdown-item" href="../Explore.html">Explore</a></li>
+                <li><a class="dropdown-item" href="../Events.html">Events</a></li>
+                <li><a class="dropdown-item" href="../wishlist.html">Wishlist</a></li>
+                <li><a class="dropdown-item" href="../borrowed.html">Borrowed</a></li>
               </ul>
             </li>
             <li class="nav-item dropdown mx-2" id="admin-dropdown">
@@ -63,12 +63,12 @@
                 Admin
               </a>
               <ul class="dropdown-menu mt-3" id="admin-dropdown-menu">
-                <li><a class="dropdown-item" href="admin-requests.html">Requests</a></li>
-                <li><a class="dropdown-item" href="admin-users.html">Users</a></li>
-                <li><a class="dropdown-item" href="admin-books.html">Books</a></li>
-                <li><a class="dropdown-item active" href="admin-borrowed-books.html">Borrowed Books</a></li>
-                <li><a class="dropdown-item" href="admin-events.html">Events</a></li>
-                <li><a class="dropdown-item" href="admin-contact.html">Contact</a></li>
+                <li><a class="dropdown-item" href="admin-requests.php">Requests</a></li>
+                <li><a class="dropdown-item" href="admin-users.php">Users</a></li>
+                <li><a class="dropdown-item" href="admin-books.php">Books</a></li>
+                <li><a class="dropdown-item active" href="admin-borrowed-books.php">Borrowed Books</a></li>
+                <li><a class="dropdown-item" href="admin-events.php">Events</a></li>
+                <li><a class="dropdown-item" href="admin-contact.php">Contact</a></li>
               </ul>
             </li>
           </ul>
@@ -88,22 +88,22 @@
   </div>
   <ul class="sidebar-menu" id="admin-sidebar-menu">
     <li>
-      <a href="admin-requests.html"><i class="fa-solid fa-bell"></i> <span>Requests</span></a>
+      <a href="admin-requests.php"><i class="fa-solid fa-bell"></i> <span>Requests</span></a>
     </li>
     <li>
-      <a href="admin-users.html"><i class="fas fa-users"></i> <span>Users</span></a>
+      <a href="admin-users.php"><i class="fas fa-users"></i> <span>Users</span></a>
     </li>
     <li>
-      <a href="admin-books.html"><i class="fas fa-book"></i> <span>Books</span></a>
+      <a href="admin-books.php"><i class="fas fa-book"></i> <span>Books</span></a>
     </li>
     <li class="active">
-      <a href="admin-borrowed-books.html"><i class="fas fa-book-reader"></i> <span>Borrowed Books</span></a>
+      <a href="admin-borrowed-books.php"><i class="fas fa-book-reader"></i> <span>Borrowed Books</span></a>
     </li>
     <li>
-      <a href="admin-events.html"><i class="fas fa-calendar-alt"></i> <span>Events</span></a>
+      <a href="admin-events.php"><i class="fas fa-calendar-alt"></i> <span>Events</span></a>
     </li>
     <li>
-      <a href="admin-contact.html"><i class="fas fa-envelope"></i> <span>Contact</span></a>
+      <a href="admin-contact.php"><i class="fas fa-envelope"></i> <span>Contact</span></a>
     </li>
   </ul>
 </div>
