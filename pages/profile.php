@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  <?php
+use controller\Student;
+session_start();
+if(!isset($_SESSION["user"])){
+    /**@var Student $user */ 
+    header("Location:login.php");
+  }
+else{
+  $user=unserialize($_SESSION["user"]);
+  $role=$user->role;
+  if($role="admin"){
+  header("Location:index.php");
+}
+  }
+?>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
