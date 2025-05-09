@@ -2,7 +2,6 @@
 tsconfig*
 .gitkeep
 ts/
-js/
 **/config.php
 .index.php
 vendor/
