@@ -1,6 +1,12 @@
+<?php
+session_start();
+require_once(__DIR__."/../controller/Student.php");
+use controller\Student;
+/**@var Student $user */
+$user=unserialize($_SESSION["user"]);
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,80 +26,7 @@
 <body>
 
   <!-- navigation bar start -->
-  <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
-    <div class="container">
-      <!-- logo -->
-      <a class="navbar-brand fs-4 " href="index.php"><img src="images/logo.png" alt="Logo" width="48" height="48"
-          class="me-2 p-1 logo">
-        <span class="logo-title">
-          BATU Library
-        </span></a>
-      <!-- toggle button -->
-      <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- sidebar -->
-      <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-        aria-labelledby="offcanvasNavbarLabel">
-        <!-- sidebar header -->
-        <div class="offcanvas-header text-white border-bottom">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Discover</h5>
-          <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
-            aria-label="Close"></button>
-        </div>
-        <!-- sidebar body -->
-        <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
-          <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
-            <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-              <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
-                  width="40" height="40"></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link mx-2" aria-current="page" href="index.php">Home</a>
-            </li>
-            <li class="nav-item mx-2">
-              <a class="nav-link" href="about.php">About</a>
-            </li>
-            <li class="nav-item mx-2">
-              <a class="nav-link" href="contact.php">Contact</a><!--to do-->
-            </li>
-            <li class="nav-item dropdown mx-2">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Services
-              </a>
-              <ul class="dropdown-menu mt-3">
-                <!-- COMMENT: I think the hover text color has low contrast  -->
-                <li><a class="dropdown-item" href="Explore.php">Explore</a></li>
-
-                <li>
-                  <a class="dropdown-item" href="Events.php">Events</a><!--to do-->
-                </li>
-                <li>
-                  <a class="dropdown-item" href="wishlist.php">Wishlist</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="borrowed.php">Borrowed</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <!-- login/signup -->
-          <div class="d-flex justify-content-center align-items-center ">
-            <a href="login.php" id="login" class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log
-              In</a>
-              <!-- removed the register  //omar -->
-          </div>
-          <!-- profile -->
-          <div class="d-flex align-items-center mt-1 d-none d-lg-block">
-            <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
-                width="40" height="40"></a><!--to do-->
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <?php require_once('nav.php')?>
   <div style="height: 66px;"></div>
   <!-- navigation bar end -->
   <div class="account-content ">
@@ -136,7 +69,7 @@
                 <div class="container px-md-5">
 
 
-                  <form class="login-form px-md-5" action="">
+                  <form class="login-form px-md-5" id="chpass">
 
                     <div>
                       <label class="field-label" for="current-password">Current Password</label>
@@ -149,6 +82,7 @@
                         </span>
                       </div>
                     </div>
+                    <p id="alert-current-pass" class="text-end"></p>
                     <div>
                       <label class="field-label" for="new-password">New Password</label>
                       <div class="input-container">
@@ -159,6 +93,7 @@
                           <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
                         </span>
                       </div>
+                      <p id="alert-new-pass" class="text-end"></p>
                     </div>
                     <div>
                       <label class="field-label " for="confirm-password">Confirm new Password</label>
@@ -170,10 +105,11 @@
                           <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
                         </span>
                       </div>
+                      <p id="alert-confirm-pass" class="text-end"></p>
                     </div>
 
                     <div class="text-center pt-5">
-                      <button class="btn main-btn fs-5 py-1" id="change" onclick="changePassword()" type="submit">Change</button>
+                      <button class="btn main-btn fs-5 py-1" id="change" type="submit">Change</button>
                     </div>
 
                   </form>
@@ -249,26 +185,7 @@
       </div>
     </footer>
   </div>
-  <script>
-     function changePassword() {
-      let currentPassword = document.getElementById("current-password").value;
-      let newPassword = document.getElementById("new-password").value;
-      let confirmPassword = document.getElementById("confirm-password").value;
-      let changebtn = document.getElementById("change");
-      if (currentPassword === "" || newPassword === "" || confirmPassword === "") {
-        changebtn.setAttribute("type", "button");
-        alert("Please fill in all fields.");
-      }
-      else if (newPassword !== confirmPassword) {
-        changebtn.setAttribute("type", "button");
-        alert("Passwords do not match. Please try again.");
-      }
-      else {
-        changebtn.setAttribute("type", "submit");
-        alert("Password has been successfully changed!");
-      }
-    }
-  </script>
+  <script src="js/change-pass.js"></script>
   <script src="js/hide-pass.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/all.min.js"></script>
