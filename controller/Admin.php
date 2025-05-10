@@ -46,8 +46,8 @@ class Admin extends User
       $vals = [$email, $password];
       $result = $stuModel->read($cols, $vals);
       $result = json_decode($result, true);
+      if (isset($result["data"])) { //Men3em modified here
       $result = $result["data"];
-      if (isset($result)) {
         if ($arr = $result[0]) {
           $user = new Admin(
             $arr["name"],
