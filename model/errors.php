@@ -2,7 +2,7 @@
 function error422($message, $status = 422)
 {
   $data = [
-    'status' => 422,
+    'status' => $status,
     'Message' => $message
   ];
 

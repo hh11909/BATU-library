@@ -1,6 +1,12 @@
+<?php
+session_start();
+require_once(__DIR__."/../controller/Student.php");
+use controller\Student;
+/**@var Student $user */
+$user=unserialize($_SESSION["user"]);
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,7 +69,7 @@
                 <div class="container px-md-5">
 
 
-                  <form class="login-form px-md-5" action="">
+                  <form class="login-form px-md-5" id="chpass">
 
                     <div>
                       <label class="field-label" for="current-password">Current Password</label>
@@ -76,6 +82,7 @@
                         </span>
                       </div>
                     </div>
+                    <p id="alert-current-pass" class="text-end"></p>
                     <div>
                       <label class="field-label" for="new-password">New Password</label>
                       <div class="input-container">
@@ -86,6 +93,7 @@
                           <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
                         </span>
                       </div>
+                      <p id="alert-new-pass" class="text-end"></p>
                     </div>
                     <div>
                       <label class="field-label " for="confirm-password">Confirm new Password</label>
@@ -97,10 +105,11 @@
                           <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
                         </span>
                       </div>
+                      <p id="alert-confirm-pass" class="text-end"></p>
                     </div>
 
                     <div class="text-center pt-5">
-                      <button class="btn main-btn fs-5 py-1" id="change" onclick="changePassword()" type="submit">Change</button>
+                      <button class="btn main-btn fs-5 py-1" id="change" type="submit">Change</button>
                     </div>
 
                   </form>
@@ -176,26 +185,7 @@
       </div>
     </footer>
   </div>
-  <script>
-     function changePassword() {
-      let currentPassword = document.getElementById("current-password").value;
-      let newPassword = document.getElementById("new-password").value;
-      let confirmPassword = document.getElementById("confirm-password").value;
-      let changebtn = document.getElementById("change");
-      if (currentPassword === "" || newPassword === "" || confirmPassword === "") {
-        changebtn.setAttribute("type", "button");
-        alert("Please fill in all fields.");
-      }
-      else if (newPassword !== confirmPassword) {
-        changebtn.setAttribute("type", "button");
-        alert("Passwords do not match. Please try again.");
-      }
-      else {
-        changebtn.setAttribute("type", "submit");
-        alert("Password has been successfully changed!");
-      }
-    }
-  </script>
+  <script src="js/change-pass.js"></script>
   <script src="js/hide-pass.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/all.min.js"></script>
