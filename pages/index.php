@@ -115,11 +115,10 @@ if (session_status() === PHP_SESSION_NONE) {
                 <?php              
                   if(!isset($_SESSION["user"])){ 
                       ?>
-          <div class="d-flex justify-content-center align-items-center ">
-            <a href="login.php" id="login" class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log
-              In</a>
-              <!-- removed the register  //omar -->
+          <div class="d-flex justify-content-center align-items-center">
+            <a href="login.php" id="log-in" class="btn primary-color main-btn">Log In</a>
           </div>
+            <!-- removed the register  //omar -->
           <!-- profile -->
                 <?php 
                   }             
@@ -131,6 +130,10 @@ if (session_status() === PHP_SESSION_NONE) {
             <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
                 width="40" height="40"></a><!--to do-->
           </div>
+          <div class="d-flex justify-content-center align-items-center">
+            <a href="../api/user/logout.php" id="log-out" class="btn primary-color main-btn ms-lg-5">Log Out</a>
+          </div>
+          <!-- removed the register  //omar -->
                       <?php
                        }
                       }

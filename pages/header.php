@@ -18,6 +18,8 @@ if (session_status() === PHP_SESSION_NONE) {
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/all.min.css">
   <link rel="stylesheet" href="css/profile.css">
+  <link rel="stylesheet" href="css/Events.css">
+  <link rel="stylesheet" href="css/borrowed-style.css">
     <link rel="stylesheet" href="css/contact.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -124,7 +126,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 width="40" height="40"></a><!--to do-->
           </div>
           <div class="d-flex justify-content-center align-items-center">
-            <a href="logout.php" id="log-out" class="btn primary-color main-btn ms-lg-5">Log Out</a>
+            <a href="../api/user/logout.php" id="log-out" class="btn primary-color main-btn ms-lg-5">Log Out</a>
           </div>
           <!-- removed the register  //omar -->
                       <?php
