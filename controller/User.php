@@ -4,7 +4,6 @@ namespace controller;
 
 require_once(__DIR__ . "/Student.php");
 require_once(__DIR__ . "/Admin.php");
-require_once(__DIR__ . "/Friend.php");
 
 class User
 {
