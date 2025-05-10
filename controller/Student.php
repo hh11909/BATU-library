@@ -6,7 +6,6 @@ use model\Student as StudentModel;
 
 require_once(__DIR__ . "/../model/Student.php");
 require_once(__DIR__ . "/User.php");
-require_once(__DIR__ . "/Friend.php");
 require_once(__DIR__ . "/../model/errors.php");
 
 class Student extends User
@@ -19,7 +18,7 @@ class Student extends User
   public $profile_image;
   public $is_friend = 0;
   private $admin_ID;
-  function __construct($name, $academy_number, $phone, $gender, $department_ID, $email, $is_friend, $admin_ID, $student_image = null, $profile_image = null, $id = null, $password = null)
+  function __construct($name, $academy_number, $phone, $gender, $department_ID, $email,$password, $is_friend, $admin_ID, $student_image = null, $profile_image = null, $id = null)
   {
     if ($id != null) {
       $this->id = $id;
@@ -38,9 +37,10 @@ class Student extends User
     $this->admin_ID = $admin_ID;
   }
 
-  function setPassword($pass)
-  {
-    $this->password = $pass;
+  function updatePassword($pass)
+  { 
+    $stu= new StudentModel();
+    $stu->update(["password"],[md5(htmlspecialchars($pass))],["academy_number"],[$this->academy_number]);
   }
   function getPassword()
   {
@@ -62,17 +62,15 @@ class Student extends User
     $vals = [$email, $password];
     $result = $stuModel->read($cols, $vals);
     $result = json_decode($result, true);
-    if (is_array($result)) {
+    if (isset($result["data"])) {
       $result = $result["data"];
-    }
-    if (isset($result)) {
       if ($arr = $result[0]) {
         switch ($arr['is_friend']) {
           case 0:
-            $user = new Student($arr["name"], $arr["academy_number"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"], $arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
+            $user = new Student($arr["name"], $arr["academy_number"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"],$arr["password"], $arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
             break;
           case 1:
-            $user = new Friend($arr["name"], $arr["academy_number"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"], $arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
+            $user = new Friend($arr["name"], $arr["academy_number"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"],$arr["password"],$arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
             break;
         }
         return $user;
@@ -82,14 +80,11 @@ class Student extends User
   }
   function create()
   {
-    $this->sanitize();
-    if ($this->validate()) {
       $model = new StudentModel();
       return $model->create($this);
-    }
   }
 
-  protected function sanitize()
+  public function sanitize()
   {
     // Continue Sanitization
     $this->name = trim(filter_var($this->name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
@@ -102,7 +97,7 @@ class Student extends User
     $this->admin_ID = htmlspecialchars(filter_var($this->admin_ID, FILTER_SANITIZE_NUMBER_INT));
     $this->is_friend = htmlspecialchars(filter_var($this->is_friend, FILTER_SANITIZE_NUMBER_INT));
   }
-  protected function validate()
+  public function validate()
   {
     if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
       return error422("Invalid Email!");
@@ -124,15 +119,4 @@ class Student extends User
     return true;
   }
 
-  //in Admin class+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  function storeStudent(Student $student)
-  {
-    // Sanitization
-    $this->sanitize();
-    // Validation
-    if ($this->validate()) {
-      $stu = new StudentModel();
-      return $stu->create($student);
-    }
-  }
 }
