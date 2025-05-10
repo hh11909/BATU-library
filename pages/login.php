@@ -10,8 +10,9 @@ if(isset($_SESSION["user"])){
     header("Location:index.php");
   }
   elseif($role=="admin"){
-    header("Location:index.php");
+    header("Location:index.php");//will be modified later!!!!!!!!!!!!!!!!!!
   }
+
 }
 ?>
 <!DOCTYPE html>

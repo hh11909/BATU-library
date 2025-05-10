@@ -17,81 +17,7 @@
 
 <body>
   <!-- navigation bar start -->
-  <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
-    <div class="container">
-      <!-- logo -->
-      <a class="navbar-brand fs-4 " href="index.php"><img src="images/logo.png" alt="Logo" width="48" height="48"
-          class="me-2 p-1 logo">
-        <span class="logo-title">
-          BATU Library
-        </span></a>
-      <!-- toggle button -->
-      <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- sidebar -->
-      <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-        aria-labelledby="offcanvasNavbarLabel">
-        <!-- sidebar header -->
-        <div class="offcanvas-header text-white border-bottom">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Discover</h5>
-          <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
-            aria-label="Close"></button>
-        </div>
-        <!-- sidebar body -->
-        <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
-          <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
-            <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-              <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
-                  width="40" height="40"></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link mx-2" aria-current="page" href="index.php">Home</a>
-            </li>
-            <li class="nav-item mx-2">
-              <a class="nav-link" href="about.php">About</a>
-            </li>
-            <li class="nav-item mx-2">
-              <a class="nav-link" href="contact.php">Contact</a><!--to do-->
-            </li>
-            <li class="nav-item dropdown mx-2">
-              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Services
-              </a>
-              <ul class="dropdown-menu mt-3">
-                <!-- COMMENT: I think the hover text color has low contrast  -->
-                <li><a class="dropdown-item active" href="Explore.php">Explore</a></li>
-
-                <li>
-                  <a class="dropdown-item" href="Events.php">Events</a><!--to do-->
-                </li>
-                <li>
-                  <a class="dropdown-item " href="wishlist.php">Wishlist</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="borrowed.php">Borrowed</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <!-- login/signup -->
-          <div class="d-flex justify-content-center align-items-center ">
-            <a href="login.php" id="login" class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log
-              In</a>
-             <!-- removed the register  //omar -->
-          </div>
-          <!-- profile -->
-          <div class="d-flex align-items-center mt-1 d-none d-lg-block">
-            <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
-                width="40" height="40"></a><!--to do-->
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
-
+  <?php require_once('nav.php')?>
   <!-- navigation bar end -->
   <!-- Explore header start-->
   <div class="container mt-5 pt-5">
@@ -338,6 +264,12 @@
     </div>
   </footer>
   <!-- JS -->
+  <script>
+    let el=document.getElementById('explore');
+    let el2=document.getElementById('services');
+    el.classList.add('active');
+    el2.classList.add('active');
+  </script>
   <script src="js/index.js"></script>
   <script src="wishlist-script.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
