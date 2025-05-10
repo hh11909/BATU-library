@@ -1,6 +1,7 @@
 <?php
 use controller\Student;
 session_start();
+require_once(__DIR__."/../controller/Student.php");
 if(isset($_SESSION["user"])){
   /**@var Student $user */
   $user=unserialize($_SESSION["user"]);
@@ -8,8 +9,8 @@ if(isset($_SESSION["user"])){
   if($role=="student"){
     header("Location:index.php");
   }
-  elseif($role="admin"){
-    header("Location:index.php");
+  elseif($role=="admin"){
+    header("Location:index.php");//will be modified later!!!!!!!!!!!!!!!!!!
   }
 
 }

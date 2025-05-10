@@ -1,7 +1,7 @@
 <?php
 require_once("../../controller/User.php");
 use controller\User;
-  session_start();
+session_start();
   // header("Content-Type:application/json");
   header("Access-Control-Allow-Origin:*");
   header("Access-Control-Allow-Methods:POST");
@@ -9,27 +9,29 @@ use controller\User;
   $requestMethod=$_SERVER["REQUEST_METHOD"];
   $inputData= json_decode(file_get_contents("php://input"),true);
   if($requestMethod=="POST"){
-    if(isset($_POST["email"])&&isset($_POST["password"])){
+    if(empty($_POST["email"])){    
+      header("Location:../../pages/login.php?err=emptyEmail");
+    }
+    elseif(empty($_POST["password"])){    
+      header("Location:../../pages/login.php?err=emptyPass");
+    }
+    elseif(isset($_POST["email"])&&isset($_POST["password"])){
       $user= User::login($_POST["email"],$_POST["password"]);
       if(isset($user->role)){
         if($user->role=="student"){
           $_SESSION["user"]=serialize($user);
-          header("Location:../../pages/index.html");
+          header("Location:../../pages/index.php");
         }
         elseif($user->role=="admin"){
           $_SESSION["user"]=serialize($user);
-          header("Location:../../pages/dashboard.html");
+          header("Location:../../pages/dashboard.php");
         }
       }
       else{
-        $message=json_decode($user);
-        echo $message->Message;
+        header("Location:../../pages/login.php?err=notRegistered");    
       }
     }
-    else{
-      $userList;
-      echo $userList;
-    }
+  
   }
   else{
     $data=[

@@ -47,6 +47,10 @@ class Crud
       $qry = substr($qry, 0, -1);
       $filter = " WHERE ";
       for ($i = 0; $i < count($filterCols); $i++) {
+        if($filterCols[$i]=="email"){
+
+          $filter = $filter . $filterCols[$i] . " = '" . $filterVals[$i] . "' AND ";
+        }
         $filter = $filter . $filterCols[$i] . " LIKE '%" . $filterVals[$i] . "%' AND ";
       }
       $filter = substr($filter, 0, -4);
