@@ -195,4 +195,30 @@ class Admin extends User
       }
     }
   }
+   function storeStudent(Student $student)
+  {
+    // Sanitization
+    $student->sanitize();
+    // Validation
+    if ($student->validate()) {
+      if($student->is_friend==0){
+        return $student->create();
+      }
+      elseif($student->is_friend==1){
+        $friend=new Friend(
+          name: $_POST['name'],
+          email: $_POST['email'],
+          password: $_POST['password'],
+          phone: $_POST['phone'],
+          is_friend: $_POST['is_friend'],
+          admin_ID: $_POST['admin_ID'],
+          department_ID: $_POST['department_ID'],
+          gender: $_POST['gender'],
+          academy_number: $_POST['academy_number'],
+          student_image: $_POST['student_image']
+        );
+        $friend->create();
+      }
+    }
+  }
 }
