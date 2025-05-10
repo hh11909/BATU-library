@@ -1,3 +1,34 @@
+<?php
+use controller\Student;
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+  }
+  if(isset($_SESSION["user"])&&!isset($user)){
+    require_once(__DIR__."/../controller/Student.php");
+    /**@var Student $user */
+    $user=unserialize($_SESSION["user"]);
+    $role=$user->role;}
+  ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BATU Library</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/contact.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- navigation bar start -->
 <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
     <div class="container">
       <!-- logo -->
@@ -23,10 +54,19 @@
         <!-- sidebar body -->
         <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
           <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
-            <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-              <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
-                  width="40" height="40"></a>
-            </li>
+            <?php          
+              if(isset($_SESSION["user"])){
+                $role=$user->role;
+                if($role=="student"){
+                  ?>  
+                  <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
+                  <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
+                  width="40" height="40"></a><!--to do-->
+                  </li>
+              <?php
+               }
+              }
+              ?>
             <li class="nav-item">
               <a class="nav-link mx-2" id="home" aria-current="page" href="index.php">Home</a>
             </li>
@@ -48,26 +88,49 @@
                 <li>
                   <a class="dropdown-item" href="Events.php" id="events">Events</a><!--to do-->
                 </li>
+                <?php              
+                    if(isset($role) &&$role=="student"){
+                ?>
                 <li>
                   <a class="dropdown-item" href="wishlist.php" id="wishlist">Wishlist</a>
                 </li>
                 <li>
                   <a class="dropdown-item" href="borrowed.php" id="borrowed">Borrowed</a>
                 </li>
+                <?php
+                 }
+                
+                ?>
               </ul>
             </li>
           </ul>
           <!-- login/signup -->
-          <div class="d-flex justify-content-center align-items-center ">
-            <a href="login.php" id="login" class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log
-              In</a>
-              <!-- removed the register  //omar -->
+                <?php              
+                  if(!isset($_SESSION["user"])){ 
+                      ?>
+          <div class="d-flex justify-content-center align-items-center">
+            <a href="login.php" id="log-in" class="btn primary-color main-btn">Log In</a>
           </div>
+            <!-- removed the register  //omar -->
           <!-- profile -->
+                <?php 
+                  }             
+                  if(isset($_SESSION["user"])){
+                    $role=$user->role;
+                    if($role=="student"){
+                      ?>
           <div class="d-flex align-items-center mt-1 d-none d-lg-block">
             <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
                 width="40" height="40"></a><!--to do-->
           </div>
+          <div class="d-flex justify-content-center align-items-center">
+            <a href="logout.php" id="log-out" class="btn primary-color main-btn ms-lg-5">Log Out</a>
+          </div>
+          <!-- removed the register  //omar -->
+                      <?php
+                       }
+                      }
+                      ?>
         </div>
       </div>
     </div>
