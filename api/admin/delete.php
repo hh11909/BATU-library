@@ -3,25 +3,33 @@
 session_start();
 require_once(__DIR__ . "/../../controller/Admin.php");
 require_once(__DIR__ . "/../../model/errors.php");
-require_once(__DIR__ . "/../../config.php");
+require_once(__DIR__ . "/../config.php");
 
 use controller\Admin;
 
-header("Access-Control-Allow-Origin:*");
-header("Access-Control-Allow-Methods:DELETE");
-header("Access-Control-Allow-Headers:Content-Type,Authorization,X-Request-With");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: DELETE");
+header("Access-Control-Allow-Headers: Content-Type,Authorization,X-Request-With");
 
 /**@var Admin $admin*/
 $admin = unserialize($_SESSION['user']);
-if (!$admin) {
+if (!$admin || !isset($_SESSION['user'])) {
+  error422("Login please", 302);
+  header("Location /pages/login.php");
+  die();
+}
+if ($admin->role !== 'admin') {
   error422("Unauthorized", 401);
+  die();
 }
 
 $data = getData();
 
-if (count($data)) {
+if ($data['ids']) {
   $admin->delete($data['ids']);
-} else {
+} else if ($data['id']) {
   $admin->delete($data['id']);
 }
+error422("Provide `id` or `ids` of admins you want to delete", 403);
+
 die();
