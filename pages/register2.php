@@ -105,7 +105,14 @@
         <span id="successMessage">Success</span>
         <button type="button" class="btn-close" aria-label="Close" onclick="hideSuccess()"></button>
       </div>
-      <form id='registerUserInfo'>
+      <form id='registerUserInfo' action="../api/student/create.php" method="post">
+        <input type="hidden" name="name" value="<?=$_GET["name"]?>">
+        <input type="hidden" name="academy_number" value="<?=$_GET["academy_number"]?>">
+        <input type="hidden" name="academic_year" value="<?=$_GET["academic_year"]?>">
+        <input type="hidden" name="college-id" value="<?=$_GET["college-id"]?>">
+        <input type="hidden" name="department_ID" value="<?=$_GET["department_ID"]?>">
+        <input type="hidden" name="is_friend" value="<?=$_GET["is_friend"]?>">
+        <input type="hidden" name="gender" value="<?=$_GET["gender"]?>">
         <div class="row mb-3">
           <div class="col-md-4 d-flex justify-content-start align-items-center">
             <div class=" position-relative">
@@ -122,10 +129,36 @@
           </div>
           <div class="col-md-8">
             <div class="form-group mb-3">
-              <label for="department" class="form-label">Department</label>
-              <input type="text" class="form-control rounded-pill" id="department" name="department"
-                placeholder="Enter your department">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control rounded-pill" id="registerEmail" name="email"
+              placeholder="Enter your email" required>
+          </div>
+          <div class="form-row mb-3">
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-container">
+              <input type="password" id="registerPassword" name="pass" class="form-control rounded-pill py-2"
+                placeholder="Enter your password" required />
+              <span class="togglePassword" id="togglePassword2"
+                onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
+                <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
+              </span>
             </div>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <div class="input-container">
+              <input type="password" id="registerConfirmPassword" name="cp" class="form-control rounded-pill py-2"
+                placeholder="Confirm your password" required />
+              <span class="togglePassword" id="togglePassword3"
+                onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
+                <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
+              </span>
+            </div>
+          </div>
+        </div>
             <div class="form-group mb-3">
               <label for="phoneNumber" class="form-label">Phone Number</label>
               <input type="tel" class="form-control rounded-pill" id="phoneNumber" name="phoneNumber"
