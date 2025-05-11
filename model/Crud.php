@@ -16,7 +16,7 @@ class Crud
     $qry = substr($qry, 0, -1);
     $qry = $qry . ") VALUES (";
     foreach ($vals as $val) {
-      $qry = $qry . "$val,";
+      $qry = $qry . "'$val',";
     }
     $qry = substr($qry, 0, -1);
     $qry = $qry . ");";

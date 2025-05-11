@@ -14,12 +14,13 @@ $missed_attributes = [];
 $attributes = [
   "name",
   "email",
-  "password",
-  "phone",
+  "pass",
+  "phoneNumber",
   "academy_number",
+  "academic_year",
   "gender",
   "department_ID",
-  "admin_ID"
+  // "admin_ID"
 ];
 
 if ($_POST) {
@@ -28,7 +29,7 @@ if ($_POST) {
     $user=unserialize($_SESSION["user"]);
     if($user->role!="admin"){
       echo error422("you are not authorized to be here!");
-      header("Location:/../../../pages/index.php");
+      header("Location:../../pages/index.php");
     }
   }
   else{
@@ -46,16 +47,21 @@ if ($_POST) {
     $student = new Student(
       name: $_POST['name'],
       email: $_POST['email'],
-      password: $_POST['password'],
-      phone: $_POST['phone'],
+      password: $_POST['pass'],
+      phone: $_POST['phoneNumber'],
       is_friend: $_POST['is_friend'] ?? 0,
-      admin_ID: $_POST['admin_ID'],
+      admin_ID: $user->id??null,
       department_ID: $_POST['department_ID'],
       gender: $_POST['gender'],
       academy_number: $_POST['academy_number'],
-      student_image: $_POST['student_image'],
+      student_image: $_POST['profileImage']??0,
     );
-    echo $user->storeStudent($student);
+    $res= $user->storeStudent($student);
+    header("Location:../../../pages/register1.php");
+    $res=json_decode($res,1);
+    $res=$res["Message"];
+    echo $res;
+
   } else {
     $missed_attributes = implode(", ", $missed_attributes);
     $res = [
