@@ -12,10 +12,10 @@ class Student
 {
 
   private $table = "Students";
-  private $fields = ["name", "academy_number", "phone", "gender", "department_ID", "email", "password", "admin_ID", "is_friend"]; //,,"profile_image","student_image"
+  private $fields = ["name", "academy_number","academic_year", "phone", "gender", "department_ID", "email", "password", "admin_ID", "is_friend"]; //,,"profile_image","student_image"
   function create(ControllerStudent $student)
   {
-    $vals = [$student->name, $student->academy_number, $student->phone, $student->gender, $student->department_ID, $student->email, $student->getPassword(), $student->getAdmin_ID(), $student->is_friend ? 0 : 1];
+    $vals = [$student->name, $student->academy_number,$student->academic_year,$student->phone, $student->gender, $student->department_ID, $student->email, $student->getPassword(), $student->getAdmin_ID(), $student->is_friend ? 0 : 1];
     return Crud::create($this->table, $this->fields, $vals);
   }
   function read($filterCols = array(), $filterVals = array())
