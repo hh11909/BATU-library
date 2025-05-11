@@ -11,6 +11,7 @@ require_once(__DIR__ . "/../model/errors.php");
 class Student extends User
 {
   public $academy_number;
+  public $academic_year;
   public $phone;
   public $gender;
   public $department_ID;
@@ -18,7 +19,7 @@ class Student extends User
   public $profile_image;
   public $is_friend = 0;
   private $admin_ID;
-  function __construct($name, $academy_number, $phone, $gender, $department_ID, $email,$password, $is_friend, $admin_ID, $student_image = null, $profile_image = null, $id = null)
+  function __construct($name, $academy_number,$academic_year, $phone, $gender, $department_ID, $email,$password, $is_friend, $admin_ID, $student_image = null, $profile_image = null, $id = null)
   {
     if ($id != null) {
       $this->id = $id;
@@ -26,6 +27,7 @@ class Student extends User
     $this->role = 'student';
     $this->name = $name;
     $this->academy_number = $academy_number;
+    $this->academic_year = $academic_year;
     $this->phone = $phone;
     $this->gender = $gender;
     $this->department_ID = $department_ID;
@@ -41,6 +43,11 @@ class Student extends User
   { 
     $stu= new StudentModel();
     $stu->update(["password"],[md5(htmlspecialchars($pass))],["academy_number"],[$this->academy_number]);
+  }
+  function updatePhone($phone)
+  { 
+    $stu= new StudentModel();
+    $stu->update(["phone"],[trim(htmlspecialchars(filter_var($phone, FILTER_SANITIZE_NUMBER_INT)))],["academy_number"],[$this->academy_number]);
   }
   function getPassword()
   {
@@ -83,12 +90,28 @@ class Student extends User
       $model = new StudentModel();
       return $model->create($this);
   }
-
+  static function read($name="",$academy_number="",$academic_year="",$phone="",$limit=0,$offset=0){
+    $cols=['name','academy_number','academic_year','phone'];
+    $vals=[$name,$academy_number,$academic_year,$phone];
+    $model = new StudentModel();
+    $result = $model->read($cols, $vals);
+    $result = json_decode($result, true);
+    if (isset($result["data"])) {
+      $count = count($result["data"]);
+      $result["count"]=$count;
+    }
+    echo json_encode($result);
+  }
+  static function delete($student_ID){
+    $model = new StudentModel();
+    return $model->delete(["student_ID",],[$student_ID]);
+  }
   public function sanitize()
   {
     // Continue Sanitization
     $this->name = trim(filter_var($this->name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
     $this->academy_number = trim(htmlspecialchars(filter_var($this->academy_number, FILTER_SANITIZE_NUMBER_INT)));
+    $this->academic_year = trim(htmlspecialchars(filter_var($this->academic_year, FILTER_SANITIZE_NUMBER_INT)));
     $this->phone = trim(htmlspecialchars(filter_var($this->phone, FILTER_SANITIZE_NUMBER_INT)));
     $this->gender = trim(filter_var($this->gender, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
     $this->department_ID = htmlspecialchars(filter_var($this->department_ID, FILTER_SANITIZE_NUMBER_INT));
@@ -103,6 +126,9 @@ class Student extends User
       return error422("Invalid Email!");
     } elseif (!filter_var($this->academy_number, FILTER_VALIDATE_INT)) {
       return error422("Invalid Academy Number!");
+    }
+      elseif ($this->academic_year!=""&&!filter_var($this->academic_year, FILTER_VALIDATE_INT)) {
+      return error422("Invalid Academic year!");
     } elseif (!preg_match("/^01[0-2,5]{1}[0-9]{8}$/", $this->phone)) {
       return error422("Invalid Academy Phone!");
     } elseif (!filter_var($this->department_ID, FILTER_VALIDATE_INT)) {
