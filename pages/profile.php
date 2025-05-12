@@ -46,7 +46,15 @@ else{
           <div class=" position-relative ">
             <input type="file" id="profileBigImage" name="profileBigImage" class="d-none" accept="image/*"
               onchange="previewBigImage()">
-            <img src="" alt="" class="profile-big-picture d-block container-fluid p-0" id="BigImageDisplay">
+             <div class="profile-big-picture d-block container-fluid p-0">
+               <?php
+               if($user->profile_image){ 
+               ?>
+              <img src="<?=$user->profile_image?>" alt=""  id="BigImageDisplay" style="width:100%;height:100%;object-fit: cover;">
+               <?php
+               } 
+               ?>
+             </div>
             <a type="button" class="btn btn-main rounded-5 btn-add-img btn-profile-big-picture position-absolute z-1 "
               onclick="document.getElementById('profileBigImage').click();">
               <i class="fas fa-camera fs-3"></i>
@@ -57,7 +65,7 @@ else{
               <div class="profile-picture-holder">
                 <input type="file" id="profileImage" name="profileImage" class="d-none" accept="image/*"
                   onchange="previewImage()">
-                <img src="" alt="" class="profile-picture" id="profileImageDisplay">
+                <img src="<?=($user->student_image)?$user->student_image:'images/profile.png'?>" alt="" class="profile-picture" id="profileImageDisplay">
               </div>
               <a type="button" class="btn btn-main rounded-5 btn-add-img btn-profile-picture position-absolute "
                 onclick="document.getElementById('profileImage').click();">
@@ -65,16 +73,16 @@ else{
               </a>
 
             </div>
-            <h3 class="user text-center">Mohamed Ashraf</h3>
-            <h4 class="user-department text-center">IT</h4>
-            <h3 class="user text-center">
+            <h3 class="user text-center"><?=$user->name?></h3>
+            <h4 class="user-department text-center">to do!!!!!!!</h4>
+            <!-- <h3 class="user text-center">
 
               <div class="d-flex text-center">
                 <input type="text" name="bio" id="bio" placeholder="Enter your bio" class="bio text-center" readonly>
                 <button class="primary-color p-0 border-0" style="background-color: #f6fbf2;" onclick="toggleEdit()"><i
                     class=" fa-solid fa-pen"></i></button>
               </div>
-            </h3>
+            </h3> -->
 
           </div>
         </div>
