@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Borrowed Books</title>
+  <title>Admin users</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,9 +64,9 @@
               </a>
               <ul class="dropdown-menu mt-3" id="admin-dropdown-menu">
                 <li><a class="dropdown-item" href="admin-requests.php">Requests</a></li>
-                <li><a class="dropdown-item" href="admin-users.php">Users</a></li>
+                <li><a class="dropdown-item active" href="admin-users.php">Users</a></li>
                 <li><a class="dropdown-item" href="admin-books.php">Books</a></li>
-                <li><a class="dropdown-item active" href="admin-borrowed-books.php">Borrowed Books</a></li>
+                <li><a class="dropdown-item" href="admin-borrowed-books.php">Borrowed Books</a></li>
                 <li><a class="dropdown-item" href="admin-events.php">Events</a></li>
                 <li><a class="dropdown-item" href="admin-contact.php">Contact</a></li>
               </ul>
@@ -90,13 +90,13 @@
     <li>
       <a href="admin-requests.php"><i class="fa-solid fa-bell"></i> <span>Requests</span></a>
     </li>
-    <li>
+    <li  class="active">
       <a href="admin-users.php"><i class="fas fa-users"></i> <span>Users</span></a>
     </li>
     <li>
       <a href="admin-books.php"><i class="fas fa-book"></i> <span>Books</span></a>
     </li>
-    <li class="active">
+    <li>
       <a href="admin-borrowed-books.php"><i class="fas fa-book-reader"></i> <span>Borrowed Books</span></a>
     </li>
     <li>
@@ -113,60 +113,52 @@
   <div class="container-fluid">
     <!-- Page Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="primary-color fw-bold mt-1 mb-2"><i class="fas fa-book-reader me-2"></i> Borrowed Books</h2>
+      <h2 class="primary-color fw-bold mt-1 mb-2"><i class="fas fa-book-reader me-2"></i> Users </h2>
       <div class="d-flex">
         <div class="input-group me-3 mt-2" style="width: 300px;">
-          <input type="text" class="form-control" placeholder="Search borrowed books">
+          <input type="text" class="form-control" placeholder="Search usres">
           <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
         </div>
       </div>
     </div>
 
-    <!-- Stats Cards -->
+        <!-- Stats Cards -->
     <div class="row">
-      <div class="col-md-3 col-sm-6 col-6">
+      <div class="col-md-4 col-sm-6 col-6">
         <div class="stat-card">
-          <i class="fas fa-book"></i>
-          <h3>1,250</h3>
-          <p>Total Books</p>
+          <i class="fa-solid fa-user-tie"></i>
+          <h3>5</h3>
+          <p>Total sdmins</p>
         </div>
       </div>
-      <div class="col-md-3 col-sm-6 col-6">
+      <div class="col-md-4 col-sm-6 col-6">
         <div class="stat-card">
-          <i class="fas fa-book-open"></i>
-          <h3>342</h3>
-          <p>Borrowed Books</p>
+          <i class="fa-solid fa-user"></i>
+          <h3>1550</h3>
+          <p>Total users</p>
         </div>
       </div>
-      <div class="col-md-3 col-sm-6 col-6">
+      <div class="col-md-4 col-sm-6 col-6">
         <div class="stat-card">
-          <i class="fas fa-exclamation-circle"></i>
-          <h3>27</h3>
-          <p>Overdue Books</p>
-        </div>
-      </div>
-      <div class="col-md-3 col-6">
-        <div class="stat-card">
-          <i class="fas fa-check-circle"></i>
-          <h3>198</h3>
-          <p>Returned This Month</p>
+          <i class="fa-solid fa-user-group"></i>
+          <h3>578</h3>
+          <p>Total Freinds</p>
         </div>
       </div>
     </div>
 
-    <!-- Borrowed Books Table -->
+    <!-- users Table -->
     <div class="card mt-4">
       <div class="card-header bg-primary-color text-white d-flex justify-content-between align-items-center">
-        <h5 class="mb-0"><i class="fas fa-list me-2"></i> Borrowed Books List</h5>
+        <h5 class="mb-0"><i class="fas fa-list me-2"></i> Users table </h5>
         <div class="dropdown" id="borrowed-dropdown">
           <button class="btn btn-sm btn-light dropdown-toggle  primary-color" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             Filter
           </button>
           <ul class="dropdown-menu dropdown-menu-end" id="borrowed-dropdown-menu" aria-labelledby="filterDropdown">
-            <li><a class="dropdown-item" href="#">All</a></li>
-            <li><a class="dropdown-item" href="#">Borrowed</a></li>
-            <li><a class="dropdown-item" href="#">Returned</a></li>
-            <li><a class="dropdown-item" href="#">Overdue</a></li>
+            <li><a class="dropdown-item" href="#">ID</a></li>
+            <li><a class="dropdown-item" href="#">Name</a></li>
+            <li><a class="dropdown-item" href="#">Phone</a></li>
           </ul>
         </div>
       </div>
@@ -177,73 +169,133 @@
               <tr>
                 <th>User ID</th>
                 <th>Name</th>
-                <th>Book Title</th>
-                <th>Book ID</th>
-                <th>Borrow Date</th>
-                <th>Return Date</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <th>E-mail</th>
+                <th>Phone</th>
+                <th>Friend</th>
+                <th class="text-center">Department</th>
+                <th class="text-center">Academec year</th>
+                <th>Delet user</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>2320123</td>
-                <td>Dina Amgad</td>
-                <td>Data Visualization</td>
-                <td>BK00123</td>
-                <td>2025-05-01</td>
-                <td>2025-05-07</td>
-                <td><span>Returned</span></td>
+                <td>2320100</td>
+                <td>Omar Mostafa</td>
+                <td>2320100@gmail.com</td>
+                <td>0123456789</td>
+                <td>Yes</td>
+                <td class="text-center">IT</td>
+                <td class="text-center">2nd</td>
                 <td>
-                  <button class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
                 </td>
               </tr>
               <tr>
-                <td>2320456</td>
-                <td>Salma Ashraf</td>
-                <td>Algorithms to Live By</td>
-                <td>BK00456</td>
-                <td>2025-05-10</td>
-                <td>2025-05-24</td>
-                <td><span>Borrowed</span></td>
+                <td>2320101</td>
+                <td>Ahmed Mohamed</td>
+                <td>2320101@gmail.com</td>
+                <td>0123456789</td>
+                <td>Yes</td>
+                <td class="text-center">IT</td>
+                <td class="text-center">3rd</td>
                 <td>
-                  <button class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
                 </td>
               </tr>
               <tr>
-                <td>2320789</td>
-                <td>Habiba Hesham</td>
-                <td>Intro to Python</td>
-                <td>BK00125</td>
-                <td>2024-04-25</td>
-                <td>2024-05-09</td>
-                <td><span>Overdue</span></td>
+                <td>2320102</td>
+                <td>Alaa Mohamed</td>
+                <td>2320102@gmail.com</td>
+                <td>0123456789</td>
+                <td>No</td>
+                <td class="text-center">IT</td>
+                <td class="text-center">4th</td>
                 <td>
-                  <button class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
                 </td>
               </tr>
               <tr>
-                <td>2320987</td>
-                <td>Rose Ahmed</td>
-                <td>Algorithmic Intelligence</td>
-                <td>BK00126</td>
-                <td>2025-05-05</td>
-                <td>2025-05-19</td>
-                <td><span>Borrowed</span></td>
+                <td>2320103</td>
+                <td>kareem Ahmed</td>
+                <td>2320103@gmail.com</td>
+                <td>0123456789</td>
+                <td>Yes</td>
+                <td class="text-center">IT</td>
+                <td class="text-center">4th</td>
                 <td>
-                  <button class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
                 </td>
               </tr>
               <tr>
-                <td>2320628</td>
-                <td>Aya Hany</td>
-                <td>Kali Linux</td>
-                <td>BK00127</td>
-                <td>2025-04-15</td>
-                <td>2025-04-29</td>
-                <td><span>Returned</span></td>
+                <td>2320104</td>
+                <td>Assem Mohamed</td>
+                <td>2320104@gmail.com</td>
+                <td>0123456789</td>
+                <td>No</td>
+                <td class="text-center">IT</td>
+                <td class="text-center">2nd</td>
                 <td>
-                  <button class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>2320106</td>
+                <td>Mohamed Ahmed</td>
+                <td>2320106@gmail.com </td>
+                <td>0123456789</td>
+                <td>No</td>
+                <td class="text-center">IT</td>
+                <td class="text-center">3rd</td>
+                <td>
+                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>2320107</td>
+                <td>Hesham Mohamed</td>
+                <td>2320107@gmail.com</td>
+                <td>0123456789</td>
+                <td>No</td>
+                <td class="text-center">IT</td>
+                <td class="text-center">3rd</td>
+                <td>
+                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>2320108</td>
+                <td>Ibrahem Ahmed</td>
+                <td>2320108@gmail.com</td>
+                <td>0123456789</td>
+                <td>No</td>
+                <td class="text-center">IT</td>
+                <td class="text-center">1st</td>
+                <td>
+                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>2320109</td>
+                <td>Hameed Mohamed</td>
+                <td>2320109@gmail.com</td>
+                <td>0123456789</td>
+                <td>No</td>
+                <td class="text-center">IT</td>
+                <td class="text-center">2nd</td>
+                <td>
+                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>2320110</td>
+                <td>Ali Mohamed</td>
+                <td>2320110@gmail.com</td>
+                <td>0123456789</td>
+                <td>Yes</td>
+                <td class="text-center">IT</td>
+                <td class="text-center">1st</td>
+                <td>
+                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
                 </td>
               </tr>
             </tbody>
@@ -264,79 +316,6 @@
             </li>
           </ul>
         </nav>
-      </div>
-    </div>
-
-    <!-- Overdue Books Section -->
-    <div class="card mt-4">
-      <div class="card-header bg-primary-color text-white d-flex justify-content-between align-items-center">
-        <h5 class="mb-0"><i class="fas fa-exclamation-circle me-2"></i> Overdue Books</h5>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Borrower</th>
-                <th>Book Title</th>
-                <th>Days Overdue</th>
-                <th>Contact</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Dina Amgad</td>
-                <td>Computer Architecture</td>
-                <td>3 days</td>
-                <td><a href="mailto:dina.amgad@gmail.com" class="btn btn-sm btn-outline-primary btn-secondary-color"><i class="fas fa-envelope"></i></a></td>
-              </tr>
-              <tr>
-                <td>Salma Ashraf</td>
-                <td>Artificial Intelligence</td>
-                <td>1 day</td>
-                <td><a href="mailto:salma.ashraf@gmail.com" class="btn btn-sm btn-outline-primary btn-secondary-color"><i class="fas fa-envelope"></i></a></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Manual Book Borrowing Form -->
-    <div class="card mt-4">
-      <div class="card-header bg-primary-color text-white">
-        <h5 class="mb-0"><i class="fas fa-plus-circle me-2"></i> Manually Borrow Book</h5>
-      </div>
-      <div class="card-body">
-        <form>
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label">User ID</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-                <input type="text" class="form-control" placeholder="Enter user ID">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Book ID</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fa-solid fa-book-open"></i></span>
-                <input type="text" class="form-control" placeholder="Enter book ID">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label"> Date</label>
-              <input type="date" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Due Date</label>
-              <input type="date" class="form-control">
-            </div>
-            <div class="col-12 text-end">
-              <button type="submit" class="btn btn-secondary-color">Submit</button>
-            </div>
-          </div>
-        </form>
       </div>
     </div>
   </div>
