@@ -1,97 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BATU Library</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/all.min.css">
-  <link rel="stylesheet" href="css/profile.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap"
-    rel="stylesheet">
-
-</head>
-
-<body>
-  <!-- navigation bar start -->
-  <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
-    <div class="container">
-      <!-- logo -->
-      <a class="navbar-brand fs-4 " href="index.html"><img src="images/logo.png" alt="Logo" width="48" height="48"
-          class="me-2 p-1 logo">
-        <span class="logo-title">
-          BATU Library
-        </span></a>
-      <!-- toggle button -->
-      <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- sidebar -->
-      <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-        aria-labelledby="offcanvasNavbarLabel">
-        <!-- sidebar header -->
-        <div class="offcanvas-header text-white border-bottom">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Discover</h5>
-          <button type="button" class="btn-close btn-close-white shadow-none z-0" data-bs-dismiss="offcanvas"
-            aria-label="Close"></button>
-        </div>
-        <!-- sidebar body -->
-        <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
-          <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
-            <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-              <a href="profile.html"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
-                  width="40" height="40"></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link mx-2" aria-current="page" href="index.html">Home</a>
-            </li>
-            <li class="nav-item mx-2">
-              <a class="nav-link" href="about.html">About</a>
-            </li>
-            <li class="nav-item mx-2">
-              <a class="nav-link" href="contact.html">Contact</a><!--to do-->
-            </li>
-            <li class="nav-item dropdown mx-2">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Services
-              </a>
-              <ul class="dropdown-menu mt-3">
-                <!-- COMMENT: I think the hover text color has low contrast  -->
-                <li><a class="dropdown-item" href="Explore.html">Explore</a></li>
-
-                <li>
-                  <a class="dropdown-item" href="Events.html">Events</a><!--to do-->
-                </li>
-                <li>
-                  <a class="dropdown-item" href="wishlist.html">Wishlist</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="borrowed.html">Borrowed</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <!-- login/signup -->
-          <div class="d-flex justify-content-center align-items-center ">
-            <a href="login.html" id="login" class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log
-              In</a>
-            <a href="register1.html" id="register" class="btn primary-color main-btn">Register</a>
-          </div>
-          <!-- profile -->
-          <div class="d-flex align-items-center mt-1 d-none d-lg-block">
-            <a href="profile.html"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
-                width="40" height="40"></a><!--to do-->
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <?php require_once(__DIR__."/header.php")?>
+<?php
+  use controller\Student;
+if(!isset($_SESSION["user"])){
+  header("Location:login.php");
+}
+else{
+  require_once(__DIR__."/../controller/Student.php");
+  /**@var Student $user */
+  $user=unserialize($_SESSION["user"]);
+  $role=$user->role;
+  if($role=="admin"){
+  header("Location:index.php");
+}
+  }
+?>
   <div class="sticky-top" style="height: 66px;"></div>
   <!-- navigation bar end -->
   <div class="account-content ">
@@ -107,11 +30,11 @@
             <h3 class="account-title text-center mx-2 mb-0 p-4">Account</h3>
 
             <ul class="list-unstyled">
-              <li class="py-4 active px-2 "><a href="profile.html"><i
+              <li class="py-4 active px-2 "><a href="profile.php"><i
                     class="fa-solid fa-user pe-4 pt-lg-0 "></i>Profile</a></li>
-              <li class="py-4  px-2"><a href="privacy.html"><i class="fa-solid fa-shield-halved pe-4"></i>Privacy</a>
+              <li class="py-4  px-2"><a href="privacy.php"><i class="fa-solid fa-shield-halved pe-4"></i>Privacy</a>
               </li>
-              <li class="py-4  ps-2 pe-1"><a href="user-info.html"><i class="fa-solid fa-circle-info pe-3"></i>User
+              <li class="py-4  ps-2 pe-1"><a href="user-info.php"><i class="fa-solid fa-circle-info pe-3"></i>User
                   information</a></li>
             </ul>
           </div>
@@ -123,7 +46,15 @@
           <div class=" position-relative ">
             <input type="file" id="profileBigImage" name="profileBigImage" class="d-none" accept="image/*"
               onchange="previewBigImage()">
-            <img src="" alt="" class="profile-big-picture d-block container-fluid p-0" id="BigImageDisplay">
+             <div class="profile-big-picture d-block container-fluid p-0">
+               <?php
+               if($user->profile_image){ 
+               ?>
+              <img src="<?=$user->profile_image?>" alt=""  id="BigImageDisplay" style="width:100%;height:100%;object-fit: cover;">
+               <?php
+               } 
+               ?>
+             </div>
             <a type="button" class="btn btn-main rounded-5 btn-add-img btn-profile-big-picture position-absolute z-1 "
               onclick="document.getElementById('profileBigImage').click();">
               <i class="fas fa-camera fs-3"></i>
@@ -134,7 +65,7 @@
               <div class="profile-picture-holder">
                 <input type="file" id="profileImage" name="profileImage" class="d-none" accept="image/*"
                   onchange="previewImage()">
-                <img src="" alt="" class="profile-picture" id="profileImageDisplay">
+                <img src="<?=($user->student_image)?$user->student_image:'images/profile.png'?>" alt="" class="profile-picture" id="profileImageDisplay">
               </div>
               <a type="button" class="btn btn-main rounded-5 btn-add-img btn-profile-picture position-absolute "
                 onclick="document.getElementById('profileImage').click();">
@@ -142,16 +73,16 @@
               </a>
 
             </div>
-            <h3 class="user text-center">Mohamed Ashraf</h3>
-            <h4 class="user-department text-center">IT</h4>
-            <h3 class="user text-center">
+            <h3 class="user text-center"><?=$user->name?></h3>
+            <h4 class="user-department text-center">to do!!!!!!!</h4>
+            <!-- <h3 class="user text-center">
 
               <div class="d-flex text-center">
                 <input type="text" name="bio" id="bio" placeholder="Enter your bio" class="bio text-center" readonly>
                 <button class="primary-color p-0 border-0" style="background-color: #f6fbf2;" onclick="toggleEdit()"><i
                     class=" fa-solid fa-pen"></i></button>
               </div>
-            </h3>
+            </h3> -->
 
           </div>
         </div>
@@ -335,7 +266,7 @@
             </div>
           </div>
           <div class="text-end p-4">
-            <a href="Explore.html" class="show-more text-decoration-underline">
+            <a href="Explore.php" class="show-more text-decoration-underline">
               <h6>Show More</h6>
             </a>
           </div>
@@ -433,11 +364,11 @@
 
           <h5 class="text-uppercase" style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">Quick Links</h5>
           <ul class="list-unstyled">
-            <li><a href="index.html" class="  foorer-link text-decoration-none text-light">Home</a></li>
-            <li><a href="Explore.html" class="foorer-link text-decoration-none text-light">Categories</a></li>
-            <li><a href="wishlist.html" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
-            <li><a href="index.html#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
-            <li><a href="about.html" class="foorer-link text-decoration-none text-light">About Us</a></li>
+            <li><a href="index.php" class="  foorer-link text-decoration-none text-light">Home</a></li>
+            <li><a href="Explore.php" class="foorer-link text-decoration-none text-light">Categories</a></li>
+            <li><a href="wishlist.php" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
+            <li><a href="index.php#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
+            <li><a href="about.php" class="foorer-link text-decoration-none text-light">About Us</a></li>
           </ul>
         </div>
         <!-- Contact Section -->

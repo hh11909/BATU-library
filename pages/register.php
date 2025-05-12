@@ -26,7 +26,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
     <div class="container">
       <!-- logo -->
-      <a class="navbar-brand fs-4 " href="index.html"><img src="images/logo.png" alt="Logo" width="48" height="48"
+      <a class="navbar-brand fs-4 " href="index.php"><img src="images/logo.png" alt="Logo" width="48" height="48"
           class="me-2 p-1 logo">
         <span class="logo-title">
           BATU Library
@@ -49,17 +49,17 @@
         <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
           <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
             <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-              <a href="profile.html"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
+              <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
                   width="40" height="40"></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-2" aria-current="page" href="index.html">Home</a>
+              <a class="nav-link mx-2" aria-current="page" href="index.php">Home</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="about.html">About</a>
+              <a class="nav-link" href="about.php">About</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="contact.html">Contact</a><!--to do-->
+              <a class="nav-link" href="contact.php">Contact</a><!--to do-->
             </li>
             <li class="nav-item dropdown mx-2">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -68,29 +68,29 @@
               </a>
               <ul class="dropdown-menu mt-3">
                 <!-- COMMENT: I think the hover text color has low contrast  -->
-                <li><a class="dropdown-item" href="Explore.html">Explore</a></li>
+                <li><a class="dropdown-item" href="Explore.php">Explore</a></li>
 
                 <li>
-                  <a class="dropdown-item" href="Events.html">Events</a><!--to do-->
+                  <a class="dropdown-item" href="Events.php">Events</a><!--to do-->
                 </li>
                 <li>
-                  <a class="dropdown-item" href="wishlist.html">Wishlist</a>
+                  <a class="dropdown-item" href="wishlist.php">Wishlist</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="borrowed.html">Borrowed</a>
+                  <a class="dropdown-item" href="borrowed.php">Borrowed</a>
                 </li>
               </ul>
             </li>
           </ul>
           <!-- login/signup -->
           <div class="d-flex justify-content-center align-items-center ">
-            <a href="login.html" id="login" class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log
+            <a href="login.php" id="login" class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log
               In</a>
-            <a href="register1.html" id="register" class="btn primary-color main-btn">Register</a>
+              <!-- removed the register  //omar -->
           </div>
           <!-- profile -->
           <div class="d-flex align-items-center mt-1 d-none d-lg-block">
-            <a href="profile.html"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
+            <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
                 width="40" height="40"></a><!--to do-->
           </div>
         </div>
@@ -106,7 +106,7 @@
       <!-- Error Alert Section -->
       <div class="register-header">
         <i class="fas fa-user"></i>
-        <h2>Register Now</h2>
+        <h2>Register Student</h2>
       </div>
       <div id="errorAlert" class="alert alert-danger alert-dismissible fade d-none mt-3" role="alert">
         <span id="errorMessage">An error occurred!</span>
@@ -116,35 +116,70 @@
         <span id="successMessage">Success</span>
         <button type="button" class="btn-close" aria-label="Close" onclick="hideSuccess()"></button>
       </div>
-      <form action="register2.html" method="get" id='registerForm'>
+      <form action="../api/student/create.php" method="post" id='registerForm'>
         <div class="form-row mb-3">
           <div class="form-group">
-            <label for="firstName" class="form-label">First Name</label>
-            <input type="text" class="form-control rounded-pill" id="firstName" name="firstName"
+            <label for="name" class="form-label">Student Name</label>
+            <input type="text" class="form-control rounded-pill" id="name" name="name"
               placeholder="Enter your first name" required>
-          </div>
-          <div class="form-group">
-            <label for="lastName" class="form-label">Last Name</label>
-            <input type="text" class="form-control rounded-pill" id="lastName" name="lastName"
-              placeholder="Enter your last name " required>
           </div>
         </div>
         <div class="form-row mb-3">
           <div class="form-group">
+            <label for="academy_number" class="form-label">Academic number</label>
+            <input type="text" class="form-control rounded-pill" id="academy_number" name="academy_number"
+              placeholder="Enter your Student ID" required>
+          </div>   
+          <div class="form-group">
+            <label for="academic_year" class="form-label">Academic Year</label>
+            <select type="number" class="form-control rounded-pill" id="academic_year" name="academic_year"
+              placeholder="Enter your Academic year" required>
+              <option value="1">1</option>            
+              <option value="2">2</option>            
+              <option value="3">3</option>            
+              <option value="4">4</option>            
+            </select>
+          </div>
+          
+        </div>
+        <div class="form-row mb-3">
+          <div class="form-group">
+            <label for="college-id" class="form-label">College</label>
+            <select class="form-control rounded-pill" id="college-id" name="college-id"
+              placeholder="Enter your Department ID" required>
+              <option value="1">صناعة وطاقة</option>            
+              <option value="2">علوم صحية</option>                        
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="department_ID" class="form-label">Department</label>
+            <select class="form-control rounded-pill" id="department_ID" name="department_ID"
+              placeholder="Enter your Department ID" required>
+              <option value="1">Information Technology</option>            
+              <option value="2">Railways</option>            
+              <option value="3">grarat</option>            
+              <option value="4">8zl w nseg</option>            
+            </select>
+          </div>
+        </div>
+         
+        <div class="form-row mb-3">
+         <div class="form-group mb-3">
             <label for="email" class="form-label">Email Address</label>
             <input type="email" class="form-control rounded-pill" id="registerEmail" name="email"
               placeholder="Enter your email" required>
           </div>
-          <div class="form-group">
-            <label for="birthdate" class="form-label">Birthdate</label>
-            <input type="date" class="form-control rounded-pill" name="birthdate" id="birthdate" required>
-          </div>
+          <div class="form-group mb-3">
+              <label for="phoneNumber" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control rounded-pill" id="phoneNumber" name="phoneNumber"
+                placeholder="Enter your phone number">
+            </div>
         </div>
         <div class="form-row mb-3">
-          <div class="form-group">
+           <div class="form-group">
             <label for="password" class="form-label">Password</label>
             <div class="input-container">
-              <input type="password" id="registerPassword" class="form-control rounded-pill py-2"
+              <input type="password" id="registerPassword" name="pass" class="form-control rounded-pill py-2"
                 placeholder="Enter your password" required />
               <span class="togglePassword" id="togglePassword2"
                 onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
@@ -156,7 +191,7 @@
           <div class="form-group">
             <label for="confirmPassword" class="form-label">Confirm Password</label>
             <div class="input-container">
-              <input type="password" id="registerConfirmPassword" class="form-control rounded-pill py-2"
+              <input type="password" id="registerConfirmPassword" name="cp" class="form-control rounded-pill py-2"
                 placeholder="Confirm your password" required />
               <span class="togglePassword" id="togglePassword3"
                 onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
@@ -167,37 +202,32 @@
           </div>
         </div>
 
-        <div class="form-row mb-3">
-          <div class="form-group">
-            <label for="studentId" class="form-label">Student ID</label>
-            <input type="text" class="form-control rounded-pill" id="studentId" name="studentId"
-              placeholder="Enter your Student ID" required>
-          </div>
-        </div>
+       
 
         <div class="form-row mb-3">
           <div class="form-group">
-            <label class="form-label">Gender</label><br>
+            <label class="form-label me-3">Gender:</label>
             <div class="form-check form-check-inline">
-              <input class="form-check-input " type="radio" name="gender" id="male" value="Male" required>
+              <input class="form-check-input " type="radio" name="gender" id="male" value="Male" checked>
               <label class="form-check-label" for="male">Male</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="gender" id="female" value="Female" re>
+              <input class="form-check-input" type="radio" name="gender" id="female" value="Female" >
               <label class="form-check-label" for="female">Female</label>
             </div>
           </div>
           <div class="checkbox-container">
             <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="libraryFriend" name="libraryFriend">
+              <input type="checkbox" class="form-check-input" id="libraryFriend" name="is_friend" value="1">
               <label class="form-check-label" for="libraryFriend">Do You Want To Be A Library Friend?</label>
             </div>
           </div>
         </div>
 
-        <input type="submit" class="btn primary-color main-btn d-block m-auto text-center" value="continue">
+        <div class="d-flex justify-content-center mt-4">
+          <button type="submit" class="btn primary-color main-btn d-block m-auto text-center">Finish</button>
+        </div>
       </form>
-      <p class="text-center mt-3">If you have an account <a href="login.html" class="login">login</a></p>
     </div>
   </div>
   <!-- Footer -->
@@ -225,11 +255,11 @@
 
           <h5 class="text-uppercase" style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">Quick Links</h5>
           <ul class="list-unstyled">
-            <li><a href="index.html" class="  foorer-link text-decoration-none text-light">Home</a></li>
-            <li><a href="Explore.html" class="foorer-link text-decoration-none text-light">Categories</a></li>
-            <li><a href="wishlist.html" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
-            <li><a href="index.html#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
-            <li><a href="about.html" class="foorer-link text-decoration-none text-light">About Us</a></li>
+            <li><a href="index.php" class="  foorer-link text-decoration-none text-light">Home</a></li>
+            <li><a href="Explore.php" class="foorer-link text-decoration-none text-light">Categories</a></li>
+            <li><a href="wishlist.php" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
+            <li><a href="index.php#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
+            <li><a href="about.php" class="foorer-link text-decoration-none text-light">About Us</a></li>
           </ul>
         </div>
         <!-- Contact Section -->

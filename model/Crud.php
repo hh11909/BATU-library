@@ -16,7 +16,7 @@ class Crud
     $qry = substr($qry, 0, -1);
     $qry = $qry . ") VALUES (";
     foreach ($vals as $val) {
-      $qry = $qry . "$val,";
+      $qry = $qry . "'$val',";
     }
     $qry = substr($qry, 0, -1);
     $qry = $qry . ");";
@@ -39,7 +39,7 @@ class Crud
       return json_encode($data);
     }
   }
-  static function read($tableName, $filterCols = array(), $filterVals = array())
+  static function read($tableName, $filterCols = array(), $filterVals = array(),$condition_state=0)
   {
     require('dbcon.php');
     $qry = "SELECT * from $tableName;";
@@ -47,12 +47,16 @@ class Crud
       $qry = substr($qry, 0, -1);
       $filter = " WHERE ";
       for ($i = 0; $i < count($filterCols); $i++) {
+        if($filterCols[$i]=="email"&&$condition_state==0){
+
+          $filter = $filter . $filterCols[$i] . " = '" . $filterVals[$i] . "' AND ";
+          continue;
+        }
         $filter = $filter . $filterCols[$i] . " LIKE '%" . $filterVals[$i] . "%' AND ";
       }
       $filter = substr($filter, 0, -4);
       $qry = $qry . $filter . ";";
     }
-
     $qry_run = mysqli_query($cn, $qry);
     if ($qry_run) {
       if (mysqli_num_rows($qry_run) > 0) {
@@ -72,9 +76,16 @@ class Crud
         ];
         mysqli_close($cn);
         header("HTTP/1.0 404 Not Found");
-        //  return json_encode($data);
+        return json_encode($data);
       }
     }
+    $data = [
+      'status' => 500,
+      'Message' => "Server Error"
+    ];
+    mysqli_close($cn);
+    header("HTTP/1.0 500 Server Error");
+    return json_encode($data);
   }
   static function update($tableName, $updateCols = array(), $updateVals = array(), $filterCols = array(), $filterVals = array())
   {

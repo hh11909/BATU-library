@@ -1,11 +1,12 @@
 <?php
-function error422($message)
+function error422($message, $status = 422)
 {
   $data = [
-    'status' => 422,
+    'status' => $status,
     'Message' => $message
   ];
-  header("HTTP/1.0 422 Unprocessible Entity");
+
+  header("HTTP/1.0 $status $message");
   header("X-Message: $message");
   return json_encode($data);
   exit();

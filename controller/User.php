@@ -4,7 +4,6 @@ namespace controller;
 
 require_once(__DIR__ . "/Student.php");
 require_once(__DIR__ . "/Admin.php");
-require_once(__DIR__ . "/Friend.php");
 
 class User
 {
@@ -42,6 +41,8 @@ class User
           $result = Admin::login($email, $password);
           if (empty($result)) {
             error422("Please Register Now!");
+            header("HTTP/1.0 302 Redirect");
+            header("Location: /pages/register1.html");
             return null;
           }
         }
