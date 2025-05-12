@@ -158,12 +158,38 @@ class Book
         $result = $bookModel->delete($filterCols, $filterVals);
         
       }
-
-
-  }
-  
  
+  }
 
 
+//in admin
+use BookFunctions;
+
+//in student
+
+
+use BookFunctions{
+
+  searchForBooks as public;
+  readBooks as public;
+  createBook as private;
+  updateBook as private;
+  deleteBook as private;
+      
+  }
+  use StuBB;
+
+  // in errors
+
+  
+function error413($message){
+  $data=[
+    'status'=>413,
+    'Message'=>$message 
+   ];
+   header("HTTP/1.1 413 Payload Entity Too Large");
+   return json_encode($data);
+  
+  }
 
 ?>
