@@ -106,7 +106,7 @@
       <!-- Error Alert Section -->
       <div class="register-header">
         <i class="fas fa-user"></i>
-        <h2>Register Now</h2>
+        <h2>Register Student</h2>
       </div>
       <div id="errorAlert" class="alert alert-danger alert-dismissible fade d-none mt-3" role="alert">
         <span id="errorMessage">An error occurred!</span>
@@ -116,7 +116,7 @@
         <span id="successMessage">Success</span>
         <button type="button" class="btn-close" aria-label="Close" onclick="hideSuccess()"></button>
       </div>
-      <form action="register2.php" method="get" id='registerForm'>
+      <form action="../api/student/create.php" method="post" id='registerForm'>
         <div class="form-row mb-3">
           <div class="form-group">
             <label for="name" class="form-label">Student Name</label>
@@ -164,7 +164,42 @@
         </div>
          
         <div class="form-row mb-3">
-         
+         <div class="form-group mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control rounded-pill" id="registerEmail" name="email"
+              placeholder="Enter your email" required>
+          </div>
+          <div class="form-group mb-3">
+              <label for="phoneNumber" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control rounded-pill" id="phoneNumber" name="phoneNumber"
+                placeholder="Enter your phone number">
+            </div>
+        </div>
+        <div class="form-row mb-3">
+           <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-container">
+              <input type="password" id="registerPassword" name="pass" class="form-control rounded-pill py-2"
+                placeholder="Enter your password" required />
+              <span class="togglePassword" id="togglePassword2"
+                onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
+                <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
+              </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <div class="input-container">
+              <input type="password" id="registerConfirmPassword" name="cp" class="form-control rounded-pill py-2"
+                placeholder="Confirm your password" required />
+              <span class="togglePassword" id="togglePassword3"
+                onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
+                <i class="fa-solid fa-eye-slash" style="cursor: pointer;display: inline-block;"></i>
+                <i class="fa-solid fa-eye" style="cursor: pointer;display: none;"></i>
+              </span>
+            </div>
+          </div>
         </div>
 
        
@@ -173,25 +208,26 @@
           <div class="form-group">
             <label class="form-label me-3">Gender:</label>
             <div class="form-check form-check-inline">
-              <input class="form-check-input " type="radio" name="gender" id="male" value="Male" required>
+              <input class="form-check-input " type="radio" name="gender" id="male" value="Male" checked>
               <label class="form-check-label" for="male">Male</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="gender" id="female" value="Female" re>
+              <input class="form-check-input" type="radio" name="gender" id="female" value="Female" >
               <label class="form-check-label" for="female">Female</label>
             </div>
           </div>
           <div class="checkbox-container">
             <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="libraryFriend" name="is_friend" value=1>
+              <input type="checkbox" class="form-check-input" id="libraryFriend" name="is_friend" value="1">
               <label class="form-check-label" for="libraryFriend">Do You Want To Be A Library Friend?</label>
             </div>
           </div>
         </div>
 
-        <input type="submit" class="btn primary-color main-btn d-block m-auto text-center" value="continue">
+        <div class="d-flex justify-content-center mt-4">
+          <button type="submit" class="btn primary-color main-btn d-block m-auto text-center">Finish</button>
+        </div>
       </form>
-      <p class="text-center mt-3">If you have an account <a href="login.php" class="login">login</a></p>
     </div>
   </div>
   <!-- Footer -->
