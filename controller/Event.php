@@ -23,20 +23,16 @@ class Event
   public $updated_at;
   function __construct($title, $content, $start_date, $end_date, $image, $admin_ID = null, $student_ID = null, $state = "requested")
   {
-    if (empty(trim($this->title))) {
+    if (empty(trim($title))) {
       return error422("Enter Event's title!");
-    } elseif (empty(trim($this->content))) {
+    } elseif (empty(trim($content))) {
       return error422("Enter Event's content!");
-    } elseif (empty(trim($this->image))) {
+    } elseif (empty(trim($image))) {
       return error422("Enter Event's your image");
-    } elseif (empty(trim($this->start_date))) {
+    } elseif (empty(trim($start_date))) {
       return error422("Enter Event's starting  date");
-    } elseif (empty(trim($this->end_date))) {
+    } elseif (empty(trim($end_date))) {
       return error422("Enter Event's ending  date");
-    } elseif (empty(trim($this->admin_ID))) {
-      return error422("Enter your admin ID!");
-    } elseif (empty(trim($this->student_ID))) {
-      return error422("Enter your admin ID!");
     } else {
 
       $this->student_ID = $student_ID;

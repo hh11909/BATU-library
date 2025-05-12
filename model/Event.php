@@ -11,11 +11,25 @@ use model\Crud;
 class Event
 {
   private $table = "Events";
-  private $fields = ["title", "content", "image", "date", "state", "admin_ID", "student_ID"];
+  private $fields = ["title", "content", "image", "start_date", "end_date", "state", "admin_ID", "student_ID"];
   function create(ControllerEvent $event)
   {
     $vals = [$event->title, $event->content, $event->image, $event->start_date, $event->end_date, $event->state, $event->getAdmin_ID(), $event->student_ID];
-    return Crud::create($this->table, $this->fields, $vals);
+    $fls = $this->fields;
+    if (!$event->getAdmin_ID()) {
+      $studentkey = array_pop($fls);
+      array_pop($fls);
+      $studentVal = array_pop($vals);
+      array_pop($vals);
+      array_push($fls, $studentkey);
+      array_push($vals, $studentVal);
+    }
+    if (!$event->student_ID) {
+      array_pop($fls);
+      array_pop($vals);
+    }
+    var_dump($fls, $vals);
+    return Crud::create($this->table, $fls, $vals);
   }
   function read($filterCols = array(), $filterVals = array())
   {

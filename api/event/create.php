@@ -1,8 +1,13 @@
 <?php
 
+require_once(__DIR__ . '/../../controller/User.php');
+require_once(__DIR__ . '/../../controller/Admin.php');
+require_once(__DIR__ . '/../../controller/Friend.php');
 require_once(__DIR__ . '/../../controller/Event.php');
 
+use controller\Admin;
 use controller\Event;
+use controller\Friend;
 
 session_start();
 header("Content-Type:application/json");
@@ -16,13 +21,26 @@ if ($requestMethod == "POST") {
     echo "login";
     die();
   }
-  // $evn = new Event(
-  //   $_POST['title'],
-  //   $_POST['content'],
-  //   $_POST['start_date'],
-  //   $_POST['end_date'],
-  //   $_POST['image'],
-  // );
+  /*@var User $user*/
+  $user = unserialize($_SESSION['user']);
+  $evn = new Event(
+    $_POST['title'],
+    $_POST['content'],
+    $_POST['start_date'],
+    $_POST['end_date'],
+    $_POST['image'],
+  );
+  if ($user instanceof Admin) {
+    $evn->setAdmin_ID($user->id);
+    $user->createEvent($evn);
+    echo "ADMIN";
+  }
+  if ($user instanceof Friend) {
+    $evn->student_ID = $user->id;
+    $user->createEvent($evn);
+    echo "FRIEND";
+  }
+  die();
   // $new_event=new Event();
   // Admin :: createEvent( Event $new_event,$role,$admin_ID)
   // {
