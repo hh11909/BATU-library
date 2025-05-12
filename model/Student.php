@@ -15,15 +15,15 @@ class Student
   private $fields = ["name", "academy_number","academic_year", "phone", "gender", "department_ID", "email", "password", "admin_ID", "is_friend"]; //,,"profile_image","student_image"
   function create(ControllerStudent $student)
   {
-    $vals = [$student->name, $student->academy_number,$student->academic_year,$student->phone, $student->gender, $student->department_ID, $student->email, $student->getPassword(), $student->getAdmin_ID(), $student->is_friend ? 0 : 1];
+    $vals = [$student->name, $student->academy_number,$student->academic_year,$student->phone, $student->gender, $student->department_ID, $student->email, $student->getPassword(), $student->getAdmin_ID(), $student->is_friend];
     return Crud::create($this->table, $this->fields, $vals);
   }
-  function read($filterCols = array(), $filterVals = array())
+  function read($filterCols = array(), $filterVals = array(),$condition_state=0)
   {
     if (empty($filterCols) && empty($filterVals)) {
       return Crud::read($this->table);
     } elseif (count($filterCols) == count($filterVals) && (!empty($filterCols) && !empty($filterVals))) {
-      return Crud::read($this->table, $filterCols, $filterVals);
+      return Crud::read($this->table, $filterCols, $filterVals,$condition_state);
     } elseif (count($filterCols) != count($filterVals)) {
       return error422('filteration columns count are not equal to their values count!');
     }
