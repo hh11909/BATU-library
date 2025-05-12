@@ -4,6 +4,7 @@ namespace controller;
 
 require_once("User.php");
 require_once(__DIR__ . "/../model/Admin.php");
+
 use controller\Student;
 use controller\User;
 
@@ -47,7 +48,7 @@ class Admin extends User
       $result = $stuModel->read($cols, $vals);
       $result = json_decode($result, true);
       if (isset($result["data"])) { //Men3em modified here
-      $result = $result["data"];
+        $result = $result["data"];
         if ($arr = $result[0]) {
           $user = new Admin(
             $arr["name"],
@@ -195,38 +196,42 @@ class Admin extends User
       }
     }
   }
-   function storeStudent(Student $student)
+  function storeStudent(Student $student)
   {
     // Sanitization
     $student->sanitize();
     // Validation
     $student->validate();
     return $student->create();
-    
   }
-  function readStudents($name="",$academy_number="",$academic_year="",$phone="",$email=""){
-     $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+  function readStudents($name = "", $academy_number = "", $academic_year = "", $phone = "", $email = "")
+  {
+    $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
     $academy_number = trim(htmlspecialchars(filter_var($academy_number, FILTER_SANITIZE_NUMBER_INT)));
     $academic_year = trim(htmlspecialchars(filter_var($academic_year, FILTER_SANITIZE_NUMBER_INT)));
     $phone = trim(htmlspecialchars(filter_var($phone, FILTER_SANITIZE_NUMBER_INT)));
     $email = trim(htmlspecialchars(filter_var($email, FILTER_SANITIZE_EMAIL)));
-    if ($email!=""&&!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if ($email != "" && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
       return error422("Invalid Email!");
-    } elseif ($academy_number!=""&&!filter_var($academy_number, FILTER_VALIDATE_INT)) {
+    } elseif ($academy_number != "" && !filter_var($academy_number, FILTER_VALIDATE_INT)) {
       return error422("Invalid Academy Number!");
-    } elseif ($academic_year!=""&&!filter_var($academic_year, FILTER_VALIDATE_INT)) {
+    } elseif ($academic_year != "" && !filter_var($academic_year, FILTER_VALIDATE_INT)) {
       return error422("Invalid Academy Number!");
-    } elseif ($phone!=""&&!preg_match("/^01[0-2,5]{1}[0-9]{8}$/", $phone)) {
+    } elseif ($phone != "" && !preg_match("/^01[0-2,5]{1}[0-9]{8}$/", $phone)) {
       return error422("Invalid Academy Phone!");
     }
-    require_once(__DIR__."/Student.php");
-    Student::read($name,$academy_number,$academic_year,$phone);
+    require_once(__DIR__ . "/Student.php");
+    Student::read($name, $academy_number, $academic_year, $phone);
   }
-  function deleteStudent($student_ID){
-    $student_ID=trim(htmlspecialchars(filter_var($student_ID, FILTER_SANITIZE_NUMBER_INT)));
+  function deleteStudent($student_ID)
+  {
+    $student_ID = trim(htmlspecialchars(filter_var($student_ID, FILTER_SANITIZE_NUMBER_INT)));
     if (!filter_var($student_ID, FILTER_VALIDATE_INT)) {
       return error422("Invalid student_ID");
     }
     Student::delete($student_ID);
   }
+  public function createEvent() {}
+  public function updateEvent() {}
+  public function deleteEvent() {}
 }
