@@ -28,7 +28,7 @@
     >
       <div class="container">
         <!-- logo -->
-        <a class="navbar-brand fs-4" href="../index.html">
+        <a class="navbar-brand fs-4" href="../index.php">
           <img
             src="../images/logo.png"
             alt="Logo"
@@ -72,15 +72,15 @@
               class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3"
             >
               <li class="nav-item">
-                <a class="nav-link mx-2" aria-current="page" href="../index.html"
+                <a class="nav-link mx-2" aria-current="page" href="../index.php"
                   >Home</a
                 >
               </li>
               <li class="nav-item mx-2">
-                <a class="nav-link" href="../about.html">About</a>
+                <a class="nav-link" href="../about.php">About</a>
               </li>
               <li class="nav-item mx-2">
-                <a class="nav-link" href="../contact.html">Contact</a>
+                <a class="nav-link" href="../contact.php">Contact</a>
               </li>
               <li class="nav-item dropdown mx-2">
                 <a
@@ -94,16 +94,16 @@
                 </a>
                 <ul class="dropdown-menu mt-3">
                   <li>
-                    <a class="dropdown-item" href="../Explore.html">Explore</a>
+                    <a class="dropdown-item" href="../Explore.php">Explore</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="../Events.html">Events</a>
+                    <a class="dropdown-item" href="../Events.php">Events</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="../wishlist.html">Wishlist</a>
+                    <a class="dropdown-item" href="../wishlist.php">Wishlist</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="../borrowed.html">Borrowed</a>
+                    <a class="dropdown-item" href="../borrowed.php">Borrowed</a>
                   </li>
                 </ul>
               </li>
@@ -639,7 +639,7 @@
             <div class="container">
               <div class="mb-5 mt-0 align-items-center" href="#">
                 <img
-                  src="images/logo.png"
+                  src="../images/logo.png"
                   alt="Logo"
                   width="48"
                   height="48"
@@ -675,35 +675,35 @@
             <ul class="list-unstyled">
               <li>
                 <a
-                  href="index.html"
+                  href="index.php"
                   class="foorer-link text-decoration-none text-light"
                   >Home</a
                 >
               </li>
               <li>
                 <a
-                  href="Explore.html"
+                  href="Explore.php"
                   class="foorer-link text-decoration-none text-light"
                   >Categories</a
                 >
               </li>
               <li>
                 <a
-                  href="wishlist.html"
+                  href="wishlist.php"
                   class="foorer-link text-decoration-none text-light"
                   >Wishlist</a
                 >
               </li>
               <li>
                 <a
-                  href="index.html#fqa"
+                  href="index.php#fqa"
                   class="foorer-link text-decoration-none text-light"
                   >FAQs</a
                 >
               </li>
               <li>
                 <a
-                  href="about.html"
+                  href="about.php"
                   class="foorer-link text-decoration-none text-light"
                   >About Us</a
                 >
