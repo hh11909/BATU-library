@@ -18,7 +18,7 @@ if (isset($_SESSION["user"]) && !isset($user)) {
     require_once(__DIR__ . "/../controller/Student.php");
     /**@var Student $user */
     $user = unserialize($_SESSION["user"]);
-  } catch (error) {
+  } catch (Exception $error) {
     require_once(__DIR__ . "/../controller/Admin.php");
     /**@var Admin $user */
     $user = unserialize($_SESSION["user"]);
