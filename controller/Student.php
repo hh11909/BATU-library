@@ -74,10 +74,10 @@ class Student extends User
       if ($arr = $result[0]) {
         switch ($arr['is_friend']) {
           case 0:
-            $user = new Student($arr["name"], $arr["academy_number"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"],$arr["password"], $arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
+            $user = new Student($arr["name"], $arr["academy_number"],$arr["academic_year"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"],$arr["password"], $arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
             break;
           case 1:
-            $user = new Friend($arr["name"], $arr["academy_number"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"],$arr["password"],$arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
+            $user = new Friend($arr["name"], $arr["academy_number"],$arr["academic_year"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"],$arr["password"],$arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
             break;
         }
         return $user;
@@ -90,17 +90,30 @@ class Student extends User
       $model = new StudentModel();
       return $model->create($this);
   }
-  static function read($name="",$academy_number="",$academic_year="",$phone="",$limit=0,$offset=0){
-    $cols=['name','academy_number','academic_year','phone'];
-    $vals=[$name,$academy_number,$academic_year,$phone];
+  static function read($name="",$academy_number="",$academic_year="",$phone="",$email="",$limit=0,$offset=0){
+    $cols=['name','academy_number','academic_year','phone','email'];
+     $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+    $academy_number = trim(htmlspecialchars(filter_var($academy_number, FILTER_SANITIZE_NUMBER_INT)));
+    $academic_year = trim(htmlspecialchars(filter_var($academic_year, FILTER_SANITIZE_NUMBER_INT)));
+    $phone = trim(htmlspecialchars(filter_var($phone, FILTER_SANITIZE_NUMBER_INT)));
+    if ($email!=""&&!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      return error422("Invalid Email!");
+    } elseif ($academy_number!=""&&!filter_var($academy_number, FILTER_VALIDATE_INT)) {
+      return error422("Invalid Academy Number!");
+    }  elseif ($academic_year!=""&&!filter_var($academic_year, FILTER_VALIDATE_INT)) {
+      return error422("Invalid Academy Number!");
+    } elseif ($phone!=""&&!preg_match("/^01[0-2,5]{1}[0-9]{8}$/", $phone)) {
+      return error422("Invalid Academy Phone!");
+    }
+    $vals=[$name,$academy_number,$academic_year,$phone,$email];
     $model = new StudentModel();
-    $result = $model->read($cols, $vals);
+    $result = $model->read($cols, $vals,1);
     $result = json_decode($result, true);
     if (isset($result["data"])) {
       $count = count($result["data"]);
       $result["count"]=$count;
     }
-    echo json_encode($result);
+    return json_encode($result);
   }
   static function delete($student_ID){
     $model = new StudentModel();
