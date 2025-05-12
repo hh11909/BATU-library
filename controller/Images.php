@@ -6,9 +6,9 @@ require("../model/Book");
 class Images{
 
     static function createImage($x ,$path ,$image){
-        $image_name = $_FILES['image']['name'];       
-        $image_tmp  = $_FILES['image']['tmp_name'];        
-        $image_size = $_FILES['image']['size'];           
+        $image_name = $image['name'];       
+        $image_tmp  = $image['tmp_name'];        
+        $image_size = $image['size'];           
         $image_ext  = strtolower(pathinfo($image_name, PATHINFO_EXTENSION)); 
         $allowed_ext = ['jpg', 'jpeg', 'png'];  
        if (!in_array($image_ext, $allowed_ext)) {

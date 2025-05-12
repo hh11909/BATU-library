@@ -1,28 +1,27 @@
 <?php
+
 use controller\Admin;
+
 require_once("../../controller/Admin.php");
 session_start();
-// header("Content-Type:application/json");
 header("Access-Control-Allow-Origin:*");
-header("Access-Control-Allow-Methods:POST");
+header("Access-Control-Allow-Methods:DELETE");
 header("Access-Control-Allow-Headers:Content-Type,Authorization,X-Request-With");
-$requestMethod=$_SERVER["REQUEST_METHOD"];
-$inputData= json_decode(file_get_contents("php://input"),true);
-if($requestMethod=="POST"){
-  if (isset($inputData["name"]) && isset($inputData["author"])){
-    $book= Admin::deleteBook($inputData["name"],$inputData["author"]);
-    header("Location:../../pages/Explore.html");
+$requestMethod = $_SERVER["REQUEST_METHOD"];
+
+
+if ($requestMethod == "DELETE") {
+  if (isset($_SESSION["user"])) {
+    $user = unserialize($_SESSION["user"]);
+    if ($user->role != "admin") {
+      echo error422("you are not authorized to be here!");
+      header("Location:../../pages/index.php");
+    } else {
+      if (isset($_POST["name"]) && isset($_POST["author"])) {
+        $book = Admin::deleteBook($_POST["name"], $_POST["author"]);
+        $message = json_decode($book);
+        echo $message->Message;
+      }
+    }
   }
-  else{
-      $message=json_decode($book);
-      echo $message->Message;
-  }}
-   else{
-  $data=[
-   'status'=>405,
-   'Message'=>$requestMethod." Method Not Allowed" 
-  ];
-  header("HTTP/1.0 405 Method Not Allowed");
-  echo json_encode($data);
 }
-?>

@@ -19,11 +19,7 @@ function read( $academy_number){
  return Crud::read("Books","book_ID",$id);
  }}
   }
-  function BorrowBook($academy_number,$book_ID,$Borrow_date,$return_date,$is_borrowed=0 ){
-$fields=["academy_number","book_ID","Borrow_date", "return_date","is_borrowed"];
-    $vals=[$academy_number,$book_ID,$Borrow_date, $return_date,$is_borrowed];
-    return Crud::create($this->table,$fields,$vals);
-  }
+  
     }
       
 

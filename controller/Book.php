@@ -6,8 +6,9 @@ use model;
 
 require("../model/errors");
 require("../model/Book");
+require("../model/BBooks");
 require("Images.php");
-class Book
+/*class Book
 {
   public $book_ID;
   public $name;
@@ -38,8 +39,8 @@ class Book
   function getAdmin_ID()
   {
     return $this->admin_ID;
-  }}
-  trait BookFunctions
+  }*/
+  trait Book
   {
     static function searchForBooks($name, $author)
     {
@@ -93,6 +94,7 @@ class Book
         $new_image = $imageHandling->createImage($x, $path, $image);
         if (filter_var($admin_ID, FILTER_VALIDATE_INT)) {
           return error422("Invalid ID!");
+        
         } else {
           $bookModel = new model\Book();
           return $bookModel->create($name, $author, $new_image, $description, $admin_ID);
@@ -102,11 +104,9 @@ class Book
   
   
   
-    static function updateBook($book_ID, $name, $author, $image, $description, $admin_ID, $is_borrowed, $Uname, $Uauthor, $Uimage, $Udescription, $Uis_borrowed)
+    static function updateBook($book_ID, $name, $author, $image, $description, $admin_ID, $is_borrowed, $Uname =null, $Uauthor =null, $Uimage=null, $Udescription=null, $Uis_borrowed=null)
     {
       $bookModel = new model\Book();
-      $Ucol = ["name", "author", "image", "description", "is_borrowed"];
-      $Uval = [$Uname, $Uauthor, $Uimage, $Udescription, $Uis_borrowed];
       $Fcol = ["book_ID", "name", "author","image", "description", "admin_ID", "is_borrowed"];
       $Fval = [$book_ID, $name, $author, $image,$description, $admin_ID, $is_borrowed];
       $result = $bookModel->read($Fcol, $Fval);
@@ -120,69 +120,98 @@ class Book
           if (empty($Uauthor)) {
             $Uauthor = $arr["author"];
           }
-          if (empty($Uimage)) {
-            $Uimage = $arr["image"];
-          }
           if (empty($Udescription)) {
             $Udescription = $arr["description"];
           }
           if (empty($Uis_borrowed)) {
             $Uis_borrowed = $arr["is_borrowed"];
           }
+          if (!isset($_FILES['image'])) {
+            $Uimage = $arr["image"];
+          }
            
         }
       }
        else {
-        $bookModel = new model\Book();
-        $bookModel->update($Ucol, $Uval, $Fcol, $Fval);
-        if (isset($result)) {
-          if ($arr = mysqli_fetch_assoc($result)) {
-            switch ($arr["is_borrowed"]) {
-              case 0:
-                $book = new Book($arr["book_ID"], $arr["name"], $arr["author"], $arr["image"], $arr["description"], $arr["is_borrowed"], $arr["admin_ID"], $arr["created_at"], $arr["updated_at"]);
-                break;
-              case 1:
-                $book = new BorrowedBook($arr["book_ID"], $arr["name"], $arr["author"], $arr["image"], $arr["description"], $arr["is_borrowed"], $arr["admin_ID"], $arr["created_at"], $arr["updated_at"]);
-                break;
-            }
-          }
+        $Uname = trim(filter_var($Uname, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+        $Uauthor = trim(filter_var($Uauthor, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+        $Udescription = trim(filter_var($Udescription, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+        $Uis_borrowed= htmlspecialchars(filter_var($Uis_borrowed, FILTER_SANITIZE_NUMBER_INT));
+        $x = "book_";
+        $path = "Images/Book";
+        $imageHandling = new  Images();
+        $new_image = $imageHandling->createImage($x, $path, $Uimage);
+        if (filter_var($Uis_borrowed, FILTER_VALIDATE_BOOLEAN)) {
+          return error422("Invalid Is borrowed  Value!");
         }
-      }
-    }
+        else {
+          $Ucol = ["name", "author", "image", "description", "is_borrowed"];
+          $Uval = [$Uname, $Uauthor, $new_image , $Udescription, $Uis_borrowed];
   
+          return $bookModel->update($Ucol, $Uval, $Fcol, $Fval);
+          //$result = json_decode($result);
+          //$result = $result["data"];
+          //if (isset($result)) {
+          //if ($arr = mysqli_fetch_assoc($result)) {
+            //switch ($arr["is_borrowed"]) {
+              //case 0:
+                //$book = new Book($arr["book_ID"], $arr["name"], $arr["author"], $arr["image"], $arr["description"], $arr["is_borrowed"], $arr["admin_ID"], $arr["created_at"], $arr["updated_at"]);
+                //break;
+              //case 1:
+                //$book = new BorrowedBook($arr["book_ID"], $arr["name"], $arr["author"], $arr["image"], $arr["description"], $arr["is_borrowed"], $arr["admin_ID"], $arr["created_at"], $arr["updated_at"]);
+                //break;
+          //  }
+          //}
+       // }
+      }
+    }}
    static function deleteBook($name, $author)
     {
-       $bookModel = new model\Book();
+      $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+      $author = trim(filter_var($author, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+        $bookModel = new model\Book();
         $filterCols = ['name', 'author'];
         $filterVals = [$name, $author];
-        $result = $bookModel->delete($filterCols, $filterVals);
+        return $bookModel->delete($filterCols, $filterVals);
         
       }
+
+      static function readBBooks($academy_number){
+        $bookModel = new model\BBooks();
+        $result = $bookModel->read($academy_number );
+      return $result;
+    }
  
   }
 
 
+  
 //in admin
-use BookFunctions;
+use Book;
+
+
+
+
+
 
 //in student
 
 
-use BookFunctions{
+use Book{
 
   searchForBooks as public;
   readBooks as public;
+  readBBooks as public;
   createBook as private;
   updateBook as private;
   deleteBook as private;
+  
       
   }
-  use StuBB;
-
-  // in errors
+   // in errors
 
   
-function error413($message){
+ function error413($message){
   $data=[
     'status'=>413,
     'Message'=>$message 
@@ -191,5 +220,12 @@ function error413($message){
    return json_encode($data);
   
   }
+
+
+
+
+
+
+
 
 ?>

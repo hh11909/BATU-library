@@ -1,19 +1,4 @@
-<?php
-namespace controller;
-use model;
-require("../model/errors");
-require("../model/Book");
-class BorrowedBook extends Book {
-  public $is_borrowed=1;
-
-   }
-   trait StuBB{
-    static function readBBooks($academy_number){
-      $bookModel = new model\BBooks();
-      $result = $bookModel->read($academy_number );
-    return $result;
-  }
-  /*static function BorrowBook($academy_number,$book_ID,$Borrow_date,$return_date,$is_borrowed){
+/*static function BorrowBook($academy_number,$book_ID,$Borrow_date,$return_date,$is_borrowed){
   //student will send his data with request so check v,f and but it into table using crate , if admin res is empty like borrow date,return date , is borrowed okay nice  sent a MASSEGE thim then he wll the admin add his confirm passed to table and finally the b is borrod so ubdate book table
     if (empty(trim($academy_number))) {
       return error422("Enter your academy number!");
@@ -46,7 +31,10 @@ class BorrowedBook extends Book {
   return $result;
 }*/
 
-}
-      
 
-?>
+/*
+function BorrowBook($academy_number,$book_ID,$Borrow_date,$return_date,$is_borrowed=0 ){
+$fields=["academy_number","book_ID","Borrow_date", "return_date","is_borrowed"];
+    $vals=[$academy_number,$book_ID,$Borrow_date, $return_date,$is_borrowed];
+    return Crud::create($this->table,$fields,$vals);
+  }*/
