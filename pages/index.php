@@ -1,12 +1,26 @@
 <?php
 use controller\Student;
+use controller\Admin;
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
   }
+  if(isset($_COOKIE["user"])){
+    $_SESSION["user"]=$_COOKIE["user"];
+  }
   if(isset($_SESSION["user"])&&!isset($user)){
-    require_once(__DIR__."/../controller/Student.php");
+    try{
+        require_once(__DIR__."/../controller/Student.php");
     /**@var Student $user */
     $user=unserialize($_SESSION["user"]);
+      
+    }
+    catch(error){
+       require_once(__DIR__."/../controller/Admin.php");
+      /**@var Admin $user */
+      $user=unserialize($_SESSION["user"]);
+   
+    }
+    
     $role=$user->role;}
   ?>
 <!DOCTYPE html>
@@ -122,11 +136,15 @@ if (session_status() === PHP_SESSION_NONE) {
           <!-- profile -->
                 <?php 
                   }             
-                  if(isset($_SESSION["user"])){
-                      ?>
+                                   if(isset($_SESSION["user"])){
+                    $role=$user->role;?>
           <div class="d-flex align-items-center mt-1 d-none d-lg-block">
+            <?php
+              if($role=="student"){
+            ?>
             <a href="profile.php"><img src="<?=($user->student_image)?$user->student_image:"images/profile.png"?>" alt="User" class="rounded-circle ms-3"
-                width="40" height="40"></a><!--to do-->
+            width="40" height="40"></a><!--to do-->
+          <?php } ?>
           </div>
           <div class="d-flex justify-content-center align-items-center">
             <a href="../api/user/logout.php" id="log-out" class="btn primary-color main-btn ms-lg-5">Log Out</a>

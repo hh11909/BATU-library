@@ -56,6 +56,16 @@ if(isset($_SESSION["user"])){
             <p id="pass-error" style="color:red;"></p>
           </div>
         </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="remember"
+              name="remember"
+              value="1"
+            />
+            <label class="form-check-label"  for="remember">Remember Me</label>
+          </div>
           <a class="forgot-password" href="#">Forgot Password?</a>
           <div class="text-center">
 
