@@ -1,83 +1,51 @@
-<?php
-use controller\Student;
-session_start();
-require_once(__DIR__."/../controller/Student.php");
-if(isset($_SESSION["user"])){
-  /**@var Student $user */
-  $user=unserialize($_SESSION["user"]);
-  $role=$user->role;
-  if($role=="student"){
-    header("Location:index.php");
-  }
-  elseif($role=="admin"){
-    header("Location:index.php");//will be modified later!!!!!!!!!!!!!!!!!!
-  }
 
-}
-?>
-<?php require_once(__DIR__."/header.php")?>
+  <?php require_once(__DIR__."/header.php")?>
   <div style="height: 66px;"></div>
   <!-- navigation bar end -->
 
-  <div class="container">
-    <div class="register-container">
-      <div class="register-header">
-        <i class="fas fa-user"></i>
-        <h2>Log In</h2>
-        <h1 class="welcome-text">Welcome To BATU’s Library!</h1>
-      </div>
-      <div class="container px-md-5">
-        <div id="errorAlert" class="alert alert-danger alert-dismissible fade d-none mt-3" role="alert">
-          <span id="errorMessage">An error occurred!</span>
-          <button type="button" class="btn-close" aria-label="Close" onclick="hideError()"></button>
-        </div>
+  <header class="header">
+    <div class="container pt-4 my-4">
+      <h1 class=" about-title border-0 text-center px-0 pb-md-3 py-lg-3 ms-md-4 mb-3 pt-5"><i
+          class="fa-solid fa-circle-info pe-4"></i>About Us</h1>
+      <p class="subtitle text-center">The BATU Library is dedicated to supporting the university's academic and research
+        priorities</p>
+    </div>
+  </header>
 
-        <div id="successAlert" class="alert alert-success alert-dismissible fade d-none mt-3" role="alert">
-          <span id="successMessage">Success</span>
-          <button type="button" class="btn-close" aria-label="Close" onclick="hideSuccess()"></button>
-        </div>
-
-        <form class="login-form px-md-5" action="../api/user/login.php" method="post" id='loginForm'>
-          <p>
-
-            <label class="field-label " for="email">Email</label>
-            <input type="email" id="email" name="email" class="form-control rounded-pill py-2"  />
+  <main class="about-section p-0 m-0 d-lg-flex align-items-center" style="min-height: calc(100vh - 630px)">
+    <div class="card-container">
+      <!-- Card 1 -->
+      <div class="photo-card mx-3">
+        <img src="images/liberarian.jpg" alt="Our Librarians" class="card-image">
+        <div class="card-content">
+          <h2>Our Librarians and Supporters</h2>
+          <p>Get to know the passionate individuals who work behind the scenes to make your library experience better.
           </p>
-          <p id="email-error" style="color:red;"></p>
-          <div>
-            <label class="field-label" for="password">Password</label>
-            <div class="input-container">
-              <input type="password" id="password" name="password" class="form-control rounded-pill py-2 "  />
-              <span class="togglePassword" id="togglePassword"
-              onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
-              <i class="fa-solid fa-eye-slash" id="icon1" style="cursor: pointer; display: inline-block"></i>
-              <i class="fa-solid fa-eye" id="icon2" style="cursor: pointer;display: none;"></i>
-            </span>
-            <p id="pass-error" style="color:red;"></p>
-          </div>
+          <a href="#" class="card-link"><i class="fa-regular fa-address-card"></i> Get to Know Us</a>
         </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="remember"
-              name="remember"
-              value="1"
-            />
-            <label class="form-check-label"  for="remember">Remember Me</label>
-          </div>
-          <a class="forgot-password" href="#">Forgot Password?</a>
-          <div class="text-center">
+      </div>
 
-            <button class="btn main-btn fs-5 py-1" type="submit">Log In</button>
-          </div>
+      <!-- Card 2 -->
+      <div class="photo-card mx-3">
+        <img src="images/together.jpg" alt="Community and Friends" class="card-image">
+        <div class="card-content">
+          <h2>Together for Knowledge</h2>
+          <p>Library friends who support and contribute to our vibrant library community.</p>
+          <a href="#" class="card-link"><i class="fa-solid fa-users"></i> Community and Friends</a>
+        </div>
+      </div>
 
-        </form>
-        <!-- removed the register  //omar -->
+      <!-- Card 3 -->
+      <div class="photo-card mx-3">
+        <img src="images/service.jpg" alt="Explore Services" class="card-image">
+        <div class="card-content">
+          <h2>Explore Our Services</h2>
+          <p>Explore the range of services our library provides, from book borrowing to study spaces.</p>
+          <a href="#" class=" card-link"><i class="fa-solid fa-cloud fa-cloud"></i> Explore Our Services</a>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- Footer -->
+  </main>
   <footer class="footer py-5 text-center text-md-start" style="background-color: #08546d; color: #f6fbf2;">
     <div class="container-fluid footer-grid">
       <div class="row">
@@ -137,16 +105,15 @@ if(isset($_SESSION["user"])){
       </div>
     </div>
   </footer>
-  <!-- Bootstrap JS and Fontawesome -->
-  <script src="js/hide-pass.js">
 
+  <script>
+    let el=document.getElementById('about');
+    el.classList.add('active');
   </script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/all.min.js"></script>
-  <!-- js -->
   <script src="js/index.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="js/handle-login.js"></script>
+
 </body>
 
 </html>

@@ -1,3 +1,28 @@
+<?php
+use controller\Student;
+use controller\Admin;
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+  }
+  if(isset($_COOKIE["user"])){
+    $_SESSION["user"]=$_COOKIE["user"];
+  }
+  if(isset($_SESSION["user"])&&!isset($user)){
+    try{
+        require_once(__DIR__."/../controller/Student.php");
+    /**@var Student $user */
+    $user=unserialize($_SESSION["user"]);
+      
+    }
+    catch(error){
+       require_once(__DIR__."/../controller/Admin.php");
+      /**@var Admin $user */
+      $user=unserialize($_SESSION["user"]);
+   
+    }
+    
+    $role=$user->role;}
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +53,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
     <div class="container">
       <!-- logo -->
-      <a class="navbar-brand fs-4 " href="index.html"><img src="images/logo.png" alt="Logo" width="48" height="48"
+      <a class="navbar-brand fs-4 " href="index.php"><img src="images/logo.png" alt="Logo" width="48" height="48"
           class="me-2 p-1 logo">
         <span class="logo-title">
           BATU Library
@@ -50,50 +75,85 @@
         <!-- sidebar body -->
         <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
           <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
-            <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-              <a href="profile.html"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
-                  width="40" height="40"></a>
-            </li>
+            <?php          
+              if(isset($_SESSION["user"])){
+                $role=$user->role;
+                if($role=="student"){
+                  ?>  
+                  <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
+                  <a href="profile.php"><img src="<?=($user->student_image)?$user->student_image:"images/profile.png"?>" alt="User" class="rounded-circle ms-3"
+                  width="40" height="40"></a><!--to do-->
+                  </li>
+              <?php
+               }
+              }
+              ?>
             <li class="nav-item">
-              <a class="nav-link active mx-2 active" aria-current="page" href="index.html">Home</a>
+              <a class="nav-link mx-2" id="home" aria-current="page" href="index.php">Home</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="about.html">About</a>
+              <a class="nav-link" href="about.php" id="about">About</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="contact.html">Contact</a><!--to do-->
+              <a class="nav-link" href="contact.php" id="contact">Contact</a><!--to do-->
             </li>
             <li class="nav-item dropdown mx-2">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
+                aria-expanded="false" id="services">
                 Services
               </a>
               <ul class="dropdown-menu mt-3">
                 <!-- COMMENT: I think the hover text color has low contrast  -->
-                <li><a class="dropdown-item" href="Explore.html">Explore</a></li>
+                <li><a class="dropdown-item" href="Explore.php" id="explore">Explore</a></li>
 
                 <li>
-                  <a class="dropdown-item" href="Events.html">Events</a><!--to do-->
+                  <a class="dropdown-item" href="Events.php" id="events">Events</a><!--to do-->
+                </li>
+                <?php              
+                    if(isset($role) &&$role=="student"){
+                ?>
+                <li>
+                  <a class="dropdown-item" href="wishlist.php" id="wishlist">Wishlist</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="wishlist.html">Wishlist</a>
+                  <a class="dropdown-item" href="borrowed.php" id="borrowed">Borrowed</a>
                 </li>
-                <li>
-                  <a class="dropdown-item" href="borrowed.html">Borrowed</a>
-                </li>
+                <?php
+                 }
+                
+                ?>
               </ul>
             </li>
           </ul>
           <!-- login/signup -->
-          <div class="d-flex justify-content-center align-items-center ">
-            <a href="login.html" id="login" class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log
-              In</a>
+                <?php              
+                  if(!isset($_SESSION["user"])){ 
+                      ?>
+          <div class="d-flex justify-content-center align-items-center">
+            <a href="login.php" id="log-in" class="btn primary-color main-btn">Log In</a>
           </div>
+            <!-- removed the register  //omar -->
           <!-- profile -->
+                <?php 
+                  }             
+                                   if(isset($_SESSION["user"])){
+                    $role=$user->role;?>
           <div class="d-flex align-items-center mt-1 d-none d-lg-block">
-            <a href="profile.html"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
-                width="40" height="40"></a><!--to do-->
+            <?php
+              if($role=="student"){
+            ?>
+            <a href="profile.php"><img src="<?=($user->student_image)?$user->student_image:"images/profile.png"?>" alt="User" class="rounded-circle ms-3"
+            width="40" height="40"></a><!--to do-->
+          <?php } ?>
           </div>
+          <div class="d-flex justify-content-center align-items-center">
+            <a href="../api/user/logout.php" id="log-out" class="btn primary-color main-btn ms-lg-5">Log Out</a>
+          </div>
+          <!-- removed the register  //omar -->
+                      <?php
+                       
+                      }
+                      ?>
         </div>
       </div>
     </div>
@@ -116,7 +176,7 @@
                 comprehensive university library that serves the diverse academic and research needs of the campus
                 community</p>
             </div>
-            <div class="mb-5"><a href="Explore.html" class="btn main-btn px-4 py-3 btn-home">Explore now</a></div>
+            <div class="mb-5"><a href="Explore.php" class="btn main-btn px-4 py-3 btn-home">Explore now</a></div>
           </div>
 
         </div>
@@ -148,14 +208,14 @@
               <ul class="list-unstyled p-0" style=" max-width: 130px;">
                 <li class="my-3"><a class="nav-link "
                     style="font-family: 'Poppins'; font-size: 19px; font-weight: 500; color: #08546d;"
-                    href="Explore.html"><i class="fa-solid fa-book"></i> Collections</a></li>
+                    href="Explore.php"><i class="fa-solid fa-book"></i> Collections</a></li>
                 <li class="mb-5 "><a class="nav-link "
                     style="font-family: 'Poppins'; font-size: 19px; font-weight: 500; color: #08546d;"
-                    href="wishlist.html"><i class="fa-regular fa-heart"></i> Whishlist</a></li>
+                    href="wishlist.php"><i class="fa-regular fa-heart"></i> Whishlist</a></li>
               </ul>
             </div>
             <div class="button2 my-5">
-              <a href="Explore.html" class="btn main-btn px-4 py-3 btn-home">Explore now</a>
+              <a href="Explore.php" class="btn main-btn px-4 py-3 btn-home">Explore now</a>
             </div>
           </div>
         </div>
@@ -165,7 +225,7 @@
     </section>
 
     <!-- FAQs Section -->
-    <section class="faqs-section py-5" id="fqa"> <!-- location ==> index.html#fqa -->
+    <section class="faqs-section py-5" id="fqa"> <!-- location ==> index.php#fqa -->
       <div class="container-fluid ">
         <h2 class="text-center mb-4" style="font-family: 'Poppins'; font-size: 53px; font-weight: 600; color: #08546d;">
           FAQs</h2>
@@ -233,14 +293,14 @@
             <div class="card card info-card">
               <h5>Connect with Us</h5>
               <p>Reach out to us on social media or via email.</p>
-              <a href="contact.html" class="btn main-btn fw-bold">Contact</a>
+              <a href="contact.php" class="btn main-btn fw-bold">Contact</a>
             </div>
           </div>
           <div class=" col-md-4">
             <div class="card info-card">
               <h5>Get Involved</h5>
               <p>Participate in events or volunteer at the library.</p>
-              <a href="Events.html" class="btn main-btn fw-bold">Learn More</a>
+              <a href="Events.php" class="btn main-btn fw-bold">Learn More</a>
             </div>
           </div>
           <div class="col-md-4">
@@ -279,11 +339,11 @@
 
           <h5 class="text-uppercase" style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">Quick Links</h5>
           <ul class="list-unstyled">
-            <li><a href="index.html" class="  foorer-link text-decoration-none text-light">Home</a></li>
-            <li><a href="Explore.html" class="foorer-link text-decoration-none text-light">Categories</a></li>
-            <li><a href="wishlist.html" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
+            <li><a href="index.php" class="  foorer-link text-decoration-none text-light">Home</a></li>
+            <li><a href="Explore.php" class="foorer-link text-decoration-none text-light">Categories</a></li>
+            <li><a href="wishlist.php" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
             <li><a href="#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
-            <li><a href="about.html" class="foorer-link text-decoration-none text-light">About Us</a></li>
+            <li><a href="about.php" class="foorer-link text-decoration-none text-light">About Us</a></li>
           </ul>
         </div>
         <!-- Contact Section -->
@@ -314,6 +374,10 @@
         </div>
       </div>
   </footer>
+  <script>
+    let el=document.getElementById('home');
+    el.classList.add('active');
+  </script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/all.min.js"></script>
   <script src="js/index.js"></script>
