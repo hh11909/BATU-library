@@ -36,19 +36,11 @@
             <h3 class="text-start text-md-center ">Account Access</h3>
             <ul class="list-unstyled text-center text-lg-start">
               <li><a href="">
-                  <h5 class="fw-normal p-5">Email Addresses</h5>
-                </a></li>
-              <li><a href="">
                   <h5 class="fw-normal p-5">Change Phone</h5>
                 </a></li>
               <li><a href="change-pass.php">
                   <h5 class="fw-normal p-5">Change Password</h5>
                 </a></li>
-              <li><a href="">
-                  <h5 class="fw-normal p-5 ">Change Personal Information</h5>
-                </a></li>
-            </ul>
-
           </div>
         </div>
       </div>
