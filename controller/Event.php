@@ -87,8 +87,6 @@ class Event
       return error422("empty input!");
     } elseif (!in_array($this->state, $this->validStates)) {
       return error422("Invalid STATE!");
-    } elseif (filter_var($this->admin_ID, FILTER_VALIDATE_INT)) {
-      return error422("Invalid Admin ID !");
     } elseif ($this->admin_ID !== "null") {
       if (filter_var($this->admin_ID, FILTER_VALIDATE_INT)) {
         return error422("Invalid Admin ID !");
@@ -112,44 +110,64 @@ class Event
     $readEvent = new EventModel();
     return $readEvent->read();
   }
-  //read control\event
+
   function read($student_ID)
   {
     $readEvent = new EventModel();
     return $readEvent->read(["student_ID",], [$student_ID,]);
   }
-  function update($event_id)
+  function update($event_id, $title, $content, $start_date, $end_date, $state)
   {
-    $event_id = new EventModel();
-    return $event_id->update(["event_id",], [$event_id,]);
+      $title = trim(filter_var($title, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+      $start_date = trim(filter_var($start_date, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+      $end_date = trim(filter_var($end_date, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+      $content = trim(filter_var($content, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+      $state = trim(filter_var($state, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+      $updateEvent = new EventModel();
+    return $updateEvent->update(["title","content","start_date","end_date","state"],
+     [$title,$content,$start_date,$end_date,$state],
+    ["event_ID"],[$event_id]);
   }
-  function delete($role)
+
+  static function DeleteEvent($event_id)
   {
-    $delet = new EventModel();
-    return $delet->read(["role",], [$role,]);
+    $delete = new EventModel();
+    return $delete->delete(["event_ID"],[$event_id]);
   }
-  // function update($conn, $event_id, $title, $content, $start_date, $end_date, $state) {
-  //         $title = mysqli_real_escape_string($conn, $title);
-  //         $start_date = mysqli_real_escape_string($conn, $start_date);
-  //         $end_date = mysqli_real_escape_string($conn, $end_date);
-  //         $content = mysqli_real_escape_string($conn, $content);
-  //         $state = mysqli_real_escape_string($conn, $state);
-
-  //         $query = "UPDATE events SET 
-  //                     title='$title', 
-  //                     start_date='$start_date', 
-  //                     end_date='$end_date', 
-  //                     content='$content',
-  //                     state='$state'
-  //                   WHERE id='$event_id'";
-
-  //         return mysqli_query($conn, $query);
-  // }
-  // function delete ($conn, $event_id) {
-  //         $event_id = mysqli_real_escape_string($conn, $event_id);
-  //         $query = "UPDATE events SET state='expired' WHERE id='$event_id'";
-  //         return mysqli_query($conn, $query);
-  //     }
-
+  static function UpdateState($event_id,$state){
+    $updateState = new EventModel();
+    return $updateState->update(["state"],[$state],
+    ["event_ID"],[$event_id]);
+  }
+   static function ExpireEvent($event_id)
+    {
+        $event = new EventModel();
+        return $event->update(["state"], ["expired"], ["event_ID"], [$event_id]);
+    }
+    static function AutoExpire()
+{
+    $eventModel = new EventModel();
+    $events = $eventModel->read();
+    if (!is_array($events)) {
+    $events = [];
 }
+
+    $today = date('Y-m-d');
+
+    foreach ($events as $event) {
+        if (isset($event['end_date']) && $event['end_date'] === $today && $event['state'] !== 'expired') {
+            $eventModel->update(
+                ['state'], 
+                ['expired'], 
+                ['event_ID'], 
+                [$event['event_ID']]
+            );
+        }
+    }
+
+    return true;
+}
+
+  }
+?>
 

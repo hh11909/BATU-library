@@ -1,34 +1,54 @@
 <?php
 
+require_once(__DIR__ . '/../../controller/User.php');
+require_once(__DIR__ . '/../../controller/Admin.php');
+require_once(__DIR__ . '/../../controller/Friend.php');
+require_once(__DIR__ . '/../../controller/Event.php');
+
+use controller\Admin;
 use controller\Event;
+use controller\Friend;
+
 session_start();
 header("Content-Type:application/json");
 header("Access-Control-Allow-Origin:*");
 header("Access-Control-Allow-Methods:POST");
 header("Access-Control-Allow-Headers:Content-Type,Authorization,X-Request-With");
-$requestMethod=$_SERVER["REQUEST_METHOD"];
-$inputData= json_decode(file_get_contents("php://input"),true);
-if($requestMethod=="POST"){
+$requestMethod = $_SERVER["REQUEST_METHOD"];
 
-$data = json_decode(file_get_contents("php://input"), true);
-$title = mysqli_real_escape_string($conn, $title);
-$start_date = mysqli_real_escape_string($conn, $start_date);
-$end_date = mysqli_real_escape_string($conn, $end_date);
-$content = mysqli_real_escape_string($conn, $content);
-$state = mysqli_real_escape_string($conn, $state);
-$query = "UPDATE events SET
-            title='$title', 
-            start_date='$start_date', 
-            end_date='$end_date', 
-            content='$content',
-            state='$state'
-            WHERE id='$event_id'";
+if ($requestMethod == "PUT") {
+  if (!isset($_SESSION['user'])) {
+    header('Location: /pages/login.php');
+    error422('Log in Please', 403);
+    die();
+  }
 
-if (mysqli_query($conn, $query)) {
-    echo json_encode(["message" => "Event updated successfully"]);
-} else {
-    echo json_encode(["error" => "Error: " . mysqli_error($conn)]);
+  /* @var User $user */
+  $user = unserialize($_SESSION['user']);
+  
+  if (!isset($_POST['event_ID'])) {
+    error422("Event ID is required");
+    die();
+  }
+  
+  if (!isset($_POST['title']) || !isset($_POST['content']) || !isset($_POST['start_date']) || !isset($_POST['end_date'])) {
+    error422("All fields are required for event update");
+    die();
+  }
+
+  $event_ID = $_POST['event_ID'];
+  $title = $_POST['title'];
+  $content = $_POST['content'];
+  $start_date = $_POST['start_date'];
+  $end_date = $_POST['end_date'];
+  $state = $_POST['state'] ?? 'requested'; // If state is not provided, default to 'requested'
+
+  $event = new Event($title, $content, $start_date, $end_date, null); // Create an event object with the new values
+  
+  if ($user instanceof Admin) {
+    // Admin can update any event
+    echo $user->updateEvent($event_ID, $title, $content, $start_date, $end_date, $state);
+  
 }
 }
 ?>
-

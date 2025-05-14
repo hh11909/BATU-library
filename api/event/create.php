@@ -24,7 +24,7 @@ if ($requestMethod == "POST") {
   }
   /*@var User $user*/
   $user = unserialize($_SESSION['user']);
-  $evn = new Event(
+  $event = new Event(
     $_POST['title'],
     $_POST['content'],
     $_POST['start_date'],
@@ -32,11 +32,11 @@ if ($requestMethod == "POST") {
     $_POST['image'],
   );
   if ($user instanceof Admin) {
-    $evn->setAdmin_ID($user->id);
-    echo $user->createEvent($evn);
+    $event->setAdmin_ID($user->id);
+    echo $user->createEvent($event);
   }
   if ($user instanceof Friend) {
-    $evn->student_ID = $user->id;
-    echo $user->createEvent($evn);
+    $event->student_ID = $user->id;
+    echo $user->createEvent($event);
   }
 }
