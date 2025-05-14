@@ -116,8 +116,13 @@
       <h2 class="primary-color fw-bold mt-1 mb-2"><i class="fas fa-book-reader me-2"></i> Users </h2>
       <div class="d-flex">
         <div class="input-group me-3 mt-2" style="width: 300px;">
-          <input type="text" class="form-control" placeholder="Search usres">
-          <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+          <input type="text" id="search-students" class="form-control pe-5" placeholder="Search students">
+            <select id="select-read" class="form-select bg-primary-color text-light" type="button" style="width: auto; max-width: 100px; appearance: none;">
+              <option value="1">all</option>
+              <option value="2">id</option>
+              <option value="3">name</option>
+              <option value="4">phone</option>       
+            </select>
         </div>
       </div>
     </div>
@@ -128,20 +133,20 @@
         <div class="stat-card">
           <i class="fa-solid fa-user-tie"></i>
           <h3>5</h3>
-          <p>Total sdmins</p>
+          <p>Total admins</p>
         </div>
       </div>
       <div class="col-md-4 col-sm-6 col-6">
         <div class="stat-card">
           <i class="fa-solid fa-user"></i>
-          <h3>1550</h3>
-          <p>Total users</p>
+          <h3 id="total-students"></h3>
+          <p>Total students</p>
         </div>
       </div>
       <div class="col-md-4 col-sm-6 col-6">
         <div class="stat-card">
           <i class="fa-solid fa-user-group"></i>
-          <h3>578</h3>
+          <h3 id="total-friends"></h3>
           <p>Total Freinds</p>
         </div>
       </div>
@@ -150,15 +155,37 @@
     <!-- users Table -->
     <div class="card mt-4">
       <div class="card-header bg-primary-color text-white d-flex justify-content-between align-items-center">
-        <h5 class="mb-0"><i class="fas fa-list me-2"></i> Users table </h5>
+        <h5 class="mb-0"><i class="fas fa-list me-2"></i> Students table </h5>
         <div class="dropdown" id="borrowed-dropdown">
           <button class="btn btn-sm btn-light dropdown-toggle  primary-color" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            Filter
+            Department
           </button>
           <ul class="dropdown-menu dropdown-menu-end" id="borrowed-dropdown-menu" aria-labelledby="filterDropdown">
             <li><a class="dropdown-item" href="#">ID</a></li>
             <li><a class="dropdown-item" href="#">Name</a></li>
             <li><a class="dropdown-item" href="#">Phone</a></li>
+          </ul>
+        </div>
+        <div class="dropdown" id="borrowed-dropdown">
+          <button class="btn btn-sm btn-light dropdown-toggle  primary-color" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            College
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" id="borrowed-dropdown-menu" aria-labelledby="filterDropdown">
+            <li><a class="dropdown-item" href="#">ID</a></li>
+            <li><a class="dropdown-item" href="#">Name</a></li>
+            <li><a class="dropdown-item" href="#">Phone</a></li>
+          </ul>
+        </div>
+        <div class="dropdown" id="borrowed-dropdown">
+          <button class="btn btn-sm btn-light dropdown-toggle  primary-color" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Academic year
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" id="borrowed-dropdown-menu" aria-labelledby="filterDropdown">
+            <li><a class="dropdown-item" href="#">all</a></li>
+            <li><a class="dropdown-item" href="#">1</a></li>
+            <li><a class="dropdown-item" href="#">2</a></li>
+            <li><a class="dropdown-item" href="#">3</a></li>
+            <li><a class="dropdown-item" href="#">4</a></li>
           </ul>
         </div>
       </div>
@@ -177,7 +204,7 @@
                 <th>Delet user</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="stu-table">
               <tr>
                 <td>2320100</td>
                 <td>Omar Mostafa</td>
@@ -190,114 +217,8 @@
                   <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
                 </td>
               </tr>
-              <tr>
-                <td>2320101</td>
-                <td>Ahmed Mohamed</td>
-                <td>2320101@gmail.com</td>
-                <td>0123456789</td>
-                <td>Yes</td>
-                <td class="text-center">IT</td>
-                <td class="text-center">3rd</td>
-                <td>
-                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
-                </td>
-              </tr>
-              <tr>
-                <td>2320102</td>
-                <td>Alaa Mohamed</td>
-                <td>2320102@gmail.com</td>
-                <td>0123456789</td>
-                <td>No</td>
-                <td class="text-center">IT</td>
-                <td class="text-center">4th</td>
-                <td>
-                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
-                </td>
-              </tr>
-              <tr>
-                <td>2320103</td>
-                <td>kareem Ahmed</td>
-                <td>2320103@gmail.com</td>
-                <td>0123456789</td>
-                <td>Yes</td>
-                <td class="text-center">IT</td>
-                <td class="text-center">4th</td>
-                <td>
-                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
-                </td>
-              </tr>
-              <tr>
-                <td>2320104</td>
-                <td>Assem Mohamed</td>
-                <td>2320104@gmail.com</td>
-                <td>0123456789</td>
-                <td>No</td>
-                <td class="text-center">IT</td>
-                <td class="text-center">2nd</td>
-                <td>
-                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
-                </td>
-              </tr>
-              <tr>
-                <td>2320106</td>
-                <td>Mohamed Ahmed</td>
-                <td>2320106@gmail.com </td>
-                <td>0123456789</td>
-                <td>No</td>
-                <td class="text-center">IT</td>
-                <td class="text-center">3rd</td>
-                <td>
-                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
-                </td>
-              </tr>
-              <tr>
-                <td>2320107</td>
-                <td>Hesham Mohamed</td>
-                <td>2320107@gmail.com</td>
-                <td>0123456789</td>
-                <td>No</td>
-                <td class="text-center">IT</td>
-                <td class="text-center">3rd</td>
-                <td>
-                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
-                </td>
-              </tr>
-              <tr>
-                <td>2320108</td>
-                <td>Ibrahem Ahmed</td>
-                <td>2320108@gmail.com</td>
-                <td>0123456789</td>
-                <td>No</td>
-                <td class="text-center">IT</td>
-                <td class="text-center">1st</td>
-                <td>
-                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
-                </td>
-              </tr>
-              <tr>
-                <td>2320109</td>
-                <td>Hameed Mohamed</td>
-                <td>2320109@gmail.com</td>
-                <td>0123456789</td>
-                <td>No</td>
-                <td class="text-center">IT</td>
-                <td class="text-center">2nd</td>
-                <td>
-                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
-                </td>
-              </tr>
-              <tr>
-                <td>2320110</td>
-                <td>Ali Mohamed</td>
-                <td>2320110@gmail.com</td>
-                <td>0123456789</td>
-                <td>Yes</td>
-                <td class="text-center">IT</td>
-                <td class="text-center">1st</td>
-                <td>
-                  <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></button>
-                </td>
-              </tr>
+
+              
             </tbody>
           </table>
         </div>
@@ -377,6 +298,7 @@
   </footer>
 
   <!-- Bootstrap JS -->
+   <script src="../js/handle-user.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
