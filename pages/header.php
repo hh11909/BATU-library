@@ -75,13 +75,14 @@ if (isset($_SESSION["user"]) && !isset($user)) {
         <!-- sidebar body -->
         <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
           <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
-            <?php
-            if (isset($_SESSION["user"])) {
-              $role = $user->role;
-              if ($role == "student") {
-            ?>
-                <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-                  <a href="profile.php"><img src="<?= ($user->student_image) ? $user->student_image : "images/profile.png" ?>" alt="User" class="rounded-circle ms-3"
+
+            <?php          
+              if(isset($_SESSION["user"])){
+                $role=$user->role;
+                if($role=="student"){
+                  ?>  
+                  <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
+                      <a href="profile.php"><img src="<?=($user->profile_image)?$user->profile_image:"images/profile.png"?>" alt="User" class="profileImageDisplay rounded-circle ms-3"
                       width="40" height="40"></a><!--to do-->
                 </li>
             <?php
@@ -133,28 +134,30 @@ if (isset($_SESSION["user"]) && !isset($user)) {
               <a href="login.php" id="log-in" class="btn primary-color main-btn">Log In</a>
             </div>
             <!-- removed the register  //omar -->
-            <!-- profile -->
-          <?php
-          }
-          if (isset($_SESSION["user"])) {
-            $role = $user->role; ?>
-            <div class="d-flex align-items-center mt-1 d-none d-lg-block">
 
-              <?php
-              if ($role == "student") {
-              ?>
-                <a href="profile.php"><img src="<?= ($user->student_image) ? $user->student_image : "images/profile.png" ?>" alt="User" class="rounded-circle ms-3"
-                    width="40" height="40"></a><!--to do-->
-              <?php } ?>
+          <!-- profile -->
+                <?php 
+                  }             
+                  if(isset($_SESSION["user"])){
+                    $role=$user->role;?>
+          <div class="d-flex align-items-center mt-1 d-none d-lg-block">
+          
+                    <?php
+                    if($role=="student"){
+                      ?>
+            <a href="profile.php"><img src="<?=($user->profile_image)?$user->profile_image:"images/profile.png"?>" alt="User" class="profileImageDisplay rounded-circle ms-3"
+                width="40" height="40"></a><!--to do-->
+                    <?php } ?>
+               
+          </div>
+          <div class="d-flex justify-content-center align-items-center">
+            <a href="../api/user/logout.php" id="log-out" class="btn primary-color main-btn ms-lg-5">Log Out</a>
+          </div>
+          <!-- removed the register  //omar -->
+                      <?php
+                      }
+                      ?>
 
-            </div>
-            <div class="d-flex justify-content-center align-items-center">
-              <a href="../api/user/logout.php" id="log-out" class="btn primary-color main-btn ms-lg-5">Log Out</a>
-            </div>
-            <!-- removed the register  //omar -->
-          <?php
-          }
-          ?>
         </div>
       </div>
     </div>
