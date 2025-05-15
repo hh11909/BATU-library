@@ -92,19 +92,6 @@ class Student extends User
   }
   static function read($name="",$academy_number="",$academic_year="",$phone="",$email="",$limit=0,$offset=0){
     $cols=['name','academy_number','academic_year','phone','email'];
-     $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-    $academy_number = trim(htmlspecialchars(filter_var($academy_number, FILTER_SANITIZE_NUMBER_INT)));
-    $academic_year = trim(htmlspecialchars(filter_var($academic_year, FILTER_SANITIZE_NUMBER_INT)));
-    $phone = trim(htmlspecialchars(filter_var($phone, FILTER_SANITIZE_NUMBER_INT)));
-    if ($email!=""&&!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      return error422("Invalid Email!");
-    } elseif ($academy_number!=""&&!filter_var($academy_number, FILTER_VALIDATE_INT)) {
-      return error422("Invalid Academy Number!");
-    }  elseif ($academic_year!=""&&!filter_var($academic_year, FILTER_VALIDATE_INT)) {
-      return error422("Invalid Academy Number!");
-    } elseif ($phone!=""&&!preg_match("/^01[0-2,5]{1}[0-9]{8}$/", $phone)) {
-      return error422("Invalid Academy Phone!");
-    }
     $vals=[$name,$academy_number,$academic_year,$phone,$email];
     $model = new StudentModel();
     $result = $model->read($cols, $vals,1);
@@ -112,8 +99,25 @@ class Student extends User
     if (isset($result["data"])) {
       $count = count($result["data"]);
       $result["count"]=$count;
+      $result["data"]["total-count"]=Student::totalStudentsCount();
+      $result["data"]["total-friends"]=Student::totalFriendsCount();
     }
     return json_encode($result);
+  }
+  private static function totalStudentsCount(){
+    $model = new StudentModel();
+    $res = json_decode($model->read(),1);
+    $res["total-count"]=(isset($res["data"]))?count($res["data"]):0;
+    $res=$res["total-count"];
+    return $res;
+  }
+   private static function totalFriendsCount(){
+    $model = new StudentModel();
+    $res = json_decode($model->read(["is_friend"],[1]),1);
+      $res["total-friend"]=(isset($res["data"]))?count($res["data"]):0;
+      $res=$res["total-friend"];
+    return $res;
+    
   }
   static function delete($student_ID){
     $model = new StudentModel();
