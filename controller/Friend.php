@@ -18,15 +18,77 @@ class Friend extends Student
     if ($event) {
       $model = new \model\Event();
       $result = $model->create($event);
-      $status = $result['status'];
-      $result = $result['data'];
-      if ($result) {
-        return json_encode([
-          'status' => $status
-        ]);
-      }
-      return error422('Server Error', 500);
+      return $result;
     }
     return error422('Bad Request', 400);
+  }
+  /**
+   *@param ?int | ?int[] $id
+   */
+  public function readEvent($id)
+  {
+    $cols = [];
+    $vals = [];
+    $model = new \model\Event();
+    if (is_array($id)) {
+      $data = [];
+      $status = 0;
+      for ($i = 0; $i < count($id); $i++) {
+        $cols = ['event_ID'];
+        $vals = [$id[$i]];
+        $result = $model->read($cols, $vals);
+        $status = $result['status'];
+        $result = json_decode($result);
+        if (!empty($result['data']) && $result['data']) {
+          array_push($data, $result['data']);
+        }
+      }
+      if ($status == 0) {
+        $status = 200;
+      }
+      return json_encode([
+        "status" => $status,
+        "data" => $data
+      ]);
+    } else {
+      if ($id) {
+        $cols = ['event_ID'];
+        $vals = [$id];
+      }
+      $result = $model->read($cols, $vals);
+      return $result;
+    }
+  }
+  public function updateEvent(array $values, int $event_ID)
+  {
+    if (!empty($values) && $event_ID) {
+      $keys = array_keys($values);
+      $vals = array_values($values);
+      $filterKeys = ['student_ID', 'event_ID'];
+      $filterVals = [$this->id, $event_ID];
+      $model = new \model\Event();
+      $result = $model->update($keys, $vals, $filterKeys, $filterVals);
+      return $result;
+    } else {
+      return error422('Bad Request', 400);
+    }
+  }
+  public function deleteEvent(int $id)
+  {
+    if ($id) {
+      $model = new \model\Event();
+      $result = $model->read(['event_ID'], [$id]);
+      $result = json_decode($result, true);
+      if ($result['data'][0]['admin_ID'] != null) {
+        error422('Unauthorized', 403);
+        die();
+      }
+      $keys = ['event_ID', 'student_ID'];
+      $vals = [$id, $this->id];
+      $result = $model->delete($keys, $vals);
+      return $result;
+    } else {
+      error422('Bad Request', 400);
+    }
   }
 }

@@ -10,6 +10,7 @@ use model\Event as EventModel;
 
 class Event
 {
+  public $event_ID;
   public $student_ID;
   public $title;
   public $content;
@@ -21,7 +22,7 @@ class Event
   private $admin_ID;
   public $created_at;
   public $updated_at;
-  function __construct($title, $content, $start_date, $end_date, $image, $admin_ID = null, $student_ID = null, $state = "requested")
+  function __construct($title, $content, $start_date, $end_date, $image, $admin_ID = null, $student_ID = null, $state = "requested", ?int $event_ID = null)
   {
     if (empty(trim($title))) {
       return error422("Enter Event's title!");
@@ -43,6 +44,9 @@ class Event
       $this->end_date = $end_date;
       $this->state = $state;
       $this->admin_ID = $admin_ID;
+      if ($event_ID) {
+        $this->event_ID = $event_ID;
+      }
     }
   }
   function setAdmin_ID($admin_ID)
@@ -107,11 +111,11 @@ class Event
   //readall control\user
   function readallevent()
   {
-    $status=200;
+    $status = 200;
     $readEvent = new EventModel();
     // return $readEvent->read();
-    $readall=$readEvent->read();
-    
+    $readall = $readEvent->read();
+
     return $readall;
   }
 
@@ -122,53 +126,60 @@ class Event
   }
   function update($event_id, $title, $content, $start_date, $end_date, $state)
   {
-      $title = trim(filter_var($title, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-      $start_date = trim(filter_var($start_date, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-      $end_date = trim(filter_var($end_date, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-      $content = trim(filter_var($content, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-      $state = trim(filter_var($state, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-      $updateEvent = new EventModel();
-    return $updateEvent->update(["title","content","start_date","end_date","state"],
-     [$title,$content,$start_date,$end_date,$state],
-    ["event_ID"],[$event_id]);
+    $title = trim(filter_var($title, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+    $start_date = trim(filter_var($start_date, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+    $end_date = trim(filter_var($end_date, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+    $content = trim(filter_var($content, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+    $state = trim(filter_var($state, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+    $updateEvent = new EventModel();
+    return $updateEvent->update(
+      ["title", "content", "start_date", "end_date", "state"],
+      [$title, $content, $start_date, $end_date, $state],
+      ["event_ID"],
+      [$event_id]
+    );
   }
 
   static function DeleteEvent($event_id)
   {
     $delete = new EventModel();
-    return $delete->delete(["event_ID"],[$event_id]);
+    return $delete->delete(["event_ID"], [$event_id]);
   }
-  static function UpdateState($event_id,$state){
+  static function UpdateState($event_id, $state)
+  {
     $updateState = new EventModel();
-    return $updateState->update(["state"],[$state],
-    ["event_ID"],[$event_id]);
+    return $updateState->update(
+      ["state"],
+      [$state],
+      ["event_ID"],
+      [$event_id]
+    );
   }
-   static function ExpireEvent($event_id)
-    {
-        $event = new EventModel();
-        return $event->update(["state"], ["expired"], ["event_ID"], [$event_id]);
-    }
-    static function AutoExpire()
-{
+  static function ExpireEvent($event_id)
+  {
+    $event = new EventModel();
+    return $event->update(["state"], ["expired"], ["event_ID"], [$event_id]);
+  }
+  static function AutoExpire()
+  {
     $eventModel = new EventModel();
     $events = $eventModel->read();
     if (!is_array($events)) {
-    $events = [];}
+      $events = [];
+    }
+
     $today = date('Y-m-d');
     foreach ($events as $event) {
-        if (isset($event['end_date']) && $event['end_date'] === $today && $event['state'] !== 'expired') {
-            $eventModel->update(
-                ['state'], 
-                ['expired'], 
-                ['event_ID'], 
-                [$event['event_ID']]
-            );
-        }
+      if (isset($event['end_date']) && $event['end_date'] === $today && $event['state'] !== 'expired') {
+        $eventModel->update(
+          ['state'],
+          ['expired'],
+          ['event_ID'],
+          [$event['event_ID']]
+        );
+      }
     }
 
     return true;
-}
-
   }
-?>
-
+}

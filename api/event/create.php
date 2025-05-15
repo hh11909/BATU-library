@@ -40,5 +40,8 @@ if ($requestMethod == "POST") {
   if ($user instanceof Friend) {
     $event->student_ID = $user->id;
     echo $user->createEvent($event);
+  } else {
+    error422('Unauthorized', 403);
+    die();
   }
 }

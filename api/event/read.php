@@ -8,7 +8,6 @@ require_once(__DIR__ . '/../../model/Event.php');
 
 use controller\Admin;
 use controller\Friend;
-use model\Event;
 
 session_start();
 header("Content-Type: application/json");
@@ -28,33 +27,29 @@ if ($requestMethod === "GET") {
   $user = unserialize($_SESSION['user']);
 
   if ($user instanceof Admin || $user instanceof Friend) {
-    
-    $allEventsJson = $user->readallevent();
-
-  
-    $allEventsData = json_decode($allEventsJson, true);
-
-    if ($allEventsData === null) {
-      echo json_encode(["error" => "Failed to decode events JSON"]);
-      exit;
+    $arr = explode(',', $_GET['id']);
+    if (count($arr) != 1) {
+      array_map(function ($e) {
+        return intval($e);
+      }, $arr);
+    } else {
+      $arr = intval($arr[0]);
     }
 
-   
-    if (!isset($allEventsData['data']) || !is_array($allEventsData['data']) || empty($allEventsData['data'])) {
-      echo json_encode(["error" => "No events found."]);
-      exit;
+    $result = $user->readEvent($arr);
+    $result = json_decode($result, true);
+    if ($result['status'] != 200) {
+      echo json_encode($result);
+      die();
+    }
+    // Filter: only events with admin_ID == null for friend
+    if ($user instanceof Friend) {
+      $result['data'] = array_filter($result['data'], function ($e) {
+        return empty($e['admin_ID']);
+      });
     }
 
-    
-    $allEvents = $allEventsData['data'];
-
- 
-    $filtered = array_filter($allEvents, function ($e) {
-      return !empty($e['admin_ID']);
-    });
-
-   
-    echo json_encode(array_values($filtered));
+    echo json_encode($result);
   } else {
     error422("Unauthorized user.");
     die();
