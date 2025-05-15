@@ -3,10 +3,10 @@
 namespace controller;
 
 use model\Student as StudentModel;
-
+require_once("Book.php");
 require_once(__DIR__ . "/../model/Student.php");
 require_once(__DIR__ . "/User.php");
-require_once(__DIR__ . "/../model/errors.php");
+// require(__DIR__ . "/../model/errors.php");
 
 class Student extends User
 {
@@ -143,8 +143,7 @@ class Student extends User
       return error422("Invalid Email!");
     } elseif (!filter_var($this->academy_number, FILTER_VALIDATE_INT)) {
       return error422("Invalid Academy Number!");
-    }
-      elseif ($this->academic_year!=""&&!filter_var($this->academic_year, FILTER_VALIDATE_INT)) {
+    } elseif ($this->academic_year!=""&&!filter_var($this->academic_year, FILTER_VALIDATE_INT)) {
       return error422("Invalid Academic year!");
     } elseif (!preg_match("/^01[0-2,5]{1}[0-9]{8}$/", $this->phone)) {
       return error422("Invalid Academy Phone!");
@@ -161,5 +160,43 @@ class Student extends User
     $this->is_friend = (bool) $this->is_friend;
     return true;
   }
+  use Book{
 
+  searchForBooks as public;
+  readBooks as public;
+  readBBooks as public;
+  createBook as private;
+  updateBook as private;
+  deleteBook as private;    
+  }
+  function updateProfileImage($image){
+    $prefix="profile_";
+    $path="profile/";
+    $res=json_decode(Images::createImage($prefix,$path,$image),true);
+    if(isset($res["data"])){
+      $this->profile_image=$res["data"];
+      $model=new StudentModel;
+      $update=json_decode($model->update(["profile_image"],[$this->profile_image],["student_ID"],[$this->id]),true);
+      $update["data"]=$res["data"];
+      echo json_encode($update);
+    }
+    else{
+      return json_encode($res);
+    }
+  }
+  function updateBannerImage($image){
+    $prefix="banner_";
+    $path="banner/";
+    $res=json_decode(Images::createImage($prefix,$path,$image),true);
+    if(isset($res["data"])){
+      $this->student_image=$res["data"];
+      $model=new StudentModel;
+      $update=json_decode($model->update(["student_image"],[$this->student_image],["student_ID"],[$this->id]),true);
+      $update["data"]=$res["data"];
+      echo json_encode($update);
+    }
+    else{
+      return json_encode($res);
+    }
+  }
 }

@@ -1,7 +1,7 @@
 <?php
-
 namespace controller;
 
+require_once("Book.php");
 require_once("User.php");
 require_once(__DIR__ . "/../model/Admin.php");
 use controller\Student;
@@ -228,4 +228,5 @@ class Admin extends User
     }
     return Student::delete($student_ID);
   }
+  use Book;
 }
