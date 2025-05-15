@@ -42,15 +42,6 @@ if ($requestMethod === "GET") {
       echo json_encode($result);
       die();
     }
-    // Filter: only events with admin_ID == null for friend
-    if ($user instanceof Friend) {
-      $result['data'] = array_filter($result['data'], function ($e) {
-        return empty($e['admin_ID']);
-      });
-      $result['data'] = array_filter($result['data'], function ($e) use ($user) {
-        return $e['student_ID'] === $user->id;
-      });
-    }
 
     echo json_encode($result);
   } else {

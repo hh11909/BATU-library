@@ -34,10 +34,8 @@ if ($requestMethod == "POST") {
   );
   if ($user instanceof Admin) {
     $event->setAdmin_ID($user->id);
-    echo $user->createEvent($event);
-    ;
-  }
-  if ($user instanceof Friend) {
+    echo $user->createEvent($event);;
+  } else if ($user instanceof Friend) {
     $event->student_ID = $user->id;
     echo $user->createEvent($event);
   } else {

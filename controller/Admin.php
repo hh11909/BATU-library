@@ -238,16 +238,8 @@ class Admin extends User
     if ($event) {
       $model = new \model\Event();
       $event->state = "available";
-      $resultJson = $model->create($event);
-      $result = json_decode($resultJson, true);
-      if (isset($result['status']) && $result['status'] == 201) {
-        return json_encode([
-          'status' => 201,
-          'message' => 'Record created successfully'
-        ]);
-      } else {
-        return error422('Server Error', 500);
-      }
+      $result = $model->create($event);
+      return $result;
     }
     return error422('Bad Request', 400);
   }

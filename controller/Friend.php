@@ -27,15 +27,15 @@ class Friend extends Student
    */
   public function readEvent($id)
   {
-    $cols = [];
-    $vals = [];
+    $cols = ['student_ID'];
+    $vals = [$this->id];
     $model = new \model\Event();
     if (is_array($id)) {
       $data = [];
       $status = 0;
       for ($i = 0; $i < count($id); $i++) {
-        $cols = ['event_ID'];
-        $vals = [$id[$i]];
+        $cols = ['event_ID', 'student_ID'];
+        $vals = [$id[$i], $this->id];
         $result = $model->read($cols, $vals);
         $status = $result['status'];
         $result = json_decode($result);
@@ -52,8 +52,8 @@ class Friend extends Student
       ]);
     } else {
       if ($id) {
-        $cols = ['event_ID'];
-        $vals = [$id];
+        $cols = ['event_ID', 'student_ID'];
+        $vals = [$id, $this->id];
       }
       $result = $model->read($cols, $vals);
       return $result;
