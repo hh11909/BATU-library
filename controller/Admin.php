@@ -204,7 +204,7 @@ class Admin extends User
     return $student->create();
     
   }
-  function readStudents($name="",$academy_number="",$academic_year="",$phone="",$email=""){
+  function readStudents($name="",$academy_number=null,$academic_year="",$phone="",$email=""){
      $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
     $academy_number = trim(htmlspecialchars(filter_var($academy_number, FILTER_SANITIZE_NUMBER_INT)));
     $academic_year = trim(htmlspecialchars(filter_var($academic_year, FILTER_SANITIZE_NUMBER_INT)));
@@ -212,21 +212,20 @@ class Admin extends User
     $email = trim(htmlspecialchars(filter_var($email, FILTER_SANITIZE_EMAIL)));
     if ($email!=""&&!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       return error422("Invalid Email!");
-    } elseif ($academy_number!=""&&!filter_var($academy_number, FILTER_VALIDATE_INT)) {
+    } elseif ($academy_number!=null&&!filter_var($academy_number, FILTER_VALIDATE_INT)) {
       return error422("Invalid Academy Number!");
     } elseif ($academic_year!=""&&!filter_var($academic_year, FILTER_VALIDATE_INT)) {
-      return error422("Invalid Academy Number!");
-    } elseif ($phone!=""&&!preg_match("/^01[0-2,5]{1}[0-9]{8}$/", $phone)) {
-      return error422("Invalid Academy Phone!");
-    }
+      return error422("Invalid Academic year!");
+     }
+    
     require_once(__DIR__."/Student.php");
-    Student::read($name,$academy_number,$academic_year,$phone);
+    return Student::read($name,$academy_number,$academic_year,$phone);
   }
   function deleteStudent($student_ID){
     $student_ID=trim(htmlspecialchars(filter_var($student_ID, FILTER_SANITIZE_NUMBER_INT)));
     if (!filter_var($student_ID, FILTER_VALIDATE_INT)) {
       return error422("Invalid student_ID");
     }
-    Student::delete($student_ID);
+    return Student::delete($student_ID);
   }
 }
