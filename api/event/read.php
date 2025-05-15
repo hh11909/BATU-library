@@ -47,6 +47,9 @@ if ($requestMethod === "GET") {
       $result['data'] = array_filter($result['data'], function ($e) {
         return empty($e['admin_ID']);
       });
+      $result['data'] = array_filter($result['data'], function ($e) use ($user) {
+        return $e['student_ID'] === $user->id;
+      });
     }
 
     echo json_encode($result);

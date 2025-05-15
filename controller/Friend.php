@@ -65,7 +65,7 @@ class Friend extends Student
       $model = new \model\Event();
       $result = $model->read(['event_ID'], [$event_ID]);
       $result = json_decode($result, true);
-      if ($result['data'][0]['admin_ID'] != null) {
+      if ($result['data'][0]['admin_ID'] != null || $result['data'][0]['student_ID'] !== $this->id) {
         error422('Unauthorized', 403);
         die();
       }
@@ -85,7 +85,7 @@ class Friend extends Student
       $model = new \model\Event();
       $result = $model->read(['event_ID'], [$id]);
       $result = json_decode($result, true);
-      if ($result['data'][0]['admin_ID'] != null) {
+      if ($result['data'][0]['admin_ID'] != null || $result['data'][0]['student_ID'] !== $this->id) {
         error422('Unauthorized', 403);
         die();
       }
