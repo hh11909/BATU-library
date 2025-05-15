@@ -1,28 +1,28 @@
 <?php
+
 use controller\Student;
 use controller\Admin;
+
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-  }
-  if(isset($_COOKIE["user"])){
-    $_SESSION["user"]=$_COOKIE["user"];
-  }
-  if(isset($_SESSION["user"])&&!isset($user)){
-    try{
-        require_once(__DIR__."/../controller/Student.php");
+  session_start();
+}
+if (isset($_COOKIE["user"])) {
+  $_SESSION["user"] = $_COOKIE["user"];
+}
+if (isset($_SESSION["user"]) && !isset($user)) {
+  try {
+    require_once(__DIR__ . "/../controller/Student.php");
     /**@var Student $user */
-    $user=unserialize($_SESSION["user"]);
-      
-    }
-    catch(error){
-       require_once(__DIR__."/../controller/Admin.php");
-      /**@var Admin $user */
-      $user=unserialize($_SESSION["user"]);
-   
-    }
-    
-    $role=$user->role;}
-  ?>
+    $user = unserialize($_SESSION["user"]);
+  } catch (error) {
+    require_once(__DIR__ . "/../controller/Admin.php");
+    /**@var Admin $user */
+    $user = unserialize($_SESSION["user"]);
+  }
+
+  $role = $user->role;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -75,19 +75,19 @@ if (session_status() === PHP_SESSION_NONE) {
         <!-- sidebar body -->
         <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
           <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
-            <?php          
-              if(isset($_SESSION["user"])){
-                $role=$user->role;
-                if($role=="student"){
-                  ?>  
-                  <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-                  <a href="profile.php"><img src="<?=($user->profile_image)?$user->profile_image:"images/profile.png"?>" alt="User" class="profileImageDisplay rounded-circle ms-3"
+            <?php
+            if (isset($_SESSION["user"])) {
+              $role = $user->role;
+              if ($role == "student") {
+            ?>
+                <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
+                  <a href="profile.php"><img src="<?= ($user->student_image) ? $user->student_image : "images/profile.png" ?>" alt="User" class="rounded-circle ms-3"
                       width="40" height="40"></a><!--to do-->
-                  </li>
-              <?php
-               }
+                </li>
+            <?php
               }
-              ?>
+            }
+            ?>
             <li class="nav-item">
               <a class="nav-link mx-2" id="home" aria-current="page" href="index.php">Home</a>
             </li>
@@ -109,51 +109,51 @@ if (session_status() === PHP_SESSION_NONE) {
                 <li>
                   <a class="dropdown-item" href="Events.php" id="events">Events</a><!--to do-->
                 </li>
-                <?php              
-                    if(isset($role) &&$role=="student"){
-                ?>
-                <li>
-                  <a class="dropdown-item" href="wishlist.php" id="wishlist">Wishlist</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="borrowed.php" id="borrowed">Borrowed</a>
-                </li>
                 <?php
-                 }
-                
+                if (isset($role) && $role == "student") {
+                ?>
+                  <li>
+                    <a class="dropdown-item" href="wishlist.php" id="wishlist">Wishlist</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="borrowed.php" id="borrowed">Borrowed</a>
+                  </li>
+                <?php
+                }
+
                 ?>
               </ul>
             </li>
           </ul>
           <!-- login/signup -->
-                <?php              
-                  if(!isset($_SESSION["user"])){ 
-                      ?>
-          <div class="d-flex justify-content-center align-items-center">
-            <a href="login.php" id="log-in" class="btn primary-color main-btn">Log In</a>
-          </div>
+          <?php
+          if (!isset($_SESSION["user"])) {
+          ?>
+            <div class="d-flex justify-content-center align-items-center">
+              <a href="login.php" id="log-in" class="btn primary-color main-btn">Log In</a>
+            </div>
             <!-- removed the register  //omar -->
-          <!-- profile -->
-                <?php 
-                  }             
-                                   if(isset($_SESSION["user"])){
-                    $role=$user->role;?>
-          <div class="d-flex align-items-center mt-1 d-none d-lg-block">
-            <?php
-              if($role=="student"){
-            ?>
-           <a href="profile.php"><img src="<?=($user->profile_image)?$user->profile_image:"images/profile.png"?>" alt="User" class="profileImageDisplay rounded-circle ms-3"
-                      width="40" height="40"></a><!--to do-->
-          <?php } ?>
-          </div>
-          <div class="d-flex justify-content-center align-items-center">
-            <a href="../api/user/logout.php" id="log-out" class="btn primary-color main-btn ms-lg-5">Log Out</a>
-          </div>
-          <!-- removed the register  //omar -->
-                      <?php
-                       
-                      }
-                      ?>
+            <!-- profile -->
+          <?php
+          }
+          if (isset($_SESSION["user"])) {
+            $role = $user->role; ?>
+            <div class="d-flex align-items-center mt-1 d-none d-lg-block">
+              <?php
+              if ($role == "student") {
+              ?>
+                <a href="profile.php"><img src="<?= ($user->student_image) ? $user->student_image : "images/profile.png" ?>" alt="User" class="rounded-circle ms-3"
+                    width="40" height="40"></a><!--to do-->
+              <?php } ?>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+              <a href="../api/user/logout.php" id="log-out" class="btn primary-color main-btn ms-lg-5">Log Out</a>
+            </div>
+            <!-- removed the register  //omar -->
+          <?php
+
+          }
+          ?>
         </div>
       </div>
     </div>
@@ -360,22 +360,22 @@ if (session_status() === PHP_SESSION_NONE) {
             <a href="#" class="text-light me-3 fs-4 p-2"><i class="fa-brands youtube fa-square-youtube"></i></a>
             <a href="#" class="text-light me-3 fs-4 p-2"><i class="fa-brands linkedin fa-linkedin"></i></a>
             <a href="#" class="text-light me-3 fs-4 p-2"><i class="fa-brands instagram fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
-        <hr class="border-light">
-        <div class="row">
-
-          <div class="col-md-4 text-center">
-            <p class="mb-0">&copy; 2024 <span class="fw-bold" style="color: aquamarine;">BATU Library</span> . All
-              rights
-              reserved.</p>
           </div>
         </div>
       </div>
+      <hr class="border-light">
+      <div class="row">
+
+        <div class="col-md-4 text-center">
+          <p class="mb-0">&copy; 2024 <span class="fw-bold" style="color: aquamarine;">BATU Library</span> . All
+            rights
+            reserved.</p>
+        </div>
+      </div>
+    </div>
   </footer>
   <script>
-    let el=document.getElementById('home');
+    let el = document.getElementById('home');
     el.classList.add('active');
   </script>
   <script src="js/bootstrap.bundle.min.js"></script>

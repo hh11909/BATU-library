@@ -34,12 +34,16 @@ class Crud
         'status' => 500,
         'Message' => "Internal Server Error"
       ];
+      if (!$result) {
+        error_log("MySQL Error: " . mysqli_error($cn));
+      }
+
       mysqli_close($cn);
       header("HTTP/1.0 500 Internal Server Error");
       return json_encode($data);
     }
   }
-  static function read($tableName, $filterCols = array(), $filterVals = array(),$condition_state=0)
+  static function read($tableName, $filterCols = array(), $filterVals = array(), $condition_state = 0)
   {
     require('dbcon.php');
     $qry = "SELECT * from $tableName;";
@@ -47,7 +51,7 @@ class Crud
       $qry = substr($qry, 0, -1);
       $filter = " WHERE ";
       for ($i = 0; $i < count($filterCols); $i++) {
-        if($filterCols[$i]=="email"&&$condition_state==0){
+        if ($filterCols[$i] == "email" && $condition_state == 0) {
 
           $filter = $filter . $filterCols[$i] . " = '" . $filterVals[$i] . "' AND ";
           continue;
