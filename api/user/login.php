@@ -19,6 +19,9 @@ session_start();
       $user= User::login($_POST["email"],$_POST["password"]);
       if(isset($user->role)){
         if($user->role=="student"){
+          if(isset($_POST["remember"])&&$_POST["remember"]==1){
+            setcookie("user",serialize($user),time()+60*60*24*7,"/");//one weak
+          }
           $_SESSION["user"]=serialize($user);
           header("Location:../../pages/index.php");
         }

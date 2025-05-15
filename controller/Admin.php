@@ -1,10 +1,10 @@
 <?php
-
 namespace controller;
 
+require_once("Book.php");
 require_once("User.php");
 require_once(__DIR__ . "/../model/Admin.php");
-
+use controller\Student;
 use controller\User;
 
 
@@ -89,21 +89,29 @@ class Admin extends User
   {
     $model = new \model\Admin();
     $cols = ['admin_ID'];
+    $vals = [$id];
     if ($id) {
-      $vals = [$id];
+      $result = $model->read($cols, $vals);
     } else {
-      $vals = [$this->id];
+      $result = $model->read();
     }
-    $result = $model->read($cols, $vals);
     $result = json_decode($result, true);
     $status = $result['status'];
-    $result = $result['data'][0];
-    $result = [
-      "id" => $result['admin_ID'],
-      "name" => $result['name'],
-      "email" => $result['email'],
-      'role' => $this->role
-    ];
+    $result = $result['data'];
+    $temp = $result;
+    $result = [];
+    foreach ($temp as $admin) {
+      $value = [
+        "id" => $admin['admin_ID'],
+        "name" => $admin['name'],
+        "email" => $admin['email'],
+        'role' => $this->role
+      ];
+      array_push($result, $value);
+    }
+    if (count($result) === 1) {
+      $result = $result[0];
+    }
     $result = json_encode([
       'status' => $status,
       'data' => $result
@@ -184,15 +192,8 @@ class Admin extends User
         echo json_encode([
           "status" => $result['status']
         ]);
-      } else {
-        $filterCols = ['email', 'admin_ID'];
-        $filterVals = [$this->email, $this->id];
-        $result = $model->delete($filterCols, $filterVals);
-        $result = json_decode($result, true);
-        echo json_encode([
-          "status" => $result['status']
-        ]);
       }
+      die();
     }
   }
    function storeStudent(Student $student)
@@ -200,25 +201,33 @@ class Admin extends User
     // Sanitization
     $student->sanitize();
     // Validation
-    if ($student->validate()) {
-      if($student->is_friend==0){
-        return $student->create();
-      }
-      elseif($student->is_friend==1){
-        $friend=new Friend(
-          name: $_POST['name'],
-          email: $_POST['email'],
-          password: $_POST['password'],
-          phone: $_POST['phone'],
-          is_friend: $_POST['is_friend'],
-          admin_ID: $_POST['admin_ID'],
-          department_ID: $_POST['department_ID'],
-          gender: $_POST['gender'],
-          academy_number: $_POST['academy_number'],
-          student_image: $_POST['student_image']
-        );
-        $friend->create();
-      }
-    }
+    $student->validate();
+    return $student->create();
+    
   }
+  function readStudents($name="",$academy_number=null,$academic_year="",$phone="",$email=""){
+     $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+    $academy_number = trim(htmlspecialchars(filter_var($academy_number, FILTER_SANITIZE_NUMBER_INT)));
+    $academic_year = trim(htmlspecialchars(filter_var($academic_year, FILTER_SANITIZE_NUMBER_INT)));
+    $phone = trim(htmlspecialchars(filter_var($phone, FILTER_SANITIZE_NUMBER_INT)));
+    $email = trim(htmlspecialchars(filter_var($email, FILTER_SANITIZE_EMAIL)));
+    if ($email!=""&&!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      return error422("Invalid Email!");
+    } elseif ($academy_number!=null&&!filter_var($academy_number, FILTER_VALIDATE_INT)) {
+      return error422("Invalid Academy Number!");
+    } elseif ($academic_year!=""&&!filter_var($academic_year, FILTER_VALIDATE_INT)) {
+      return error422("Invalid Academic year!");
+     }
+    
+    require_once(__DIR__."/Student.php");
+    return Student::read($name,$academy_number,$academic_year,$phone);
+  }
+  function deleteStudent($student_ID){
+    $student_ID=trim(htmlspecialchars(filter_var($student_ID, FILTER_SANITIZE_NUMBER_INT)));
+    if (!filter_var($student_ID, FILTER_VALIDATE_INT)) {
+      return error422("Invalid student_ID");
+    }
+    return Student::delete($student_ID);
+  }
+  use Book;
 }

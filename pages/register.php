@@ -106,7 +106,7 @@
       <!-- Error Alert Section -->
       <div class="register-header">
         <i class="fas fa-user"></i>
-        <h2>Register Now</h2>
+        <h2>Register Student</h2>
       </div>
       <div id="errorAlert" class="alert alert-danger alert-dismissible fade d-none mt-3" role="alert">
         <span id="errorMessage">An error occurred!</span>
@@ -116,35 +116,70 @@
         <span id="successMessage">Success</span>
         <button type="button" class="btn-close" aria-label="Close" onclick="hideSuccess()"></button>
       </div>
-      <form action="register2.php" method="get" id='registerForm'>
+      <form action="../api/student/create.php" method="post" id='registerForm'>
         <div class="form-row mb-3">
           <div class="form-group">
-            <label for="firstName" class="form-label">First Name</label>
-            <input type="text" class="form-control rounded-pill" id="firstName" name="firstName"
+            <label for="name" class="form-label">Student Name</label>
+            <input type="text" class="form-control rounded-pill" id="name" name="name"
               placeholder="Enter your first name" required>
-          </div>
-          <div class="form-group">
-            <label for="lastName" class="form-label">Last Name</label>
-            <input type="text" class="form-control rounded-pill" id="lastName" name="lastName"
-              placeholder="Enter your last name " required>
           </div>
         </div>
         <div class="form-row mb-3">
           <div class="form-group">
+            <label for="academy_number" class="form-label">Academic number</label>
+            <input type="text" class="form-control rounded-pill" id="academy_number" name="academy_number"
+              placeholder="Enter your Student ID" required>
+          </div>   
+          <div class="form-group">
+            <label for="academic_year" class="form-label">Academic Year</label>
+            <select type="number" class="form-control rounded-pill" id="academic_year" name="academic_year"
+              placeholder="Enter your Academic year" required>
+              <option value="1">1</option>            
+              <option value="2">2</option>            
+              <option value="3">3</option>            
+              <option value="4">4</option>            
+            </select>
+          </div>
+          
+        </div>
+        <div class="form-row mb-3">
+          <div class="form-group">
+            <label for="college-id" class="form-label">College</label>
+            <select class="form-control rounded-pill" id="college-id" name="college-id"
+              placeholder="Enter your Department ID" required>
+              <option value="1">صناعة وطاقة</option>            
+              <option value="2">علوم صحية</option>                        
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="department_ID" class="form-label">Department</label>
+            <select class="form-control rounded-pill" id="department_ID" name="department_ID"
+              placeholder="Enter your Department ID" required>
+              <option value="1">Information Technology</option>            
+              <option value="2">Railways</option>            
+              <option value="3">grarat</option>            
+              <option value="4">8zl w nseg</option>            
+            </select>
+          </div>
+        </div>
+         
+        <div class="form-row mb-3">
+         <div class="form-group mb-3">
             <label for="email" class="form-label">Email Address</label>
             <input type="email" class="form-control rounded-pill" id="registerEmail" name="email"
               placeholder="Enter your email" required>
           </div>
-          <div class="form-group">
-            <label for="birthdate" class="form-label">Birthdate</label>
-            <input type="date" class="form-control rounded-pill" name="birthdate" id="birthdate" required>
-          </div>
+          <div class="form-group mb-3">
+              <label for="phoneNumber" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control rounded-pill" id="phoneNumber" name="phoneNumber"
+                placeholder="Enter your phone number">
+            </div>
         </div>
         <div class="form-row mb-3">
-          <div class="form-group">
+           <div class="form-group">
             <label for="password" class="form-label">Password</label>
             <div class="input-container">
-              <input type="password" id="registerPassword" class="form-control rounded-pill py-2"
+              <input type="password" id="registerPassword" name="pass" class="form-control rounded-pill py-2"
                 placeholder="Enter your password" required />
               <span class="togglePassword" id="togglePassword2"
                 onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
@@ -156,7 +191,7 @@
           <div class="form-group">
             <label for="confirmPassword" class="form-label">Confirm Password</label>
             <div class="input-container">
-              <input type="password" id="registerConfirmPassword" class="form-control rounded-pill py-2"
+              <input type="password" id="registerConfirmPassword" name="cp" class="form-control rounded-pill py-2"
                 placeholder="Confirm your password" required />
               <span class="togglePassword" id="togglePassword3"
                 onclick="toggleIcon(this.previousElementSibling,this.children[0],this.children[1])">
@@ -167,37 +202,32 @@
           </div>
         </div>
 
-        <div class="form-row mb-3">
-          <div class="form-group">
-            <label for="studentId" class="form-label">Student ID</label>
-            <input type="text" class="form-control rounded-pill" id="studentId" name="studentId"
-              placeholder="Enter your Student ID" required>
-          </div>
-        </div>
+       
 
         <div class="form-row mb-3">
           <div class="form-group">
-            <label class="form-label">Gender</label><br>
+            <label class="form-label me-3">Gender:</label>
             <div class="form-check form-check-inline">
-              <input class="form-check-input " type="radio" name="gender" id="male" value="Male" required>
+              <input class="form-check-input " type="radio" name="gender" id="male" value="Male" checked>
               <label class="form-check-label" for="male">Male</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="gender" id="female" value="Female" re>
+              <input class="form-check-input" type="radio" name="gender" id="female" value="Female" >
               <label class="form-check-label" for="female">Female</label>
             </div>
           </div>
           <div class="checkbox-container">
             <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="libraryFriend" name="libraryFriend">
+              <input type="checkbox" class="form-check-input" id="libraryFriend" name="is_friend" value="1">
               <label class="form-check-label" for="libraryFriend">Do You Want To Be A Library Friend?</label>
             </div>
           </div>
         </div>
 
-        <input type="submit" class="btn primary-color main-btn d-block m-auto text-center" value="continue">
+        <div class="d-flex justify-content-center mt-4">
+          <button type="submit" class="btn primary-color main-btn d-block m-auto text-center">Finish</button>
+        </div>
       </form>
-      <p class="text-center mt-3">If you have an account <a href="login.php" class="login">login</a></p>
     </div>
   </div>
   <!-- Footer -->

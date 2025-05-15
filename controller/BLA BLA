@@ -1,0 +1,40 @@
+/*static function BorrowBook($academy_number,$book_ID,$Borrow_date,$return_date,$is_borrowed){
+  //student will send his data with request so check v,f and but it into table using crate , if admin res is empty like borrow date,return date , is borrowed okay nice  sent a MASSEGE thim then he wll the admin add his confirm passed to table and finally the b is borrod so ubdate book table
+    if (empty(trim($academy_number))) {
+      return error422("Enter your academy number!");
+    } elseif (empty(trim($))) {
+      return error422("Enter auther name!");
+    } elseif (empty(trim($))) {
+      return error422("Enter book description!");
+    } elseif (empty(trim($admin_ID))) {
+      return error422("Enter your ID!");
+    } elseif (!isset($_FILES['image']) || $_FILES['image']['error'] === UPLOAD_ERR_NO_FILE) {
+      return error422(" upload a book image!");
+    } else {
+      $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+      $author = trim(filter_var($author, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+      $description = trim(filter_var($description, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+      $admin_ID = htmlspecialchars(filter_var($admin_ID, FILTER_SANITIZE_NUMBER_INT));
+      $x = "book_";
+      $path = "Images/Book";
+      $imageHandling = new  Images();
+      $new_image = $imageHandling->createImage($x, $path, $image);
+      if (filter_var($admin_ID, FILTER_VALIDATE_INT)) {
+        return error422("Invalid ID!");
+      } else {
+        $bookModel = new model\Book();
+        return $bookModel->create($name, $author, $new_image, $description, $admin_ID);
+      }
+    }
+    $bookModel = new model\BBooks();
+    $result = $bookModel->read($academy_number );
+  return $result;
+}*/
+
+
+/*
+function BorrowBook($academy_number,$book_ID,$Borrow_date,$return_date,$is_borrowed=0 ){
+$fields=["academy_number","book_ID","Borrow_date", "return_date","is_borrowed"];
+    $vals=[$academy_number,$book_ID,$Borrow_date, $return_date,$is_borrowed];
+    return Crud::create($this->table,$fields,$vals);
+  }*/

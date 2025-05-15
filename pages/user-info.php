@@ -1,101 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BATU Library</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/account.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap"
-    rel="stylesheet">
-  <style>
-
-
-  </style>
-</head>
-
-<body>
-  <!-- navigation bar start -->
-  <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
-    <div class="container">
-      <!-- logo -->
-      <a class="navbar-brand fs-4 " href="index.php"><img src="images/logo.png" alt="Logo" width="48" height="48"
-          class="me-2 p-1 logo">
-        <span class="logo-title">
-          BATU Library
-        </span></a>
-      <!-- toggle button -->
-      <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- sidebar -->
-      <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-        aria-labelledby="offcanvasNavbarLabel">
-        <!-- sidebar header -->
-        <div class="offcanvas-header text-white border-bottom">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Discover</h5>
-          <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
-            aria-label="Close"></button>
-        </div>
-        <!-- sidebar body -->
-        <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
-          <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
-            <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-              <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
-                  width="40" height="40"></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link mx-2" aria-current="page" href="index.php">Home</a>
-            </li>
-            <li class="nav-item mx-2">
-              <a class="nav-link" href="about.php">About</a>
-            </li>
-            <li class="nav-item mx-2">
-              <a class="nav-link" href="contact.php">Contact</a><!--to do-->
-            </li>
-            <li class="nav-item dropdown mx-2">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Services
-              </a>
-              <ul class="dropdown-menu mt-3">
-                <!-- COMMENT: I think the hover text color has low contrast  -->
-                <li><a class="dropdown-item" href="Explore.php">Explore</a></li>
-
-                <li>
-                  <a class="dropdown-item" href="Events.php">Events</a><!--to do-->
-                </li>
-                <li>
-                  <a class="dropdown-item" href="wishlist.php">Wishlist</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="borrowed.php">Borrowed</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <!-- login/signup -->
-          <div class="d-flex justify-content-center align-items-center ">
-            <a href="login.php" id="login" class="text-white fw-semibold text-decoration-none px-3 py-1 rounded-4">Log
-              In</a>
-              <!-- removed the register  //omar -->
-          </div>
-          <!-- profile -->
-          <div class="d-flex align-items-center mt-1 d-none d-lg-block">
-            <a href="profile.php"><img src="wishlist-images/profile.png" alt="User" class="rounded-circle ms-3"
-                width="40" height="40"></a><!--to do-->
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
+   <?php require_once(__DIR__."/header.php")?>
   <div class="sticky-top" style="height: 66px;"></div>
   <!-- navigation bar end -->
   <div class="account-content ">
@@ -133,33 +37,31 @@
               <div class="row">
                 <div class="col-lg-3 d-flex justify-content-center p-5">
                   <div class="image"
-                    style="padding: 90px;height: 150px;border-radius: 150px;background-color: rgba(0, 0, 0, 0.375)">
+                    style="padding: 90px;height: 150px;border-radius: 150px;background-image: url('<?=($user->student_image)?$user->student_image:"images/profile.png" ?>');background-size:cover;background-repeat: no-repeat;background-position-x: center;">
+                    <!-- <img src=""  alt=""> -->
                   </div>
                 </div>
                 <div class="col-lg-5">
-                  <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">First Name:</span><span
-                      class="profile-value fs-4 fw-semibold" id="first-name"> Mohamed</span></p>
-                  <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Last Name:</span><span
-                      class="profile-value fs-4 fw-semibold" id="last-name"> Ashraf</span></p>
+                  <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Name: </span><span
+                      class="profile-value fs-4 fw-semibold" id="first-name"><?=$user->name?></span></p>
+                  <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">College:</span><span
+                      class="profile-value fs-4 fw-semibold" id="last-name"> to do</span></p>
                   <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Department:</span><span
-                      class="profile-value fs-4 fw-semibold" id="department"> Information Technology (IT)</span></p>
+                      class="profile-value fs-4 fw-semibold" id="department"> to do</span></p>
                   <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Phone:</span><span
-                      class="profile-value fs-4 fw-semibold" id="phone"> 01234567890</span></p>
+                      class="profile-value fs-4 fw-semibold" id="phone"><?=$user->phone?></span></p>
                   <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Email:</span><span
-                      class="profile-value fs-4 fw-semibold" id="email"> hh4356@gmail.com</span></p>
+                      class="profile-value fs-4 fw-semibold" id="email"><?=$user->email?></span></p>
                 </div>
                 <div class="col-lg-4">
                   <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Academy number:</span><span
-                      class="profile-value fs-4 fw-semibold" id="academy-number"> 2320486</span></p>
-                  <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Gender:</span><span
-                      class="profile-value fs-4 fw-semibold" id="academy-number"> male</span></p>
-                  <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Library’s Friend:</span><span
-                      class="profile-value fs-4 fw-semibold" id="lib-friend"> No</span></p>
-                  <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Age:</span><span
-                      class="profile-value fs-4 fw-semibold" id="age"> 22</span></p>
+                      class="profile-value fs-4 fw-semibold" id="academy-number"> <?=$user->academy_number?></span></p>
+                  <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Gender: </span><span
+                      class="profile-value fs-4 fw-semibold" id="academy-number"><?=$user->gender?></span></p>
+                  <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Library’s Friend: </span><span
+                      class="profile-value fs-4 fw-semibold" id="lib-friend"><?=($user->is_friend)?"Yes":"No"?></span></p>
                 </div>
               </div>
-              <p class="text-end"><a href="" class="change-info fw-medium">Change information</a></p>
             </div>
           </div>
 

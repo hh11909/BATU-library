@@ -16,7 +16,7 @@ class Crud
     $qry = substr($qry, 0, -1);
     $qry = $qry . ") VALUES (";
     foreach ($vals as $val) {
-      $qry = $qry . "$val,";
+      $qry = $qry . "'$val',";
     }
     $qry = substr($qry, 0, -1);
     $qry = $qry . ");";
@@ -39,7 +39,7 @@ class Crud
       return json_encode($data);
     }
   }
-  static function read($tableName, $filterCols = array(), $filterVals = array())
+  static function read($tableName, $filterCols = array(), $filterVals = array(),$condition_state=0)
   {
     require('dbcon.php');
     $qry = "SELECT * from $tableName;";
@@ -47,9 +47,10 @@ class Crud
       $qry = substr($qry, 0, -1);
       $filter = " WHERE ";
       for ($i = 0; $i < count($filterCols); $i++) {
-        if($filterCols[$i]=="email"){
+        if($filterCols[$i]=="email"&&$condition_state==0){
 
           $filter = $filter . $filterCols[$i] . " = '" . $filterVals[$i] . "' AND ";
+          continue;
         }
         $filter = $filter . $filterCols[$i] . " LIKE '%" . $filterVals[$i] . "%' AND ";
       }
