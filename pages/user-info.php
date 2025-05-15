@@ -37,7 +37,7 @@
               <div class="row">
                 <div class="col-lg-3 d-flex justify-content-center p-5">
                   <div class="image"
-                    style="padding: 90px;height: 150px;border-radius: 150px;background-image: url('<?=($user->student_image)?$user->student_image:"images/profile.png" ?>');background-size:cover;background-repeat: no-repeat;background-position-x: center;">
+                    style="padding: 90px;height: 150px;border-radius: 150px;background-image: url('<?=($user->profile_image)?$user->profile_image:"images/profile.png" ?>');background-size:cover;background-repeat: no-repeat;background-position-x: center;">
                     <!-- <img src=""  alt=""> -->
                   </div>
                 </div>
