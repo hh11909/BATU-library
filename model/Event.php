@@ -28,7 +28,6 @@ class Event
       array_pop($fls);
       array_pop($vals);
     }
-    var_dump($fls, $vals);
     return Crud::create($this->table, $fls, $vals);
   }
   function read($filterCols = array(), $filterVals = array())

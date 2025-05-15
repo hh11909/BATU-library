@@ -8,7 +8,7 @@ require_once(__DIR__ . '/../../model/Event.php');
 
 use controller\Admin;
 use controller\Friend;
-use model\Event as EventModel;
+use model\Event;
 
 session_start();
 header("Content-Type: application/json");
@@ -28,19 +28,32 @@ if ($requestMethod === "GET") {
   $user = unserialize($_SESSION['user']);
 
   if ($user instanceof Admin || $user instanceof Friend) {
-    $eventModel = new EventModel();
-    $allEvents = $eventModel->read();
+    
+    $allEventsJson = $user->readallevent();
 
-    if (!is_array($allEvents)) {
+  
+    $allEventsData = json_decode($allEventsJson, true);
+
+    if ($allEventsData === null) {
+      echo json_encode(["error" => "Failed to decode events JSON"]);
+      exit;
+    }
+
+   
+    if (!isset($allEventsData['data']) || !is_array($allEventsData['data']) || empty($allEventsData['data'])) {
       echo json_encode(["error" => "No events found."]);
       exit;
     }
 
-    // Filter: only events with admin_ID != null
+    
+    $allEvents = $allEventsData['data'];
+
+ 
     $filtered = array_filter($allEvents, function ($e) {
       return !empty($e['admin_ID']);
     });
 
+   
     echo json_encode(array_values($filtered));
   } else {
     error422("Unauthorized user.");

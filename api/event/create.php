@@ -10,6 +10,7 @@ use controller\Event;
 use controller\Friend;
 
 session_start();
+
 header("Content-Type:application/json");
 header("Access-Control-Allow-Origin:*");
 header("Access-Control-Allow-Methods:POST");
@@ -34,6 +35,7 @@ if ($requestMethod == "POST") {
   if ($user instanceof Admin) {
     $event->setAdmin_ID($user->id);
     echo $user->createEvent($event);
+    ;
   }
   if ($user instanceof Friend) {
     $event->student_ID = $user->id;

@@ -7,7 +7,7 @@ require_once(__DIR__ . "/../model/Admin.php");
 
 use controller\Student;
 use controller\User;
-
+use model\Event as EventModel;
 
 class Admin extends User
 {
@@ -232,22 +232,24 @@ class Admin extends User
     Student::delete($student_ID);
   }
   public function createEvent(Event $event)
-  {
+{
     if ($event) {
-      $model = new \model\Event();
-      $event->state = "available";
-      $result = $model->create($event);
-      $status = $result['status'];
-      $result = $result['data'];
-      if ($result) {
-        return json_encode([
-          'status' => $status
-        ]);
-      }
-      return error422('Server Error', 500);
+        $model = new \model\Event();
+        $event->state = "available";
+        $resultJson = $model->create($event);
+        $result = json_decode($resultJson, true);
+        if (isset($result['status']) && $result['status'] == 201) {
+            return json_encode([
+                'status' => 201,
+                'message' => 'Record created successfully'
+            ]);
+        } else {
+            return error422('Server Error', 500);
+        }
     }
     return error422('Bad Request', 400);
-  }
+}
+
   public function updateEvent(array $values, array $filter)
   {
     if (count($values) && count($filter)) {
@@ -260,14 +262,24 @@ class Admin extends User
       var_dump($result);
     }
   }
-  public function deleteEvent(array $filter)
-  {
+public function deleteEvent(array $filter)
+{
     if (count($filter)) {
-      $keys = array_keys($filter);
-      $vals = array_values($filter);
-      $model = new \model\Event();
-      $result = $model->delete($keys, $vals);
-      var_dump($result);
+        $keys = array_keys($filter);
+        $vals = array_values($filter);
+        $model = new \model\Event();
+        $result = $model->delete($keys, $vals);
+        return $result;
     }
-  }
+    return json_encode(['status' => 422, 'message' => 'No filter provided']);
+}
+
+function readallevent()
+{
+    $readEvent = new EventModel();
+    return $readEvent->read(); 
+}
+
+
+
 }

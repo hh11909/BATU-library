@@ -105,10 +105,14 @@ class Event
   }
 
   //readall control\user
-  function readall()
+  function readallevent()
   {
+    $status=200;
     $readEvent = new EventModel();
-    return $readEvent->read();
+    // return $readEvent->read();
+    $readall=$readEvent->read();
+    
+    return $readall;
   }
 
   function read($student_ID)
@@ -149,11 +153,8 @@ class Event
     $eventModel = new EventModel();
     $events = $eventModel->read();
     if (!is_array($events)) {
-    $events = [];
-}
-
+    $events = [];}
     $today = date('Y-m-d');
-
     foreach ($events as $event) {
         if (isset($event['end_date']) && $event['end_date'] === $today && $event['state'] !== 'expired') {
             $eventModel->update(

@@ -28,20 +28,22 @@ if ($requestMethod === "GET") {
   $user = unserialize($_SESSION['user']);
 
   if ($user instanceof Friend) {
-    $eventModel = new EventModel();
-    $studentEvents = $eventModel->read(["student_ID"], [$user->id]);
+  $eventModel = new EventModel();
+  $studentEventsJson = $eventModel->read(["student_ID"], [$user->id]);
+  $studentEvents = json_decode($studentEventsJson, true);
 
-    if (!is_array($studentEvents)) {
-      echo json_encode(["error" => "No events found."]);
-      exit;
-    }
-    $filtered = array_filter($studentEvents, function ($e) {
-      return empty($e['admin_ID']);
-    });
-
-    echo json_encode(array_values($filtered));
-  } else {
-    error422("Only students can view their requested events.");
-    die();
+  if ($studentEvents === null || empty($studentEvents['data'])) {
+    echo json_encode(["error" => "No events found."]);
+    exit;
   }
+
+  $filtered = array_filter($studentEvents['data'], function ($e) {
+    return empty($e['admin_ID']);
+  });
+
+  echo json_encode(array_values($filtered));
+} else {
+  error422("Only students can view their requested events.");
+  die();
+}
 }

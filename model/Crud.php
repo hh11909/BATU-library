@@ -33,7 +33,12 @@ class Crud
       $data = [
         'status' => 500,
         'Message' => "Internal Server Error"
+        
       ];
+      if (!$result) {
+  error_log("MySQL Error: " . mysqli_error($cn));
+}
+
       mysqli_close($cn);
       header("HTTP/1.0 500 Internal Server Error");
       return json_encode($data);
