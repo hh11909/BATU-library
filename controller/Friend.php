@@ -62,11 +62,17 @@ class Friend extends Student
   public function updateEvent(array $values, int $event_ID)
   {
     if (!empty($values) && $event_ID) {
+      $model = new \model\Event();
+      $result = $model->read(['event_ID'], [$event_ID]);
+      $result = json_decode($result, true);
+      if ($result['data'][0]['admin_ID'] != null) {
+        error422('Unauthorized', 403);
+        die();
+      }
       $keys = array_keys($values);
       $vals = array_values($values);
       $filterKeys = ['student_ID', 'event_ID'];
       $filterVals = [$this->id, $event_ID];
-      $model = new \model\Event();
       $result = $model->update($keys, $vals, $filterKeys, $filterVals);
       return $result;
     } else {
