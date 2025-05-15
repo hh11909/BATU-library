@@ -197,7 +197,7 @@ class Student extends User
     return $collegeData;
   }
 
-}
+
 
   use Book{
   searchForBooks as public;
