@@ -1,14 +1,15 @@
 <?php
 namespace controller;
 use model;
-require("../model/errors");
-require("../model/Book");
+// require("../model/errors");
+require_once(__DIR__."/../model/Book.php");
 class Images{
 
     static function createImage($x ,$path ,$image){
         $image_name = $image['name'];       
         $image_tmp  = $image['tmp_name'];        
-        $image_size = $image['size'];           
+        $image_size = $image['size'];  
+        $path="images/" . $path;         
         $image_ext  = strtolower(pathinfo($image_name, PATHINFO_EXTENSION)); 
         $allowed_ext = ['jpg', 'jpeg', 'png'];  
        if (!in_array($image_ext, $allowed_ext)) {
@@ -18,10 +19,17 @@ class Images{
       return error413("Image size should not exceed 2MB.");
      } 
         else{$new_image= uniqid($x, true) . '.' . $image_ext;
-       move_uploaded_file($image_tmp, $path . $new_image);
+       if (!move_uploaded_file($image_tmp, __DIR__ . "/../pages/" . $path . $new_image)) {
+           return error422("Failed to upload the image. Please try again.",500);
+       }
 
         }
-     return $path.$new_image ;
+     $data=[
+        "status"=>200,
+        "Message"=>"SUCCESS",
+        "data"=>$path.$new_image
+        ];
+        return json_encode($data);
     }
     static function deleteImage($path ,$image){
         $bookModel = new model\Book();
