@@ -3,9 +3,14 @@
 namespace controller;
 
 use model\Student as StudentModel;
-require_once("Book.php");
+use model\Department as DepartmentModel;
+use model\College as CollegeModel;
+
 require_once(__DIR__ . "/../model/Student.php");
 require_once(__DIR__ . "/User.php");
+require_once(__DIR__ . "/../model/department.php");
+require_once(__DIR__ . "/../model/college.php");
+require_once("Book.php");
 // require(__DIR__ . "/../model/errors.php");
 
 class Student extends User
@@ -160,8 +165,41 @@ class Student extends User
     $this->is_friend = (bool) $this->is_friend;
     return true;
   }
-  use Book{
+  
+  public function readDepartment($department_ID)
+  {
+    $departmentModel = new DepartmentModel();
+    $filterCols = ["department_ID"];
+    $filterVals = [$department_ID];
+    $departmentData = $departmentModel->read($filterCols, $filterVals);
+    $departmentData = json_decode($departmentData, true);
+    if (isset($departmentData["data"][0])) {
+      $college_id = $departmentData["data"][0]["college_id"];
+      $collegeData = $this->readCollege($college_id);
+      $collegeData = json_decode($collegeData, true);
+      return [
+        "department" => $departmentData["data"][0],
+        "college" => isset($collegeData["data"][0]) ? $collegeData["data"][0] : null
+      ];
+    } 
+    else 
+    {
+      return error422("Department not found!");
+    }
+  }
 
+  public function readCollege($college_id)
+  {
+    $collegeModel = new CollegeModel();
+    $filterCols = ["college_id"];
+    $filterVals = [$college_id];
+    $collegeData = $collegeModel->read($filterCols, $filterVals);
+    return $collegeData;
+  }
+
+}
+
+  use Book{
   searchForBooks as public;
   readBooks as public;
   readBBooks as public;
@@ -200,3 +238,4 @@ class Student extends User
     }
   }
 }
+
