@@ -76,7 +76,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 if($role=="student"){
                   ?>  
                   <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-                      <a href="profile.php"><img src="<?=($user->student_image)?$user->student_image:"images/profile.png"?>" alt="User" class="rounded-circle ms-3"
+                      <a href="profile.php"><img src="<?=($user->profile_image)?$user->profile_image:"images/profile.png"?>" alt="User" class="profileImageDisplay rounded-circle ms-3"
                       width="40" height="40"></a><!--to do-->
                   </li>
               <?php
@@ -138,7 +138,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <?php
                     if($role=="student"){
                       ?>
-            <a href="profile.php"><img src="<?=($user->student_image)?$user->student_image:"images/profile.png"?>" alt="User" class="rounded-circle ms-3"
+            <a href="profile.php"><img src="<?=($user->profile_image)?$user->profile_image:"images/profile.png"?>" alt="User" class="profileImageDisplay rounded-circle ms-3"
                 width="40" height="40"></a><!--to do-->
                     <?php } ?>
                
