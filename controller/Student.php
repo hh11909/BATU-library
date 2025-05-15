@@ -199,43 +199,43 @@ class Student extends User
 
 }
 
-  use Book{
-  searchForBooks as public;
-  readBooks as public;
-  readBBooks as public;
-  createBook as private;
-  updateBook as private;
-  deleteBook as private;    
-  }
-  function updateProfileImage($image){
-    $prefix="profile_";
-    $path="profile/";
-    $res=json_decode(Images::createImage($prefix,$path,$image),true);
-    if(isset($res["data"])){
-      $this->profile_image=$res["data"];
-      $model=new StudentModel;
-      $update=json_decode($model->update(["profile_image"],[$this->profile_image],["student_ID"],[$this->id]),true);
-      $update["data"]=$res["data"];
-      echo json_encode($update);
-    }
-    else{
-      return json_encode($res);
-    }
-  }
-  function updateBannerImage($image){
-    $prefix="banner_";
-    $path="banner/";
-    $res=json_decode(Images::createImage($prefix,$path,$image),true);
-    if(isset($res["data"])){
-      $this->student_image=$res["data"];
-      $model=new StudentModel;
-      $update=json_decode($model->update(["student_image"],[$this->student_image],["student_ID"],[$this->id]),true);
-      $update["data"]=$res["data"];
-      echo json_encode($update);
-    }
-    else{
-      return json_encode($res);
-    }
-  }
-}
+  // use Book{
+  // searchForBooks as public;
+  // readBooks as public;
+  // readBBooks as public;
+  // createBook as private;
+  // updateBook as private;
+  // deleteBook as private;    
+  // }
+  // function updateProfileImage($image){
+  //   $prefix="profile_";
+  //   $path="profile/";
+  //   $res=json_decode(Images::createImage($prefix,$path,$image),true);
+  //   if(isset($res["data"])){
+  //     $this->profile_image=$res["data"];
+  //     $model=new StudentModel;
+  //     $update=json_decode($model->update(["profile_image"],[$this->profile_image],["student_ID"],[$this->id]),true);
+  //     $update["data"]=$res["data"];
+  //     echo json_encode($update);
+  //   }
+  //   else{
+  //     return json_encode($res);
+  //   }
+  // }
+  // function updateBannerImage($image){
+  //   $prefix="banner_";
+  //   $path="banner/";
+  //   $res=json_decode(Images::createImage($prefix,$path,$image),true);
+  //   if(isset($res["data"])){
+  //     $this->student_image=$res["data"];
+  //     $model=new StudentModel;
+  //     $update=json_decode($model->update(["student_image"],[$this->student_image],["student_ID"],[$this->id]),true);
+  //     $update["data"]=$res["data"];
+  //     echo json_encode($update);
+  //   }
+  //   else{
+  //     return json_encode($res);
+  //   }
+  // }
+
 

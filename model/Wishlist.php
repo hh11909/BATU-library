@@ -1,9 +1,9 @@
 <?php
-namespace Model;
 
-require_once 'Crud.php';
-require_once 'errors.php';
-use model\Crud;
+namespace model;
+
+require_once (__DIR__ . "/Crud.php");
+require_once (__DIR__ . "/errors.php");
 
 class WishlistItem
 {
