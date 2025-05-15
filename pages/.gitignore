@@ -1,0 +1,4 @@
+/tsconfig.json
+/ts/**
+/.nvim.lua
+/js/utils.js
