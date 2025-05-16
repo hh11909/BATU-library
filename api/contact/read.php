@@ -10,7 +10,6 @@ require_once(__DIR__ . "/../../controller/Admin.php");
 
 use controller\Admin;
 
-// Authorization
 
 $id = $_GET['id'];
 
@@ -27,9 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $id = intval($id);
       } catch (Exception $e) {
         error422("Bad Request", 400);
+        die();
       }
     }
     echo $user->readMessage($id);
+    die();
   } else {
     error422('Unauthorized', 401);
     die();

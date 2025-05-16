@@ -16,10 +16,11 @@ class Contact
   public function create(ControllerContact $contact)
   {
     $vals = [$contact->name, $contact->email, $contact->message, $contact->student_ID];
-    if (empty($vals) && count($vals) === 4) {
+    if (!empty($vals) && count($vals) == 4) {
       return Crud::create($this->table, $this->fields, $vals);
+    } else {
+      error422("Bad Request", 400);
     }
-    error422("Bad Request", 400);
   }
   public function read(array $filterCols = [], array $filterVals = [])
   {

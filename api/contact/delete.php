@@ -9,11 +9,10 @@ require_once(__DIR__ . "/../../controller/Admin.php");
 
 use controller\Admin;
 
-// Authorization
 
-$id = $_GET['id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+  $id = $_GET['id'];
   if (isset($_SESSION['user'])) {
     /**@var User $user*/
     $user = unserialize($_SESSION['user']);
@@ -27,8 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
       } catch (Exception $e) {
         error422("Bad Request", 400);
       }
+    } else {
+      error422("Bad Request", 400);
+      die();
     }
     echo $user->deleteMessage($id);
+    die();
   } else {
     error422('Unauthorized', 401);
     die();

@@ -13,7 +13,6 @@ use controller\Friend;
 require_once(__DIR__ . "/Images.php");
 require_once(__DIR__ . "/../model/Student.php");
 require_once(__DIR__ . "/User.php");
-require_once("Friend.php");
 require_once(__DIR__ . "/../model/errors.php");
 require_once(__DIR__ . "/../model/department.php");
 require_once(__DIR__ . "/../model/college.php");
@@ -90,6 +89,7 @@ class Student extends User
             $user = new Student($arr["name"], $arr["academy_number"], $arr["academic_year"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"], $arr["password"], $arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
             break;
           case 1:
+            require_once("Friend.php");
             $user = new Friend($arr["name"], $arr["academy_number"], $arr["academic_year"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"], $arr["password"], $arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
             break;
         }

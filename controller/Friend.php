@@ -7,7 +7,7 @@ use controller\Student;
 
 require_once(__DIR__ . '/Event.php');
 require_once(__DIR__ . "/../model/errors.php");
-require(__DIR__ . "/Student.php");
+require_once(__DIR__ . "/Student.php");
 
 
 class Friend extends Student
