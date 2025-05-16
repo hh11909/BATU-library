@@ -42,22 +42,39 @@ use model\Book as BookModel;
   }*/
   trait Book
   {
-    static function searchForBooks($name, $author)
+    static function searchForBooks($name =null, $author= null)
     {
-      if (empty($name)) {
-        error422("Enter book name");
-      } elseif (empty($author)) {
-        error422("Enter book author");
-      } else {
-        $name = trim(htmlspecialchars($name));
+      if ( !empty($name) || !empty($author) )  {
+        if ( !empty($name) && !empty($author) )  {
+          $name = trim(htmlspecialchars($name));
+          $author = (htmlspecialchars($author));
+          $bookModel = new BookModel();
+         $filterCols = ['name', 'author'];
+         $filterVals = [$name, $author];
+         $result = $bookModel->read($filterCols, $filterVals);
+        }
+        else if
+       (empty($author)) {
+       $name = trim(htmlspecialchars($name));
+       $bookModel = new BookModel();
+       $result = $bookModel->read('name', $name);
+       
+       }
+       else{
         $author = (htmlspecialchars($author));
         $bookModel = new BookModel();
-        $filterCols = ['name', 'author'];
-        $filterVals = [$name, $author];
-        $result = $bookModel->read($filterCols, $filterVals);
-        return $result;
+        $result = $bookModel->read('author', $author);
+        
+
+       }}
+       else {
+        $result = error422("Enter book name or author");
+
       }
-    }
+       return $result;
+      }
+        
+      
     static function readBooks($is_borrowed)
     {
       if ($is_borrowed = 0) {
@@ -67,6 +84,15 @@ use model\Book as BookModel;
         $bookModel = new BookModel();
         $result = $bookModel->read("is_borrowed", 1);
       }
+  
+      return $result;
+    }
+
+
+    static function readBooById($book_ID)
+    {
+        $bookModel = new BookModel();
+        $result = $bookModel->read("book_ID", $book_ID);
   
       return $result;
     }
@@ -104,34 +130,35 @@ use model\Book as BookModel;
   
   
   
-    static function updateBook($book_ID, $name, $author, $image, $description, $admin_ID, $is_borrowed, $Uname =null, $Uauthor =null, $Uimage=null, $Udescription=null, $Uis_borrowed=null)
+    static function updateBook( $name, $author, $Uname , $Uauthor , $Uimage, $Udescription, $Uis_borrowed)
     {
       $bookModel = new BookModel();
-      $Fcol = ["book_ID", "name", "author","image", "description", "admin_ID", "is_borrowed"];
-      $Fval = [$book_ID, $name, $author, $image,$description, $admin_ID, $is_borrowed];
+      $Fcol = [ "name", "author"];
+      $Fval = [ $name, $author];
       $result = $bookModel->read($Fcol, $Fval);
       $result = json_decode($result);
       $result = $result["data"];
       if (isset($result)) {
-        if ($arr = mysqli_fetch_assoc($result)) {
+           $result=$result[0];
+
           if (empty($Uname)) {
-            $Uname = $arr["name"];
+            $Uname = $result["name"];
           }
           if (empty($Uauthor)) {
-            $Uauthor = $arr["author"];
+            $Uauthor = $result["author"];
           }
           if (empty($Udescription)) {
-            $Udescription = $arr["description"];
+            $Udescription = $result["description"];
           }
           if (empty($Uis_borrowed)) {
-            $Uis_borrowed = $arr["is_borrowed"];
+            $Uis_borrowed = $result["is_borrowed"];
           }
           if (!isset($_FILES['image'])) {
-            $Uimage = $arr["image"];
+            $Uimage = $result["image"];
           }
            
         }
-      }
+      
        else {
         $Uname = trim(filter_var($Uname, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
         $Uauthor = trim(filter_var($Uauthor, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
@@ -202,6 +229,7 @@ use model\Book as BookModel;
 //   searchForBooks as public;
 //   readBooks as public;
 //   readBBooks as public;
+ //  readBooById  as public;
 //   createBook as private;
 //   updateBook as private;
 //   deleteBook as private;
