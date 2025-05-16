@@ -1,5 +1,10 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +20,7 @@
 
 <body>
   <!--  Navigation -->
-   <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
+  <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
     <div class="container">
       <!-- logo -->
       <a class="navbar-brand fs-4" href="../index.php">
@@ -83,138 +88,138 @@
   </nav>
 
   <!-- Admin Sidebar -->
-<div class="sidebar" id="admin-sidebar">
-  <div class="sidebar-header" id="admin-sidebar-header">
-    <h3><i class="fas fa-book-open me-2"></i> Library Admin</h3>
+  <div class="sidebar" id="admin-sidebar">
+    <div class="sidebar-header" id="admin-sidebar-header">
+      <h3><i class="fas fa-book-open me-2"></i> Library Admin</h3>
+    </div>
+    <ul class="sidebar-menu" id="admin-sidebar-menu">
+      <li>
+        <a href="admin-requests.php"><i class="fa-solid fa-bell"></i> <span>Requests</span></a>
+      </li>
+      <li>
+        <a href="admin-users.php"><i class="fas fa-users"></i> <span>Users</span></a>
+      </li>
+      <li>
+        <a href="admin-books.php"><i class="fas fa-book"></i> <span>Books</span></a>
+      </li>
+      <li>
+        <a href="admin-borrowed-books.php"><i class="fas fa-book-reader"></i> <span>Borrowed Books</span></a>
+      </li>
+      <li class="active">
+        <a href="admin-events.php"><i class="fas fa-calendar-alt"></i> <span>Events</span></a>
+      </li>
+      <li>
+        <a href="admin-contact.php"><i class="fas fa-envelope"></i> <span>Contact</span></a>
+      </li>
+    </ul>
   </div>
-  <ul class="sidebar-menu" id="admin-sidebar-menu">
-    <li>
-      <a href="admin-requests.php"><i class="fa-solid fa-bell"></i> <span>Requests</span></a>
-    </li>
-    <li>
-      <a href="admin-users.php"><i class="fas fa-users"></i> <span>Users</span></a>
-    </li>
-    <li>
-      <a href="admin-books.php"><i class="fas fa-book"></i> <span>Books</span></a>
-    </li>
-    <li>
-      <a href="admin-borrowed-books.php"><i class="fas fa-book-reader"></i> <span>Borrowed Books</span></a>
-    </li>
-    <li class="active">
-      <a href="admin-events.php"><i class="fas fa-calendar-alt"></i> <span>Events</span></a>
-    </li>
-    <li>
-      <a href="admin-contact.php"><i class="fas fa-envelope"></i> <span>Contact</span></a>
-    </li>
-  </ul>
-</div>
 
-<div class="main-content">
-  <div class="container-fluid py-4">
-    <div class="row">
-      <div class="col-12">
-        <div class="card mb-4">
-          <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-            <h5>Event Management</h5>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEventModal">
-              <i class="fas fa-plus me-2"></i>Add New Event
-            </button>
-          </div>
-          <div class="card-body px-0 pt-0 pb-2">
-            <div class="table-responsive p-0">
-              <table class="table align-items-center mb-0" id="eventsTable">
-                <thead>
-                  <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Event Name</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- Will be populated with data from JavaScript -->
-                  <tr>
-                    <td colspan="5" class="text-center py-4">Loading data...</td>
-                  </tr>
-                </tbody>
-              </table>
+  <div class="main-content">
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+              <h5>Event Management</h5>
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEventModal">
+                <i class="fas fa-plus me-2"></i>Add New Event
+              </button>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0" id="eventsTable">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Event Name</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Will be populated with data from JavaScript -->
+                    <tr>
+                      <td colspan="5" class="text-center py-4">Loading data...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<!-- Add/Edit Event Modal -->
-<div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addEventModalLabel">Add New Event</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="eventForm">
-          <input type="hidden" id="eventId">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="eventName" class="form-label">Event Name</label>
-                <input type="text" class="form-control" id="eventName" required>
+  <!-- Add/Edit Event Modal -->
+  <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addEventModalLabel">Add New Event</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="eventForm">
+            <input type="hidden" id="eventId">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="eventName" class="form-label">Event Name</label>
+                  <input type="text" class="form-control" id="eventName" required>
+                </div>
+                <div class="form-group">
+                  <label for="eventDate" class="form-label">Event Date</label>
+                  <input type="datetime-local" class="form-control" id="eventDate" required>
+                </div>
+                <div class="form-group">
+                  <label for="joinMethod" class="form-label">Participation Method</label>
+                  <input type="text" class="form-control" id="joinMethod" required>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="eventDate" class="form-label">Event Date</label>
-                <input type="datetime-local" class="form-control" id="eventDate" required>
-              </div>
-              <div class="form-group">
-                <label for="joinMethod" class="form-label">Participation Method</label>
-                <input type="text" class="form-control" id="joinMethod" required>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="eventPhoto" class="form-label">Event Photo</label>
-                <input type="file" class="form-control" id="eventPhoto" accept="image/*">
-                <div class="mt-2">
-                  <img id="photoPreview" src="#" alt="Preview" style="max-height: 150px; display: none;">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="eventPhoto" class="form-label">Event Photo</label>
+                  <input type="file" class="form-control" id="eventPhoto" accept="image/*">
+                  <div class="mt-2">
+                    <img id="photoPreview" src="#" alt="Preview" style="max-height: 150px; display: none;">
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="eventContent" class="form-label">Event Details</label>
-            <textarea class="form-control" id="eventContent" rows="5" required></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="saveEventBtn">Save</button>
+            <div class="form-group">
+              <label for="eventContent" class="form-label">Event Details</label>
+              <textarea class="form-control" id="eventContent" rows="5" required></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="saveEventBtn">Save</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Confirm Delete</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to delete this event?</p>
-        <input type="hidden" id="eventToDelete">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+  <!-- Delete Confirmation Modal -->
+  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm Delete</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this event?</p>
+          <input type="hidden" id="eventToDelete">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
   <!-- Footer -->
   <footer class="footer py-5 text-center text-md-start">
@@ -285,7 +290,7 @@
         reader.readAsDataURL(e.target.files[0]);
       }
     });
-  
+
     // Event management
     document.addEventListener('DOMContentLoaded', function() {
       const eventsTable = document.getElementById('eventsTable');
@@ -294,17 +299,17 @@
       const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
       const addEventModal = new bootstrap.Modal(document.getElementById('addEventModal'));
       const confirmDeleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
-  
+
       // Load events on page load
       loadEvents();
-  
+
       // Save event
       saveEventBtn.addEventListener('click', function() {
         // Add AJAX save logic here
         alert('Saving event...');
         addEventModal.hide();
       });
-  
+
       // Confirm deletion
       confirmDeleteBtn.addEventListener('click', function() {
         const eventId = document.getElementById('eventToDelete').value;
@@ -313,12 +318,11 @@
         confirmDeleteModal.hide();
         loadEvents();
       });
-  
+
       // Load events function
       function loadEvents() {
         // Example dummy data (replace with AJAX call)
-        const events = [
-          {
+        const events = [{
             id: 1,
             name: "Annual Book Fair",
             date: "2024-06-15T10:00",
@@ -333,20 +337,20 @@
             status: "Completed"
           }
         ];
-  
+
         renderEvents(events);
       }
-  
+
       // Render events in table
       function renderEvents(events) {
         const tbody = eventsTable.querySelector('tbody');
         tbody.innerHTML = '';
-  
+
         if (events.length === 0) {
           tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4">No events available</td></tr>';
           return;
         }
-  
+
         events.forEach(event => {
           const row = document.createElement('tr');
           row.innerHTML = `
@@ -379,14 +383,14 @@
           `;
           tbody.appendChild(row);
         });
-  
+
         // Add event listeners to buttons
         document.querySelectorAll('.edit-btn').forEach(btn => {
           btn.addEventListener('click', function() {
             editEvent(this.getAttribute('data-id'));
           });
         });
-  
+
         document.querySelectorAll('.delete-btn').forEach(btn => {
           btn.addEventListener('click', function() {
             document.getElementById('eventToDelete').value = this.getAttribute('data-id');
@@ -394,7 +398,7 @@
           });
         });
       }
-  
+
       // Edit event function
       function editEvent(eventId) {
         // Example dummy data (replace with AJAX call)
@@ -406,21 +410,22 @@
           joinMethod: "Online registration",
           image: "images/event1.jpg"
         };
-  
+
         document.getElementById('eventId').value = event.id;
         document.getElementById('eventName').value = event.name;
         document.getElementById('eventDate').value = event.date.replace(' ', 'T');
         document.getElementById('eventContent').value = event.content;
         document.getElementById('joinMethod').value = event.joinMethod;
-        
+
         const preview = document.getElementById('photoPreview');
         preview.src = event.image;
         preview.style.display = 'block';
-  
+
         document.getElementById('addEventModalLabel').textContent = 'Edit Event';
         addEventModal.show();
       }
     });
   </script>
 </body>
+
 </html>

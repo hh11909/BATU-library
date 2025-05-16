@@ -1,0 +1,322 @@
+/* Global Settings & Body */
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: #F8F9FA; /* Very light gray, almost white, as per screenshot's content area */
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 70px; /* Space for fixed header */
+}
+
+/* Custom Navbar (Header) */
+.custom-navbar {
+    background-color: #08546d; /* Dark Teal/Blue from screenshot */
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.custom-navbar .navbar-brand {
+    font-family: 'Poppins', sans-serif;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.admin-logo {
+    border-radius: 4px; /* Slight rounding if logo isn't inherently round */
+}
+
+.custom-navbar .nav-link {
+    font-family: 'Poppins', sans-serif;
+    color: #E0E0E0; /* Light gray for inactive links */
+    font-weight: 500;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.custom-navbar .nav-link:hover {
+    color: #FFFFFF;
+    background-color: rgba(255,255,255,0.1);
+}
+
+.custom-navbar .nav-link.active {
+    color: #FFFFFF;
+    font-weight: 600;
+    border-bottom: 2px solid #A0D2DB; /* Light green/cyan accent for active link */
+}
+
+.btn-logout {
+    font-family: 'Poppins', sans-serif;
+    background-color: #A0D2DB; /* Light Green/Cyan from screenshot's 'Log In' button */
+    color: #08546d; /* Dark Teal/Blue text */
+    border: none;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px; /* Rounded like screenshot */
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #8BC9D3;
+    color: #074a5f;
+}
+
+.navbar-toggler {
+    border-color: rgba(255,255,255,0.2);
+}
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.offcanvas-header {
+    background-color: #074a5f; /* Slightly darker for offcanvas header */
+    color: #FFFFFF;
+}
+.offcanvas-body .nav-link {
+    color: #08546d;
+}
+.offcanvas-body .btn-logout {
+    width: 100%;
+}
+
+/* Main Content Wrapper */
+.main-content-wrapper {
+    flex-grow: 1;
+}
+
+.content-container {
+    padding-top: 1.5rem; /* Add some space below fixed header */
+}
+
+.page-title-header h1 {
+    font-family: 'Poppins', sans-serif;
+    color: #08546d; /* Dark Teal/Blue */
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.title-icon {
+    color: #C2E0DD; /* Light Green/Mint for icon next to title */
+}
+
+/* Card Styles (Inspired by form container in screenshot) */
+.controls-card,
+.messages-card {
+    background-color: #FFFFFF; /* White background for cards */
+    border-radius: 8px;
+    border: 1px solid #E0E0E0; /* Softer border */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+}
+
+.card-title-form {
+    font-family: 'Poppins', sans-serif;
+    color: #08546d;
+    font-weight: 500;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.card-title-form i {
+    color: #A0D2DB; /* Accent color for icons in card titles */
+}
+
+/* Search/Filter Controls */
+.search-bar .form-label {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    color: #08546d;
+}
+
+.search-bar .form-control-sm {
+    border-radius: 20px; /* Rounded inputs */
+    border: 1px solid #CED4DA;
+    font-size: 0.9rem;
+}
+
+.btn-search-action {
+    background-color: #79D1EC; /* Light Blue/Cyan like 'Send Message' button */
+    color: #08546d;
+    border: none;
+    border-radius: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    padding: 0.375rem 0.85rem;
+    font-size: 0.9rem;
+}
+
+.btn-search-action:hover {
+    background-color: #6AC4D8;
+    color: #074a5f;
+}
+
+/* Messages Table */
+.messages-table thead {
+    background-color: #08546d;
+    color: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+}
+
+.messages-table th i {
+    margin-right: 6px;
+}
+
+.messages-table tbody tr:hover {
+    background-color: #f1fafd; /* Light hover for table rows */
+}
+
+.messages-table td {
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+.message-snippet-cell {
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Action Buttons in Table */
+.btn-view-action, .btn-delete-action {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 15px;
+    border: none;
+}
+
+.btn-view-action {
+    background-color: #A0D2DB; /* Consistent with logout/other accents */
+    color: #08546d;
+}
+.btn-view-action:hover {
+    background-color: #8BC9D3;
+    color: #074a5f;
+}
+
+.btn-delete-action {
+    background-color: #E77C7C; /* Softer red for delete */
+    color: #FFFFFF;
+}
+.btn-delete-action:hover {
+    background-color: #D96A6A;
+    color: #FFFFFF;
+}
+
+/* Admin Footer (Inspired by Screenshot) */
+.admin-footer {
+    background-color: #08546d; /* Dark Teal/Blue */
+    color: #E0E0E0; /* Light text */
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.footer-logo-group .admin-logo {
+    border-radius: 4px;
+}
+
+.footer-brand-text {
+    font-family: 'Poppins', sans-serif;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.footer-col-title {
+    font-family: 'Poppins', sans-serif;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+}
+
+.footer-col-text {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #C0C0C0; /* Slightly dimmer for less emphasis */
+}
+
+.footer-links-list li a {
+    color: #D0D0D0;
+    text-decoration: none;
+    font-size: 0.85rem;
+    padding: 0.15rem 0;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.footer-links-list li a:hover {
+    color: #FFFFFF;
+}
+
+.footer-divider {
+    border-color: rgba(255,255,255,0.15);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.footer-copyright-text p {
+    font-size: 0.8rem;
+    color: #B0B0B0;
+    margin-bottom: 0;
+}
+
+/* Responsive Adjustments for Table */
+@media (max-width: 767.98px) {
+    .messages-table thead {
+        display: none; /* Hide table head on small screens */
+    }
+    .messages-table tbody,
+    .messages-table tr,
+    .messages-table td {
+        display: block;
+        width: 100%;
+    }
+    .messages-table tr {
+        margin-bottom: 1rem;
+        border: 1px solid #DEE2E6;
+        border-radius: .25rem;
+        padding: 0.5rem;
+    }
+    .messages-table td {
+        text-align: right;
+        padding-left: 40%; /* Space for label */
+        position: relative;
+        border: none;
+        padding-bottom: 0.5rem;
+        padding-top: 0.5rem;
+    }
+    .messages-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0.75rem;
+        width: 35%;
+        padding-right: 0.5rem;
+        font-weight: bold;
+        text-align: left;
+        color: #08546d;
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.8rem;
+    }
+    .messages-table td.actions-cell {
+        text-align: center;
+        padding-left: 0.75rem; /* Reset padding for action buttons cell */
+    }
+    .footer-col {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    .footer-logo-group {
+        justify-content: center;
+    }
+}
+

@@ -13,6 +13,7 @@ use controller\Event;
 
 class Admin extends User
 {
+  use Book;
   public $role = "admin";
   public function __construct(
     string $name,
