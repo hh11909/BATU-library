@@ -307,4 +307,12 @@ class Admin extends User
     }
     return json_encode(['status' => 422, 'message' => 'No filter provided']);
   }
+  public function readMessage(?int $id)
+  {
+    return Contact::read($id);
+  }
+  public function deleteMessage(?int $id)
+  {
+    return Contact::delete($id);
+  }
 }

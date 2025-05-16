@@ -7,15 +7,19 @@ use model\Department as DepartmentModel;
 use model\College as CollegeModel;
 use controller\Book;
 use controller\Images;
+use controller\Contact;
+use controller\Friend;
 
 require_once(__DIR__ . "/Images.php");
 require_once(__DIR__ . "/../model/Student.php");
 require_once(__DIR__ . "/User.php");
-require_once(__DIR__ . "/Friend.php");
+require_once("Friend.php");
 require_once(__DIR__ . "/../model/errors.php");
 require_once(__DIR__ . "/../model/department.php");
 require_once(__DIR__ . "/../model/college.php");
+require_once(__DIR__ . "/../model/Contact.php");
 require_once(__DIR__ . "/Book.php");
+require_once(__DIR__ . "/Contact.php");
 
 class Student extends User
 {
@@ -236,5 +240,11 @@ class Student extends User
     } else {
       return json_encode($res);
     }
+  }
+
+  public function createMessage(Contact $contact)
+  {
+    $contact->setStudent_ID($this->id);
+    return $contact->create();
   }
 }
