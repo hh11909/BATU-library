@@ -2,11 +2,8 @@
 use controller\Student;
 session_start();
 require_once(__DIR__."/../controller/Student.php");
-if(isset($_SESSION["user"])){
-  /**@var Student $user */
-  $user=unserialize($_SESSION["user"]);
-  $role=$user->role;
-  if($role=="student"){
+if(isset($_SESSION["role"])){
+  if($_SESSION['role']=="student"||$_SESSION['role']=="friend"){
     header("Location:index.php");
   }
   elseif($role=="admin"){
