@@ -19,17 +19,14 @@ if ($requestMethod == "DELETE") {
     } else {
       if (isset($_POST["name"]) && isset($_POST["author"])) {
         $book = Admin::deleteBook($_POST["name"], $_POST["author"]);
-        $book =json_decode($book) ;
+        $book = json_decode($book);
         echo $book;
-      }
-      else{
+      } else {
         echo error422("please send data!");
-    
       }
     }
   }
-}
-else{
+} else {
 
   echo error422("method not allowed!");
 }

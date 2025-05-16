@@ -18,18 +18,14 @@ if ($requestMethod == "POST") {
     } else {
       if (isset($_POST["name"]) && isset($_POST["author"]) && isset($_FILES["image"]) && isset($_POST["description"]) && isset($_POST["admin_ID"])) {
         $book = Admin::createBook($_POST["name"], $_POST["author"],  $_FILES["image"], $_POST["description"],  $_POST["admin_ID"]);
-        $book =json_decode($book) ;
+        $book = json_decode($book);
         echo $book;
-      }
-      else{
+      } else {
         echo error422("please send data!");
-    
       }
     }
   }
-}
-
-else{
+} else {
 
   echo error422("method not allowed!");
 }
