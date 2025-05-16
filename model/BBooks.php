@@ -7,8 +7,8 @@ use model\Crud;
 class BBooks{
 
 private $table="Book_Request";
-function read( $academy_number){
-  $result = Crud::read($this->table,"academy_number",$academy_number);
+function read( $student_ID){
+  $result = Crud::read($this->table,"student_ID",$student_ID);
   $result=json_decode($result,true);
   if (isset($result["data"])) {
      $result = $result["data"];

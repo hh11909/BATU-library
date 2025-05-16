@@ -77,14 +77,8 @@ use model\Book as BookModel;
       
     static function readBooks($is_borrowed)
     {
-      if ($is_borrowed = 0) {
-        $bookModel = new BookModel();
-        $result = $bookModel->read("is_borrowed", 0);
-      } else {
-        $bookModel = new BookModel();
-        $result = $bookModel->read("is_borrowed", 1);
-      }
-  
+      $bookModel = new BookModel();
+      $result = $bookModel->read("is_borrowed", $is_borrowed);
       return $result;
     }
 
@@ -136,7 +130,7 @@ use model\Book as BookModel;
       $Fcol = [ "name", "author"];
       $Fval = [ $name, $author];
       $result = $bookModel->read($Fcol, $Fval);
-      $result = json_decode($result);
+      $result = json_decode($result,true);
       $result = $result["data"];
       if (isset($result)) {
            $result=$result[0];
@@ -157,9 +151,9 @@ use model\Book as BookModel;
             $Uimage = $result["image"];
           }
            
-        }
+        
       
-       else {
+       
         $Uname = trim(filter_var($Uname, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
         $Uauthor = trim(filter_var($Uauthor, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
         $Udescription = trim(filter_var($Udescription, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
@@ -176,6 +170,7 @@ use model\Book as BookModel;
           $Uval = [$Uname, $Uauthor, $new_image , $Udescription, $Uis_borrowed];
   
           return $bookModel->update($Ucol, $Uval, $Fcol, $Fval);
+        }
           //$result = json_decode($result);
           //$result = $result["data"];
           //if (isset($result)) {
@@ -190,8 +185,14 @@ use model\Book as BookModel;
           //  }
           //}
        // }
+
       }
-    }}
+      else
+      {
+        return error422("this book did not originaly exist , please create one !");
+      }
+
+    }
    static function deleteBook($name, $author)
     {
       $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
@@ -203,9 +204,9 @@ use model\Book as BookModel;
         
       }
 
-      static function readBBooks($academy_number){
+      static function readBBooks($student_ID){
         $bookModel = new BookModel();
-        $result = $bookModel->read($academy_number );
+        $result = $bookModel->read($student_ID );
       return $result;
     }
  
@@ -229,7 +230,7 @@ use model\Book as BookModel;
 //   searchForBooks as public;
 //   readBooks as public;
 //   readBBooks as public;
- //  readBooById  as public;
+ // readBooById  as public;
 //   createBook as private;
 //   updateBook as private;
 //   deleteBook as private;
