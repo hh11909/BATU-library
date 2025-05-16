@@ -1,14 +1,14 @@
-<?php
+<?php 
 
 namespace model;
 
 require_once (__DIR__ . "/Crud.php");
 require_once (__DIR__ . "/errors.php");
 
-class WishlistItem
+class like
 {
-    private $table = 'wishlist';
-    private $fields = ['student_ID', 'book_name']; //book_name instede of book_id
+    private $table = 'Likes';
+    private $fields = ['student_ID', 'book_Name']; //book_name instede of book_id
 
     public function create($studentId, $bookName)
     {
@@ -37,4 +37,14 @@ class WishlistItem
             return error422('Filteration columns count are not equal to their values count!');
         }
     }
+
 }
+
+// controller 
+function totallikes ($bookName){
+    $likes = new like();
+    $totallikes = json_decode($likes->read("name",$bookName));
+    $count =(isset($totallikes["data"]))?count($totallikes["data"]):0;
+    return $count ;
+}
+

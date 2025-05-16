@@ -15,9 +15,8 @@ require_once (__DIR__ . "../model/Book.php");
 
 function readwishlist ($student_id){
     $obj = new WishlistItem() ;
-    $read = json_decode($obj->read("student_id",$student_id));
-    $count["total-count"]=(isset($read["data"]))?count($read["data"]):0;
-    $count=$count["total-count"];
+    $read = json_decode($obj->read("student_ID",$student_id));
+    $count =(isset($read["data"]))?count($read["data"]):0;
     $book = new Book();
     $Books = [];
     for ($i=0;$i<=$count;$i++){
