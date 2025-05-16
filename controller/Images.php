@@ -16,7 +16,7 @@ class Images{
        return error422("Invalid Image extension , please enter: file.jpg /file.jpeg /file.png !");   
       }
       elseif ($image_size > 2 * 1024 * 1024) {
-      return error413("Image size should not exceed 2MB.");
+      return error422("Image size should not exceed 2MB.",13);
      } 
         else{$new_image= uniqid($x, true) . '.' . $image_ext;
        if (!move_uploaded_file($image_tmp, __DIR__ . "/../pages/" . $path . $new_image)) {
