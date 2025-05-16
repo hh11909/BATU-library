@@ -89,7 +89,7 @@ create table if not exists `Requests`(
     );
 create table if not exists `Wishlists`(
 	`student_ID` int not null,
-    `name` int not null,
+    `name` varchar(255) not null,
     constraint fk_Wishlists_Students foreign key (student_ID) references Students(student_ID) on update cascade on delete cascade,
     constraint fk_Wishlists_Books foreign key (`name`) references Books(`name`) on update cascade on delete cascade,
     constraint pk_Wishlists primary key (student_ID,`name`)
