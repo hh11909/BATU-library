@@ -12,11 +12,23 @@ if ($requestMethod == "GET") {
   if (isset($_GET["is_borrowed"])) {
     if ($_GET["is_borrowed"] == 0) {
       $book = Student::readBooks($_GET["is_borrowed"]);
+      $book =json_decode($book) ;
       echo $book;
       
     } elseif ($_GET["is_borrowed"] == 1) {
       $book = Student::readBooks($_GET["is_borrowed"]);
+      $book =json_decode($book) ;
       echo $book;
     }
+    
   }
+  else{
+    echo error422("please send data!");
+
+  }
+ 
+}
+else{
+
+  echo error422("method not allowed!");
 }

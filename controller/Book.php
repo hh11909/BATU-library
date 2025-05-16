@@ -7,6 +7,8 @@ namespace controller;
 require(__DIR__."/../model/Book.php");
 require(__DIR__."/../model/BBooks.php");
 require("Images.php");
+
+use model\BBooks;
 use model\Book as BookModel;
 /*class Book
 {
@@ -78,7 +80,7 @@ use model\Book as BookModel;
     static function readBooks($is_borrowed)
     {
       $bookModel = new BookModel();
-      $result = $bookModel->read("is_borrowed", $is_borrowed);
+      $result = $bookModel->read(["is_borrowed"], [$is_borrowed]);
       return $result;
     }
 
@@ -86,7 +88,7 @@ use model\Book as BookModel;
     static function readBooById($book_ID)
     {
         $bookModel = new BookModel();
-        $result = $bookModel->read("book_ID", $book_ID);
+        $result = $bookModel->read(["book_ID"], [$book_ID]);
   
       return $result;
     }
@@ -205,7 +207,7 @@ use model\Book as BookModel;
       }
 
       static function readBBooks($student_ID){
-        $bookModel = new BookModel();
+        $bookModel = new BBooks();
         $result = $bookModel->read($student_ID );
       return $result;
     }
