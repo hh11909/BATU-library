@@ -8,7 +8,7 @@ require_once (__DIR__ . "/errors.php");
 class like
 {
     private $table = 'Likes';
-    private $fields = ['student_ID', 'book_Name']; //book_name instede of book_id
+    private $fields = ['student_ID', 'book_name']; //book_name instede of book_id
 
     public function create($studentId, $bookName)
     {
