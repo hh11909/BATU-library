@@ -43,8 +43,8 @@ class like
 // controller 
 function totallikes ($bookName){
     $likes = new like();
-    $totallikes = json_decode($likes->read("name",$bookName));
+    $totallikes = json_decode($likes->read(["name"],[$bookName]),1);
     $count =(isset($totallikes["data"]))?count($totallikes["data"]):0;
-    return $count ;
+    return json_encode($count) ;
 }
 
