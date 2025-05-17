@@ -4,11 +4,13 @@ namespace controller;
 
 require_once("User.php");
 require_once(__DIR__ . "/../model/Admin.php");
-require_once(__DIR__ . "/../controller/Event.php");
+require_once("Event.php");
+require_once("Book.php");
 
 use controller\Student;
 use controller\User;
 use controller\Event;
+use controller\Book;
 
 
 class Admin extends User
@@ -298,8 +300,8 @@ class Admin extends User
   public function deleteEvent(int $id)
   {
     if ($id) {
-      $keys = ['event_ID', 'admin_ID'];
-      $vals = [$id, $this->id];
+      $keys = ['event_ID'];
+      $vals = [$id];
       $model = new \model\Event();
       $result = $model->delete($keys, $vals);
       return $result;

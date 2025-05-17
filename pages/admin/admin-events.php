@@ -24,7 +24,7 @@
     <div class="container">
       <!-- logo -->
       <a class="navbar-brand fs-4" href="../index.php">
-        <img src="../images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
+        <img src="/pages/images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
         <span class="logo-title">BATU Library</span>
       </a>
       <!-- toggle button -->
@@ -132,7 +132,8 @@
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Event Name</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Start Date</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">End Date</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
                     </tr>
@@ -140,7 +141,7 @@
                   <tbody>
                     <!-- Will be populated with data from JavaScript -->
                     <tr>
-                      <td colspan="5" class="text-center py-4">Loading data...</td>
+                      <td colspan="6" class="text-center py-4">Loading data...</td>
                     </tr>
                   </tbody>
                 </table>
@@ -169,11 +170,15 @@
                   <input type="text" class="form-control" id="eventName" required>
                 </div>
                 <div class="form-group">
-                  <label for="eventDate" class="form-label">Event Date</label>
-                  <input type="datetime-local" class="form-control" id="eventDate" required>
+                  <label for="eventDate" class="form-label">Event Start Date</label>
+                  <input type="datetime-local" class="form-control" id="eventStartDate" required>
                 </div>
                 <div class="form-group">
-                  <label for="joinMethod" class="form-label">Participation Method</label>
+                  <label for="eventDate" class="form-label">Event End Date</label>
+                  <input type="datetime-local" class="form-control" id="eventEndDate" required>
+                </div>
+                <label for="joinMethod" class="form-label">Participation Method</label>
+                <div class="form-group">
                   <input type="text" class="form-control" id="joinMethod" required>
                 </div>
               </div>
@@ -229,7 +234,7 @@
         <div class="col-md-4 mb-4">
           <div class="container">
             <div class="mb-5 mt-0 align-items-center" href="#">
-              <img src="images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
+              <img src="/pages/images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
               <span class="logo-title">BATU Library</span>
             </div>
             <h5 class="text-uppercase" style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">About Us</h5>
@@ -292,7 +297,7 @@
     });
 
     // Event management
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', async function() {
       const eventsTable = document.getElementById('eventsTable');
       const eventForm = document.getElementById('eventForm');
       const saveEventBtn = document.getElementById('saveEventBtn');
@@ -301,7 +306,7 @@
       const confirmDeleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
 
       // Load events on page load
-      loadEvents();
+      await loadEvents();
 
       // Save event
       saveEventBtn.addEventListener('click', function() {
@@ -311,34 +316,47 @@
       });
 
       // Confirm deletion
-      confirmDeleteBtn.addEventListener('click', function() {
+      confirmDeleteBtn.addEventListener('click', async function() {
         const eventId = document.getElementById('eventToDelete').value;
-        // Add AJAX delete logic here
-        alert('Deleting event with ID: ' + eventId);
-        confirmDeleteModal.hide();
-        loadEvents();
+        try {
+          const res = await fetch(`/api/event/delete.php?id=${eventId}`, {
+            method: 'DELETE'
+          })
+          const data = await res.json()
+          if (data.status !== 200 && !res.ok) {
+            throw new Error(`Error in delete ${eventId}`);
+          }
+
+          confirmDeleteModal.hide();
+          loadEvents();
+        } catch (e) {
+          console.log(e)
+        }
       });
 
       // Load events function
-      function loadEvents() {
-        // Example dummy data (replace with AJAX call)
-        const events = [{
-            id: 1,
-            name: "Annual Book Fair",
-            date: "2024-06-15T10:00",
-            image: "images/event1.jpg",
-            status: "Upcoming"
-          },
-          {
-            id: 2,
-            name: "Modern Literature Symposium",
-            date: "2024-05-20T14:00",
-            image: "images/event2.jpg",
-            status: "Completed"
+      async function loadEvents() {
+        try {
+          let _res = await fetch('/api/event/read.php');
+          res = await _res.json();
+          if (_res.ok && res.status === 200) {
+            renderEvents(res.data);
+            return
           }
-        ];
+        } catch (e) {
+          console.log(Object.keys(e))
+          const tbody = eventsTable.querySelector('tbody');
+          const tr = document.createElement('tr')
+          tr.innerHTML = `
+<td class='alert alert-danger' role='alert' colspan='5'>
+              ${e}: ${e}
+            </td>
 
-        renderEvents(events);
+          `
+          tbody.innerHTML = ''
+          tbody.appendChild(tr)
+        }
+
       }
 
       // Render events in table
@@ -357,26 +375,29 @@
             <td>
               <div class="d-flex px-2 py-1">
                 <div>
-                  <img src="${event.image}" class="avatar avatar-sm me-3" alt="${event.name}">
+                  <img src="${event.image}" class="avatar avatar-sm me-3" alt="${event.title}">
                 </div>
               </div>
             </td>
             <td>
-              <p class="text-xs font-weight-bold mb-0">${event.name}</p>
+              <p class="text-xs font-weight-bold mb-0">${event.title}</p>
             </td>
             <td>
-              <p class="text-xs font-weight-bold mb-0">${new Date(event.date).toLocaleString()}</p>
+              <p class="text-xs font-weight-bold mb-0">${new Date(event.start_date).toLocaleString()}</p>
             </td>
             <td>
-              <span class="badge ${event.status === 'Upcoming' ? 'bg-success' : 'bg-secondary'}">
-                ${event.status}
+              <p class="text-xs font-weight-bold mb-0">${new Date(event.end_date).toLocaleString()}</p>
+            </td>
+            <td>
+              <span class="badge ${event.state === 'requested' ? 'bg-secondary' : (event.state === 'available' ? 'bg-success' : 'bg-danger')}">
+                ${event.state[0].toUpperCase()}${event.state.slice(1)}
               </span>
             </td>
             <td class="align-middle">
-              <button class="btn btn-sm btn-info me-2 edit-btn" data-id="${event.id}">
+              <button class="btn btn-sm btn-info me-2 edit-btn" data-id="${event.event_ID}">
                 <i class="fas fa-edit"></i>
               </button>
-              <button class="btn btn-sm btn-danger delete-btn" data-id="${event.id}">
+              <button class="btn btn-sm btn-danger delete-btn" data-id="${event.event_ID}">
                 <i class="fas fa-trash"></i>
               </button>
             </td>
@@ -400,29 +421,33 @@
       }
 
       // Edit event function
-      function editEvent(eventId) {
-        // Example dummy data (replace with AJAX call)
-        const event = {
-          id: eventId,
-          name: "Annual Book Fair",
-          date: "2024-06-15T10:00",
-          content: "Event details here...",
-          joinMethod: "Online registration",
-          image: "images/event1.jpg"
-        };
+      async function editEvent(eventId) {
+        try {
+          let _res = await fetch('/api/event/read.php');
+          res = await _res.json();
+          if (_res.ok && res.status === 200) {
+            const event = res.data[0]
+            document.getElementById('eventId').value = event.event_ID;
+            document.getElementById('eventName').value = event.title;
+            document.getElementById('eventStartDate').valueAsDate = new Date(event.start_date);
+            document.getElementById('eventEndDate').valueAsDate = new Date(event.end_date);
+            document.getElementById('eventContent').value = event.content;
+            document.getElementById('joinMethod').value = event.state;
 
-        document.getElementById('eventId').value = event.id;
-        document.getElementById('eventName').value = event.name;
-        document.getElementById('eventDate').value = event.date.replace(' ', 'T');
-        document.getElementById('eventContent').value = event.content;
-        document.getElementById('joinMethod').value = event.joinMethod;
+            const preview = document.getElementById('photoPreview');
+            preview.src = event.image;
+            preview.style.display = 'block';
 
-        const preview = document.getElementById('photoPreview');
-        preview.src = event.image;
-        preview.style.display = 'block';
+            document.getElementById('addEventModalLabel').textContent = 'Edit Event';
+            addEventModal.show();
 
-        document.getElementById('addEventModalLabel').textContent = 'Edit Event';
-        addEventModal.show();
+          }
+        } catch (e) {
+          const tbody = eventsTable.querySelector('tbody');
+          const tr = document.createElement('tr')
+          console.log(e);
+        }
+
       }
     });
   </script>

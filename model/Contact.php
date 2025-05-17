@@ -12,12 +12,17 @@ require_once 'errors.php';
 class Contact
 {
   private $table = 'contact';
-  private $fields = ['name', 'email', 'message', 'student_ID'];
+  private $fields = ['name', 'email', 'message'];
   public function create(ControllerContact $contact)
   {
-    $vals = [$contact->name, $contact->email, $contact->message, $contact->student_ID];
-    if (!empty($vals) && count($vals) == 4) {
-      return Crud::create($this->table, $this->fields, $vals);
+    $vals = [$contact->name, $contact->email, $contact->message];
+    $cols = $this->fields;
+    if ($contact->student_ID) {
+      array_push($vals, $contact->student_ID);
+      array_push($cols, 'student_ID');
+    }
+    if (!empty($vals) && count($vals) >= 3) {
+      return Crud::create($this->table, $cols, $vals);
     } else {
       error422("Bad Request", 400);
     }

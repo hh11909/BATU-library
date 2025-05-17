@@ -27,11 +27,11 @@ if ($requestMethod == "DELETE") {
   if ($user instanceof Admin || $user instanceof Friend) {
 
     $id = $_GET['id'];
-
     if (!$id) {
       error422("Event ID is required");
       die();
     }
+    $id = intval($id);
 
     echo $user->deleteEvent($id);
   } else {

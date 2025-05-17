@@ -34,12 +34,12 @@ if (isset($_SESSION["user"]) && !isset($user)) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BATU Library</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/all.min.css">
-  <link rel="stylesheet" href="css/profile.css">
-  <link rel="stylesheet" href="css/Events.css">
-  <link rel="stylesheet" href="css/borrowed-style.css">
-  <link rel="stylesheet" href="css/contact.css">
+  <link rel="stylesheet" href="/pages/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/pages/css/all.min.css">
+  <link rel="stylesheet" href="/pages/css/profile.css">
+  <link rel="stylesheet" href="/pages/css/Events.css">
+  <link rel="stylesheet" href="/pages/css/borrowed-style.css">
+  <link rel="stylesheet" href="/pages/css/contact.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -53,7 +53,7 @@ if (isset($_SESSION["user"]) && !isset($user)) {
   <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
     <div class="container">
       <!-- logo -->
-      <a class="navbar-brand fs-4 " href="index.php"><img src="images/logo.png" alt="Logo" width="48" height="48"
+      <a class="navbar-brand fs-4 " href="index.php"><img src="/pages/images/logo.png" alt="Logo" width="48" height="48"
           class="me-2 p-1 logo">
         <span class="logo-title">
           BATU Library
@@ -81,7 +81,7 @@ if (isset($_SESSION["user"]) && !isset($user)) {
               if ($role == "student") {
             ?>
                 <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-                  <a href="profile.php"><img src="<?= ($user->student_image) ? $user->student_image : "images/profile.png" ?>" alt="User" class="rounded-circle ms-3"
+                  <a href="profile.php"><img src="<?= ($user->student_image) ? $user->student_image : "/pages/images/profile.png" ?>" alt="User" class="rounded-circle ms-3"
                       width="40" height="40"></a><!--to do-->
                 </li>
             <?php
@@ -130,7 +130,7 @@ if (isset($_SESSION["user"]) && !isset($user)) {
           if (!isset($_SESSION["user"])) {
           ?>
             <div class="d-flex justify-content-center align-items-center">
-              <a href="login.php" id="log-in" class="btn primary-color main-btn">Log In</a>
+              <a href="/pages/login.php" id="log-in" class="btn primary-color main-btn">Log In</a>
             </div>
             <!-- removed the register  //omar -->
             <!-- profile -->
@@ -143,7 +143,7 @@ if (isset($_SESSION["user"]) && !isset($user)) {
               <?php
               if ($role == "student") {
               ?>
-                <a href="profile.php"><img src="<?= ($user->student_image) ? $user->student_image : "images/profile.png" ?>" alt="User" class="rounded-circle ms-3"
+                <a href="profile.php"><img src="<?= ($user->student_image) ? $user->student_image : "/pages/images/profile.png" ?>" alt="User" class="rounded-circle ms-3"
                     width="40" height="40"></a><!--to do-->
               <?php } ?>
 
