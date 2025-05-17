@@ -28,7 +28,7 @@ let getStudentsData = async (x) => {
                   <td>${stuData[i]["email"]}</td>
                   <td>${stuData[i]["phone"]}</td>
                   <td>${(stuData[i]["is_friend"] == 1) ? "Yes" : "No"}</td>
-                  <td class="text-center">IT</td>
+ma                  <td class="text-center">${stuData[i]["department_name"]}</td>
                   <td class="text-center">${stuData[i]["academic_year"]}</td>
                   <td>
                     <button class="btn btn-sm btn-danger" id="student-${stuData[i]["student_ID"]}"><i class="fa-solid fa-trash"></i></i></button>
@@ -78,6 +78,5 @@ stuSearch.addEventListener("input",()=>{
   else{
     getStudentsData();
   }
-
   
 });
