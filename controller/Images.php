@@ -22,9 +22,10 @@ class Images
       return error413("Image size should not exceed 2MB.");
     } else {
       $new_image = uniqid($x, true) . '.' . $image_ext;
-      if (!move_uploaded_file($image_tmp, __DIR__ . "/../pages/" . $path . $new_image)) {
+      if (!copy($image_tmp, __DIR__ . "/../pages/" . $path . $new_image)) {
         return error422("Failed to upload the image. Please try again.", 500);
       }
+      unlink($image_tmp);
     }
     $data = [
       "status" => 200,
@@ -39,4 +40,3 @@ class Images
     $result = $bookModel->delete("image", $path . $image);
   }
 }
-

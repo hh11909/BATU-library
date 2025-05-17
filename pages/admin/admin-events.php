@@ -461,7 +461,7 @@
       // Edit event function
       async function editEvent(eventId) {
         try {
-          let _res = await fetch('/api/event/read.php');
+          let _res = await fetch(`/api/event/read.php?id=${eventId}`);
           res = await _res.json();
           if (_res.ok && res.status === 200) {
             const event = res.data[0]
