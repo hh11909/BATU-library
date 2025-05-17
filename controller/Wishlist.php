@@ -17,13 +17,16 @@ function readwishlist($student_id)
 {
   $obj = new WishlistItem();
   $read = json_decode($obj->read(["student_ID"], [$student_id]), 1);
-  $count = (isset($read["data"])) ? count($read["data"]) : 0;
   $book = new Book();
-  $Books = [];
-  for ($i = 0; $i <= $count; $i++) {
-    $readbook = json_decode($book->read(["name"], [$read[$i]["name"]]), 1);
-    array_push($Books, $readbook);
+  $_books = [];
+  foreach ($read['data'] as $_book) {
+    $readbook = json_decode($book->read(['book_ID'], [$_book['book_ID']]), 1);
+    array_push($_books, $readbook['data'][0]);
   }
-  return json_encode($Books);
+  return json_encode([
+    'status' => 200,
+    'Message' => "Successfully read wishlist books",
+    'data' => $_books
+  ]);
 }
 
