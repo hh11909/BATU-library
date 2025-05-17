@@ -45,9 +45,9 @@
                   <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Name: </span><span
                       class="profile-value fs-4 fw-semibold" id="first-name"><?=$user->name?></span></p>
                   <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">College:</span><span
-                      class="profile-value fs-4 fw-semibold" id="last-name"> to do</span></p>
+                      class="profile-value fs-4 fw-semibold" id="last-name"> <?=($user->readDepartment($user->department_ID)["college"])?></span></p>
                   <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Department:</span><span
-                      class="profile-value fs-4 fw-semibold" id="department"> to do</span></p>
+                      class="profile-value fs-4 fw-semibold" id="department"> <?=($user->readDepartment($user->department_ID)["department"])?></span></p>
                   <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Phone:</span><span
                       class="profile-value fs-4 fw-semibold" id="phone"><?=$user->phone?></span></p>
                   <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Email:</span><span
