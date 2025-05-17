@@ -15,6 +15,7 @@ require_once("Book.php");
 
 class Student extends User
 {
+  public $student_ID;
   public $academy_number;
   public $academic_year;
   public $phone;
@@ -96,15 +97,21 @@ class Student extends User
       $model = new StudentModel();
       return $model->create($this);
   }
-  static function read($name="",$academy_number="",$academic_year="",$phone="",$email="",$limit=0,$offset=0){
+  static function read($name="",$academy_number="",$academic_year="",$phone="",$email="",$page_num=1){
     $cols=['name','academy_number','academic_year','phone','email'];
     $vals=[$name,$academy_number,$academic_year,$phone,$email];
     $model = new StudentModel();
-    $result = $model->read($cols, $vals,1);
+    $limit=5;
+    $offset=($page_num-1)*$limit;
+    $result = $model->read($cols, $vals,1,$limit,$offset);
     $result = json_decode($result, true);
     if (isset($result["data"])) {
       $count = count($result["data"]);
       $result["count"]=$count;
+      for($i=0;$i<$result["count"];$i++){
+      $result["data"][$i]["department_name"]=Student::readDepartment($result["data"][$i]["department_ID"])["department"];
+      $result["data"][$i]["college_name"]=Student::readDepartment($result["data"][$i]["department_ID"])["college"];
+      }
       $result["data"]["total-count"]=Student::totalStudentsCount();
       $result["data"]["total-friends"]=Student::totalFriendsCount();
     }
@@ -167,7 +174,7 @@ class Student extends User
     return true;
   }
   
-  public function readDepartment($department_ID)
+  public static function readDepartment($department_ID)
   {
     $departmentModel = new DepartmentModel();
     $filterCols = ["department_ID"];
@@ -175,12 +182,12 @@ class Student extends User
     $departmentData = $departmentModel->read($filterCols, $filterVals);
     $departmentData = json_decode($departmentData, true);
     if (isset($departmentData["data"][0])) {
-      $college_id = $departmentData["data"][0]["college_id"];
-      $collegeData = $this->readCollege($college_id);
+      $college_id = $departmentData["data"][0]["college_ID"];
+      $collegeData = Student::readCollege($college_id);
       $collegeData = json_decode($collegeData, true);
       return [
-        "department" => $departmentData["data"][0],
-        "college" => isset($collegeData["data"][0]) ? $collegeData["data"][0] : null
+        "department" => $departmentData["data"][0]["department_name"],
+        "college" => isset($collegeData["data"][0]) ? $collegeData["data"][0]["college_name"] : null
       ];
     } 
     else 
@@ -189,7 +196,7 @@ class Student extends User
     }
   }
 
-  public function readCollege($college_id)
+  public static function readCollege($college_id)
   {
     $collegeModel = new CollegeModel();
     $filterCols = ["college_id"];
@@ -200,43 +207,43 @@ class Student extends User
 
 
 
-  // use Book{
-  // searchForBooks as public;
-  // readBooks as public;
-  // readBBooks as public;
-  // createBook as private;
-  // updateBook as private;
-  // deleteBook as private;    
-  // }
-  // function updateProfileImage($image){
-  //   $prefix="profile_";
-  //   $path="profile/";
-  //   $res=json_decode(Images::createImage($prefix,$path,$image),true);
-  //   if(isset($res["data"])){
-  //     $this->profile_image=$res["data"];
-  //     $model=new StudentModel;
-  //     $update=json_decode($model->update(["profile_image"],[$this->profile_image],["student_ID"],[$this->id]),true);
-  //     $update["data"]=$res["data"];
-  //     echo json_encode($update);
-  //   }
-  //   else{
-  //     return json_encode($res);
-  //   }
-  // }
-  // function updateBannerImage($image){
-  //   $prefix="banner_";
-  //   $path="banner/";
-  //   $res=json_decode(Images::createImage($prefix,$path,$image),true);
-  //   if(isset($res["data"])){
-  //     $this->student_image=$res["data"];
-  //     $model=new StudentModel;
-  //     $update=json_decode($model->update(["student_image"],[$this->student_image],["student_ID"],[$this->id]),true);
-  //     $update["data"]=$res["data"];
-  //     echo json_encode($update);
-  //   }
-  //   else{
-  //     return json_encode($res);
-  //   }
-  // }
-
+  use Book{
+  readBooks as public;
+  readBBooks as public;
+  readBooById as public;
+  createBook as private;
+  updateBook as private;
+  deleteBook as private;   
+  }
+  function updateProfileImage($image){
+    $prefix="profile_";
+    $path="profile/";
+    $res=json_decode(Images::createImage($prefix,$path,$image),true);
+    if(isset($res["data"])){
+      $this->profile_image=$res["data"];
+      $model=new StudentModel;
+      $update=json_decode($model->update(["profile_image"],[$this->profile_image],["student_ID"],[$this->id]),true);
+      $update["data"]=$res["data"];
+      echo json_encode($update);
+    }
+    else{
+      return json_encode($res);
+    }
+  }
+  function updateBannerImage($image){
+    $prefix="banner_";
+    $path="banner/";
+    $res=json_decode(Images::createImage($prefix,$path,$image),true);
+    if(isset($res["data"])){
+      $this->student_image=$res["data"];
+      $model=new StudentModel;
+      $update=json_decode($model->update(["student_image"],[$this->student_image],["student_ID"],[$this->id]),true);
+      $update["data"]=$res["data"];
+      echo json_encode($update);
+    }
+    else{
+      return json_encode($res);
+    }
+  }
+}
 

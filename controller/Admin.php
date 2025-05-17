@@ -205,7 +205,8 @@ class Admin extends User
     return $student->create();
     
   }
-  function readStudents($name="",$academy_number=null,$academic_year="",$phone="",$email=""){
+  function readStudents($name="",$academy_number=null,$academic_year="",$phone="",$email="",$page_num=null){
+
      $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
     $academy_number = trim(htmlspecialchars(filter_var($academy_number, FILTER_SANITIZE_NUMBER_INT)));
     $academic_year = trim(htmlspecialchars(filter_var($academic_year, FILTER_SANITIZE_NUMBER_INT)));
@@ -218,9 +219,9 @@ class Admin extends User
     } elseif ($academic_year!=""&&!filter_var($academic_year, FILTER_VALIDATE_INT)) {
       return error422("Invalid Academic year!");
      }
-    
+  
     require_once(__DIR__."/Student.php");
-    return Student::read($name,$academy_number,$academic_year,$phone);
+    return Student::read($name,$academy_number,$academic_year,$phone,$email,$page_num);
   }
   function deleteStudent($student_ID){
     $student_ID=trim(htmlspecialchars(filter_var($student_ID, FILTER_SANITIZE_NUMBER_INT)));
