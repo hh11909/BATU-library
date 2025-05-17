@@ -287,6 +287,14 @@ class Admin extends User
   {
     if (!empty($values) && $event_ID) {
       $keys = array_keys($values);
+      if (in_array('image', $keys)) {
+        var_dump($values);
+        $url = json_decode(Images::createImage('event-', 'events/', $values['image']), true);;
+        $values['image'] = $url['data'];
+        var_dump($values, $url);
+
+        die();
+      }
       $vals = array_values($values);
       $filterKeys = ['admin_ID', 'event_ID'];
       $filterVals = [$this->id, $event_ID];

@@ -26,7 +26,6 @@ if ($requestMethod == "PUT") {
   $user = unserialize($_SESSION['user']);
   if ($user instanceof Admin || $user instanceof Friend) {
     $data = getData();
-
     /* @var User $user */
     if (!isset($_GET['id'])) {
       error422("Event ID is required");

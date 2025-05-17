@@ -4,8 +4,10 @@ namespace controller;
 
 require_once(__DIR__ . "/../model/errors.php");
 require_once(__DIR__ . "/../model/Event.php");
+require_once(__DIR__ . "/Images.php");
 
 use model\Event as EventModel;
+use controller\Images;
 
 
 class Event
@@ -28,8 +30,6 @@ class Event
       return error422("Enter Event's title!");
     } elseif (empty(trim($content))) {
       return error422("Enter Event's content!");
-    } elseif (empty(trim($image))) {
-      return error422("Enter Event's your image");
     } elseif (empty(trim($start_date))) {
       return error422("Enter Event's starting  date");
     } elseif (empty(trim($end_date))) {
@@ -39,7 +39,8 @@ class Event
       $this->student_ID = $student_ID;
       $this->title = $title;
       $this->content = $content;
-      $this->image = $image;
+      $res = Images::createImage('event-', 'events/', $image);
+      $this->image = json_decode($res, true)['data'];
       $this->start_date = $start_date;
       $this->end_date = $end_date;
       $this->state = $state;
@@ -75,13 +76,13 @@ class Event
   }
   function sanitize()
   {
-    $title = trim(filter_var($this->title, FILTER_SANITIZE_STRING));
-    $start_date = filter_var($this->start_date, FILTER_SANITIZE_STRING);
-    $end_date = filter_var($this->end_date, FILTER_SANITIZE_STRING);
-    $content = trim(htmlspecialchars(filter_var($this->content, FILTER_SANITIZE_STRING)));
-    $state = trim(filter_var($this->state, FILTER_SANITIZE_STRING));
-    $admin_ID = htmlspecialchars(filter_var($this->admin_ID, FILTER_SANITIZE_NUMBER_INT));
-    $student_ID = htmlspecialchars(filter_var($this->student_ID, FILTER_SANITIZE_NUMBER_INT));
+    $this->title = trim(filter_var($this->title, FILTER_SANITIZE_ENCODED));
+    $this->start_date = filter_var($this->start_date, FILTER_SANITIZE_ENCODED);
+    $this->end_date = filter_var($this->end_date, FILTER_SANITIZE_ENCODED);
+    $this->content = trim(htmlspecialchars(filter_var($this->content, FILTER_SANITIZE_ENCODED)));
+    $this->state = trim(filter_var($this->state, FILTER_SANITIZE_ENCODED));
+    $this->admin_ID = htmlspecialchars(filter_var($this->admin_ID, FILTER_SANITIZE_NUMBER_INT));
+    $this->student_ID = htmlspecialchars(filter_var($this->student_ID, FILTER_SANITIZE_NUMBER_INT));
   }
   function validate()
   {

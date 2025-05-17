@@ -30,7 +30,7 @@ if ($requestMethod == "POST") {
     $_POST['content'],
     $_POST['start_date'],
     $_POST['end_date'],
-    $_POST['image'],
+    $_FILES['image'],
   );
   if ($user instanceof Admin) {
     $event->setAdmin_ID($user->id);

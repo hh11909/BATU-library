@@ -302,17 +302,55 @@
       const eventForm = document.getElementById('eventForm');
       const saveEventBtn = document.getElementById('saveEventBtn');
       const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-      const addEventModal = new bootstrap.Modal(document.getElementById('addEventModal'));
+      const addEvent = document.getElementById('addEventModal')
+      const addEventModal = new bootstrap.Modal(addEvent);
       const confirmDeleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
 
       // Load events on page load
       await loadEvents();
 
       // Save event
-      saveEventBtn.addEventListener('click', function() {
-        // Add AJAX save logic here
-        alert('Saving event...');
-        addEventModal.hide();
+      saveEventBtn.addEventListener('click', async function() {
+        const eventId = document.getElementById('eventId').value
+        const image = document.getElementById('eventPhoto').files[0]
+        const data = new FormData();
+        data.append('title', document.getElementById('eventName').value)
+        data.append('image', image)
+
+        let start_date = document.getElementById('eventStartDate').valueAsDate.toJSON()
+        start_date = start_date.replace("T", " ")
+        start_date = start_date.slice(0, start_date.length - 5)
+        data.append('start_date', start_date)
+
+        let end_date = document.getElementById('eventEndDate').valueAsDate.toJSON()
+        end_date = end_date.replace("T", " ")
+        end_date = end_date.slice(0, end_date.length - 5)
+        data.append('end_date', end_date)
+
+        data.append('content', document.getElementById('eventContent').value)
+
+        try {
+          if (eventId) {
+            const res = await fetch(`/api/event/update.php?id=${eventId}`, {
+              method: 'PUT',
+              body: data
+            })
+          } else {
+            const res = await fetch(`/api/event/create.php`, {
+              method: 'POST',
+              body: data
+            })
+          }
+          const {
+            status
+          } = await res.json()
+          if (!(status >= 200 && status < 300) || !res.ok) {
+            throw new Error('ERRP');
+          }
+          addEventModal.hide();
+        } catch (e) {
+          console.log(e)
+        }
       });
 
       // Confirm deletion
