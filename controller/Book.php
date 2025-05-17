@@ -45,38 +45,26 @@ use model\Book as BookModel;
 
 trait Book
 {
-  static function searchForBooks($name = null, $author = null)
+  static function readBooks($name = "", $author = "",$is_borrowed="")
   {
-    if (!empty($name) || !empty($author)) {
-      if (!empty($name) && !empty($author)) {
+    
         $name = trim(htmlspecialchars($name));
-        $author = (htmlspecialchars($author));
+        $author = trim(htmlspecialchars($author));
         $bookModel = new BookModel();
-        $filterCols = ['name', 'author'];
-        $filterVals = [$name, $author];
+        $filterCols = ['name', 'author','is_borrowed'];
+        $filterVals = [$name, $author,$is_borrowed];
         $result = $bookModel->read($filterCols, $filterVals);
-      } else if (empty($author)) {
-        $name = trim(htmlspecialchars($name));
-        $bookModel = new BookModel();
-        $result = $bookModel->read('name', $name);
-      } else {
-        $author = (htmlspecialchars($author));
-        $bookModel = new BookModel();
-        $result = $bookModel->read('author', $author);
-      }
-    } else {
-      $result = error422("Enter book name or author");
-    }
+
     return $result;
   }
 
 
-  static function readBooks($is_borrowed)
-  {
-    $bookModel = new BookModel();
-    $result = $bookModel->read(["is_borrowed"], [$is_borrowed]);
-    return $result;
-  }
+  // static function readBooks($is_borrowed)
+  // {
+  //   $bookModel = new BookModel();
+  //   $result = $bookModel->read(["is_borrowed"], [$is_borrowed]);
+  //   return $result;
+  // }
 
 
   static function readBooById($book_ID)
