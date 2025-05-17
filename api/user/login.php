@@ -19,15 +19,23 @@ session_start();
       $user= User::login($_POST["email"],$_POST["password"]);
       if(isset($user->role)){
         if($user->role=="student"){
+          if($user)
           if(isset($_POST["remember"])&&$_POST["remember"]==1){
             setcookie("user",serialize($user),time()+60*60*24*7,"/");//one weak
           }
           $_SESSION["user"]=serialize($user);
+          if($user->is_friend==0){
+            $_SESSION["role"]="student";
+          }else{
+            $_SESSION["role"]="friend";
+          }
+          
           header("Location:../../pages/index.php");
         }
         elseif($user->role=="admin"){
           $_SESSION["user"]=serialize($user);
-          header("Location:../../pages/dashboard.php");
+          $_SESSION["role"]="admin";
+          header("Location:../../pages/admin/admin-users.php");
         }
       }
       else{

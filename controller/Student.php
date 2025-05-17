@@ -3,11 +3,16 @@
 namespace controller;
 
 use model\Student as StudentModel;
+use model\Department as DepartmentModel;
+use model\College as CollegeModel;
 
 require_once(__DIR__ . "/../model/Student.php");
 require_once(__DIR__ . "/User.php");
-require_once(__DIR__ . "/Friend.php");
-require_once(__DIR__ . "/../model/errors.php");
+require_once(__DIR__ . "/../model/department.php");
+require_once(__DIR__ . "/../model/college.php");
+require_once("Book.php");
+// require(__DIR__ . "/../model/errors.php");
+
 
 class Student extends User
 {
@@ -77,8 +82,9 @@ class Student extends User
           case 0:
             $user = new Student($arr["name"], $arr["academy_number"], $arr["academic_year"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"], $arr["password"], $arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
             break;
-          case 1:
-            $user = new Friend($arr["name"], $arr["academy_number"], $arr["academic_year"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"], $arr["password"], $arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
+          case 1
+           require_once(__DIR__."/Friend.php");
+            $user = new Friend($arr["name"], $arr["academy_number"],$arr["academic_year"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"],$arr["password"],$arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
             break;
         }
         return $user;
@@ -91,34 +97,36 @@ class Student extends User
     $model = new StudentModel();
     return $model->create($this);
   }
-  static function read($name = "", $academy_number = "", $academic_year = "", $phone = "", $email = "", $limit = 0, $offset = 0)
-  {
-    $cols = ['name', 'academy_number', 'academic_year', 'phone', 'email'];
-    $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-    $academy_number = trim(htmlspecialchars(filter_var($academy_number, FILTER_SANITIZE_NUMBER_INT)));
-    $academic_year = trim(htmlspecialchars(filter_var($academic_year, FILTER_SANITIZE_NUMBER_INT)));
-    $phone = trim(htmlspecialchars(filter_var($phone, FILTER_SANITIZE_NUMBER_INT)));
-    if ($email != "" && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      return error422("Invalid Email!");
-    } elseif ($academy_number != "" && !filter_var($academy_number, FILTER_VALIDATE_INT)) {
-      return error422("Invalid Academy Number!");
-    } elseif ($academic_year != "" && !filter_var($academic_year, FILTER_VALIDATE_INT)) {
-      return error422("Invalid Academy Number!");
-    } elseif ($phone != "" && !preg_match("/^01[0-2,5]{1}[0-9]{8}$/", $phone)) {
-      return error422("Invalid Academy Phone!");
-    }
-    $vals = [$name, $academy_number, $academic_year, $phone, $email];
+  static function read($name="",$academy_number="",$academic_year="",$phone="",$email="",$limit=0,$offset=0){
+    $cols=['name','academy_number','academic_year','phone','email'];
+    $vals=[$name,$academy_number,$academic_year,$phone,$email];
     $model = new StudentModel();
     $result = $model->read($cols, $vals, 1);
     $result = json_decode($result, true);
     if (isset($result["data"])) {
       $count = count($result["data"]);
-      $result["count"] = $count;
+      $result["count"]=$count;
+      $result["data"]["total-count"]=Student::totalStudentsCount();
+      $result["data"]["total-friends"]=Student::totalFriendsCount();
     }
     return json_encode($result);
   }
-  static function delete($student_ID)
-  {
+  private static function totalStudentsCount(){
+    $model = new StudentModel();
+    $res = json_decode($model->read(),1);
+    $res["total-count"]=(isset($res["data"]))?count($res["data"]):0;
+    $res=$res["total-count"];
+    return $res;
+  }
+   private static function totalFriendsCount(){
+    $model = new StudentModel();
+    $res = json_decode($model->read(["is_friend"],[1]),1);
+      $res["total-friend"]=(isset($res["data"]))?count($res["data"]):0;
+      $res=$res["total-friend"];
+    return $res;
+    
+  }
+  static function delete($student_ID){
     $model = new StudentModel();
     return $model->delete(["student_ID",], [$student_ID]);
   }
@@ -160,3 +168,78 @@ class Student extends User
     return true;
   }
 }
+
+  
+  public function readDepartment($department_ID)
+  {
+    $departmentModel = new DepartmentModel();
+    $filterCols = ["department_ID"];
+    $filterVals = [$department_ID];
+    $departmentData = $departmentModel->read($filterCols, $filterVals);
+    $departmentData = json_decode($departmentData, true);
+    if (isset($departmentData["data"][0])) {
+      $college_id = $departmentData["data"][0]["college_id"];
+      $collegeData = $this->readCollege($college_id);
+      $collegeData = json_decode($collegeData, true);
+      return [
+        "department" => $departmentData["data"][0],
+        "college" => isset($collegeData["data"][0]) ? $collegeData["data"][0] : null
+      ];
+    } 
+    else 
+    {
+      return error422("Department not found!");
+    }
+  }
+
+  public function readCollege($college_id)
+  {
+    $collegeModel = new CollegeModel();
+    $filterCols = ["college_id"];
+    $filterVals = [$college_id];
+    $collegeData = $collegeModel->read($filterCols, $filterVals);
+    return $collegeData;
+  }
+
+
+
+  // use Book{
+  // searchForBooks as public;
+  // readBooks as public;
+  // readBBooks as public;
+  // createBook as private;
+  // updateBook as private;
+  // deleteBook as private;    
+  // }
+  // function updateProfileImage($image){
+  //   $prefix="profile_";
+  //   $path="profile/";
+  //   $res=json_decode(Images::createImage($prefix,$path,$image),true);
+  //   if(isset($res["data"])){
+  //     $this->profile_image=$res["data"];
+  //     $model=new StudentModel;
+  //     $update=json_decode($model->update(["profile_image"],[$this->profile_image],["student_ID"],[$this->id]),true);
+  //     $update["data"]=$res["data"];
+  //     echo json_encode($update);
+  //   }
+  //   else{
+  //     return json_encode($res);
+  //   }
+  // }
+  // function updateBannerImage($image){
+  //   $prefix="banner_";
+  //   $path="banner/";
+  //   $res=json_decode(Images::createImage($prefix,$path,$image),true);
+  //   if(isset($res["data"])){
+  //     $this->student_image=$res["data"];
+  //     $model=new StudentModel;
+  //     $update=json_decode($model->update(["student_image"],[$this->student_image],["student_ID"],[$this->id]),true);
+  //     $update["data"]=$res["data"];
+  //     echo json_encode($update);
+  //   }
+  //   else{
+  //     return json_encode($res);
+  //   }
+  // }
+
+

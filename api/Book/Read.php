@@ -1,0 +1,32 @@
+<?php
+
+use controller\Student;
+
+require_once("../../controller/Student.php");
+header("Access-Control-Allow-Origin:*");
+header("Access-Control-Allow-Methods:GET");
+header("Access-Control-Allow-Headers:Content-Type,Authorization,X-Request-With");
+$requestMethod = $_SERVER["REQUEST_METHOD"];
+
+if ($requestMethod == "GET") {
+  if (isset($_GET["name"]) && isset($_GET["author"])) {
+    $book = Student::searchForBooks($_GET["name"], $_GET["author"]);
+    $book = json_decode($book);
+    echo $book;
+  } elseif (isset($_GET["name"])) {
+    $book = Student::searchForBooks($_GET["name"]);
+    $book = json_decode($book);
+    echo $book;
+  } elseif (isset($_GET["author"])) {
+    $book = Student::searchForBooks($_GET["author"]);
+    $book = json_decode($book);
+    echo $book;
+  } else {
+    $book = Student::searchForBooks();
+    $book = json_decode($book);
+    echo $book;
+  }
+} else {
+
+  echo error422("method not allowed!");
+}
