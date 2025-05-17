@@ -136,179 +136,12 @@
   <!-- borrowed section start -->
 
   <div class="container mt-5">
-    <div class="row row-cols-1 row-cols-lg-2 g-4">
+    <div class="row row-cols-1 row-cols-lg-2 g-4" id="borrowed-books">
       <!-- Book 1 -->
-      <div class="col-lg-6 mb-3">
-        <div class="card border rounded mx-auto">
-          <div class="row g-0">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-              <img src="wishlist-images/book1.jpg" class="img-fluid mx-auto d-block rounded"
-                style="max-width: 150px; margin: 20px auto;" alt="Book Cover">
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-              <div class="card-body p-2">
-                <div class="mb-3 row">
-                  <label for="fullName" class="col-sm-4 col-form-label">Full Name:</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-                <div class="mb-3 row">
-                  <label for="id" class="col-sm-4 col-form-label">ID:</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-                <div class="mb-3 row">
-                  <label for="takenDate" class="col-sm-4 col-form-label">Taken Date:</label>
-                  <div class="col-sm-8">
-                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-                <div class="mb-1 row">
-                  <label for="returnedDate" class="col-sm-4 col-form-label">Returned Date:</label>
-                  <div class="col-sm-8">
-                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text-center p-2 mb-2">
-            Python Programming for Biology
-          </div>
-        </div>
-      </div>
+
       <!-- Book 2 -->
-      <div class="col-lg-6 mb-3">
-        <div class="card border rounded mx-auto">
-          <div class="row g-0">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-              <img src="wishlist-images/book2.jpg" class="img-fluid mx-auto d-block rounded"
-                style="max-width: 150px; margin: 20px auto;" alt="Book Cover">
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-              <div class="card-body p-2">
-                <div class="mb-3 row">
-                  <label for="fullName2" class="col-sm-4 col-form-label">Full Name:</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-                <div class="mb-3 row">
-                  <label for="id2" class="col-sm-4 col-form-label">ID:</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-                <div class="mb-3 row">
-                  <label for="takenDate2" class="col-sm-4 col-form-label">Taken Date:</label>
-                  <div class="col-sm-8">
-                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-                <div class="mb-1 row">
-                  <label for="returnedDate2" class="col-sm-4 col-form-label">Returned Date:</label>
-                  <div class="col-sm-8">
-                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text-center p-2 mb-2">
-            Data Visualization
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container mt-5">
-    <div class="row row-cols-1 row-cols-lg-2 g-4">
-      <!-- Book 3 -->
-      <div class="col-lg-6 mb-3">
-        <div class="card border rounded mx-auto">
-          <div class="row g-0">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-              <img src="wishlist-images/book3.jpg" class="img-fluid mx-auto d-block rounded"
-                style="max-width: 150px; margin: 20px auto;" alt="Book Cover">
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-              <div class="card-body p-2">
-                <div class="mb-3 row">
-                  <label for="fullName" class="col-sm-4 col-form-label">Full Name:</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-                <div class="mb-3 row">
-                  <label for="id" class="col-sm-4 col-form-label">ID:</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-                <div class="mb-3 row">
-                  <label for="takenDate" class="col-sm-4 col-form-label">Taken Date:</label>
-                  <div class="col-sm-8">
-                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-                <div class="mb-1 row">
-                  <label for="returnedDate" class="col-sm-4 col-form-label">Returned Date:</label>
-                  <div class="col-sm-8">
-                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text-center p-2 mb-2">
-            Algorithms to Live By
-          </div>
-        </div>
-      </div>
-      <!-- Book 4 -->
-      <div class="col-lg-6 mb-3">
-        <div class="card border rounded mx-auto">
-          <div class="row g-0">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-              <img src="wishlist-images/book4.jpg" class="img-fluid mx-auto d-block rounded"
-                style="max-width: 150px; margin: 20px auto;" alt="Book Cover">
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-              <div class="card-body p-2">
-                <div class="mb-3 row">
-                  <label for="fullName2" class="col-sm-4 col-form-label">Full Name:</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-                <div class="mb-3 row">
-                  <label for="id2" class="col-sm-4 col-form-label">ID:</label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-                <div class="mb-3 row">
-                  <label for="takenDate2" class="col-sm-4 col-form-label">Taken Date:</label>
-                  <div class="col-sm-8">
-                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-                <div class="mb-1 row">
-                  <label for="returnedDate2" class="col-sm-4 col-form-label">Returned Date:</label>
-                  <div class="col-sm-8">
-                    <input type="datetime-local" class="form-control rounded-pill" id="borrowed-input">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text-center p-2 mb-2">
-            Design for How People Think
-          </div>
-        </div>
-      </div>
+      
+ 
     </div>
   </div>
 
@@ -420,6 +253,7 @@
     el.classList.add('active');
     el2.classList.add('active');
   </script>
+  <script src="js/borrowed_books.js"></script>
   <script src="borrowed-script.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/all.min.js"></script>

@@ -2,6 +2,23 @@
 <?php require_once(__DIR__."/header.php")?>
   <!-- navigation bar end -->
   <!-- Explore header start-->
+                 <style>
+        /* newly added css */
+        .badge {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background-color: #a8d5ba43;
+            color: var(--primary-color);
+        }
+
+        .btn-secondary-color {
+            background-color: #a8d5bac1;
+            color: var(--primary-color);
+            font-size: 1rem;
+            font-weight: bolder;
+        }
+    </style>
   <div class="container mt-5 pt-5">
     <div class="explore-header page-header d-flex flex-column justify-content-center align-items-center mt-3">
       <i class="fa-solid fa-magnifying-glass"></i>
@@ -11,7 +28,7 @@
     <!-- Search Bar -->
     <div class="search-bar mb-4 text-center">
       <div class="input-group mt-3 w-75 w-lg-50 mx-auto">
-        <input type="text" class="form-control custom-input rounded-pill py-2" placeholder=" Search "
+        <input type="text" class="form-control custom-input rounded-pill py-2" id="search-input" placeholder=" Search "
           aria-label="Search Wishlist">
       </div>
     </div>
@@ -26,16 +43,12 @@
         <div class="dropdown">
           <button class="btn btn-secondary rounded-pill dropdown-toggle" type="button" id="sort-dropdown"
             data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa-solid fa-right-left fa-rotate-90" style="color: #08546d;"></i> Sort By
+            <i class="fa-solid fa-right-left fa-rotate-90" style="color: #08546d;"></i> Search By
           </button>
           <!-- Sort -->
           <ul class="dropdown-menu sort" id="dropdown-menu-sort" aria-labelledby="sort-dropdown">
-            <li><a class="dropdown-item" id="dropdown-item-sort" href="#" data-value="1">Date Added</a></li>
-            <li><a class="dropdown-item" id="dropdown-item-sort" href="#" data-value="2">Title</a></li>
-            <li><a class="dropdown-item" id="dropdown-item-sort" href="#" data-value="3">Author</a></li>
-            <li><a class="dropdown-item" id="dropdown-item-sort" href="#" data-value="4">Popularity</a></li>
-            <li><a class="dropdown-item" id="dropdown-item-sort" href="#" data-value="5">Release Date</a></li>
-            <li><a class="dropdown-item" id="dropdown-item-sort" href="#" data-value="3">Random</a></li>
+            <li><a class="dropdown-item" id="dropdown-item-sort" href="Explore.php?search-pram=1" data-value="2">Title</a></li>
+            <li><a class="dropdown-item" id="dropdown-item-sort" href="Explore.php?search-pram=2" data-value="3">Author</a></li>
           </ul>
         </div>
       </div>
@@ -49,7 +62,7 @@
           <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="collapse mx-3" id="searchBar">
-          <input type="search" class="form-control custom-input rounded-pill" placeholder="Search">
+          <input type="search" class="form-control custom-input rounded-pill" id="search-input" placeholder="Search">
         </div>
         <div class="offcanvas-body">
           <div class="row gx-2 gy-3">
@@ -135,12 +148,9 @@
   <!-- books section start -->
   <div class="container mt-5">
     <div class="row justify-content-center" id='books-container'>
-      <div class="row">
-        <div class="col">
-          <h5 class="mb-1 ms-1 ms-sm-3 ms-md-4 ms-lg-1 ms-xl-2 fw-bold primary-color">Results Found: </h5>
-        </div>
-      </div>
+      
       <!-- books  -->
+        
     </div>
   </div>
   <!-- book section end -->
@@ -253,7 +263,7 @@
     el2.classList.add('active');
   </script>
   <script src="js/index.js"></script>
-  <script src="wishlist-script.js"></script>
+  <script src="js/books.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/all.min.js"></script>
 

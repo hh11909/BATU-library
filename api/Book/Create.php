@@ -16,11 +16,16 @@ if ($requestMethod == "POST") {
       echo error422("you are not authorized to be here!");
       header("Location:../../pages/index.php");
     } else {
-      if (isset($_POST["name"]) && isset($_POST["author"]) && isset($_POST["image"]) && isset($_POST["description"]) && isset($_POST["admin_ID"])) {
-        $book = Admin::createBook($_POST["name"], $_POST["author"],  $_POST["image"], $_POST["description"],  $_POST["admin_ID"]);
-        $message = json_decode($book);
-        echo $message->Message;
+      if (isset($_POST["name"]) && isset($_POST["author"]) && isset($_FILES["image"]) && isset($_POST["description"]) && isset($_POST["admin_ID"])) {
+        $book = Admin::createBook($_POST["name"], $_POST["author"],  $_FILES["image"], $_POST["description"],  $_POST["admin_ID"]);
+        $book = json_decode($book);
+        echo $book;
+      } else {
+        echo error422("please send data!");
       }
     }
   }
+} else {
+
+  echo error422("method not allowed!");
 }
