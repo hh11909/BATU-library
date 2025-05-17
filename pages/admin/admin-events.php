@@ -306,6 +306,11 @@
       const addEventModal = new bootstrap.Modal(addEvent);
       const confirmDeleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
 
+      addEvent.addEventListener('click', async () => {
+        const eventId = document.getElementById('eventId').value = '';
+      })
+
+
       // Load events on page load
       await loadEvents();
 
@@ -330,7 +335,7 @@
         data.append('content', document.getElementById('eventContent').value)
 
         try {
-          if (eventId) {
+          if (eventId !== '') {
             const res = await fetch(`/api/event/update.php?id=${eventId}`, {
               method: 'PUT',
               body: data
