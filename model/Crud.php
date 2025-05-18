@@ -79,7 +79,7 @@ class Crud
           'Message' => "Not Found"
         ];
         mysqli_close($cn);
-        header("HTTP/1.0 404 Not Found");
+        // header("HTTP/1.0 404 Not Found");
         return json_encode($data);
       }
     }

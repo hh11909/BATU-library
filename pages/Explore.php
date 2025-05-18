@@ -47,8 +47,8 @@
           </button>
           <!-- Sort -->
           <ul class="dropdown-menu sort" id="dropdown-menu-sort" aria-labelledby="sort-dropdown">
-            <li><a class="dropdown-item" id="dropdown-item-sort" href="Explore.php?search-pram=1" data-value="2">Title</a></li>
-            <li><a class="dropdown-item" id="dropdown-item-sort" href="Explore.php?search-pram=2" data-value="3">Author</a></li>
+            <li><a class="dropdown-item" id="dropdown-item-sort" href="" data-value="2">Title</a></li>
+            <li><a class="dropdown-item" id="dropdown-item-sort" href="" data-value="3">Author</a></li>
           </ul>
         </div>
       </div>
