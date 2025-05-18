@@ -10,14 +10,15 @@ $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 if ($requestMethod == "GET") {
   if (isset($_GET["is_borrowed"])) {
-    if ($_GET["is_borrowed"] == 0||$_GET["is_borrowed"] == 1) {
-      $name=(isset($_GET["name"]))?$_GET["name"]:"";
-      $author=(isset($_GET["author"]))?$_GET["author"]:"";
-      $book = Student::readBooks($name,$author,$_GET["is_borrowed"]);
+    if ($_GET["is_borrowed"] == 0 || $_GET["is_borrowed"] == 1) {
+      $name = (isset($_GET["name"])) ? $_GET["name"] : "";
+      $author = (isset($_GET["author"])) ? $_GET["author"] : "";
+      $book = Student::readBooks($name, $author, $_GET["is_borrowed"]);
       echo $book;
     }
   } else {
-    echo error422("please send data!");
+    $book = Student::readBooks();
+    echo $book;
   }
 } else {
 
