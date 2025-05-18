@@ -89,7 +89,7 @@ class Student extends User
             $user = new Student($arr["name"], $arr["academy_number"], $arr["academic_year"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"], $arr["password"], $arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
             break;
           case 1:
-            require_once("Friend.php");
+            require_once(__DIR__ . "/Friend.php");
             $user = new Friend($arr["name"], $arr["academy_number"], $arr["academic_year"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"], $arr["password"], $arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
             break;
         }
@@ -126,8 +126,26 @@ class Student extends User
     if (isset($result["data"])) {
       $count = count($result["data"]);
       $result["count"] = $count;
+      $result["data"]["total-count"] = Student::totalStudentsCount();
+      $result["data"]["total-friends"] = Student::totalFriendsCount();
     }
     return json_encode($result);
+  }
+  private static function totalStudentsCount()
+  {
+    $model = new StudentModel();
+    $res = json_decode($model->read(), 1);
+    $res["total-count"] = (isset($res["data"])) ? count($res["data"]) : 0;
+    $res = $res["total-count"];
+    return $res;
+  }
+  private static function totalFriendsCount()
+  {
+    $model = new StudentModel();
+    $res = json_decode($model->read(["is_friend"], [1]), 1);
+    $res["total-friend"] = (isset($res["data"])) ? count($res["data"]) : 0;
+    $res = $res["total-friend"];
+    return $res;
   }
   static function delete($student_ID)
   {
@@ -171,6 +189,7 @@ class Student extends User
     $this->is_friend = (bool) $this->is_friend;
     return true;
   }
+
 
   public function readDepartment($department_ID)
   {

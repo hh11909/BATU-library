@@ -16,8 +16,7 @@ if ($requestMethod == "GET") {
       echo $message->Message;
     } elseif ($_GET["is_borrowed"] == 1) {
       $book = Student::readBooks($_GET["is_borrowed"]);
-      $message = json_decode($book);
-      echo $message->Message;
+      echo $book;
     }
   }
 }

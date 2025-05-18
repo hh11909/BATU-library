@@ -32,9 +32,45 @@
 }*/
 
 
+
 /*
 function BorrowBook($academy_number,$book_ID,$Borrow_date,$return_date,$is_borrowed=0 ){
 $fields=["academy_number","book_ID","Borrow_date", "return_date","is_borrowed"];
     $vals=[$academy_number,$book_ID,$Borrow_date, $return_date,$is_borrowed];
     return Crud::create($this->table,$fields,$vals);
   }*/
+
+
+
+  if ( isset($_POST["name"])&& isset($_POST["author"])){
+
+if ( isset($_POST["Uname"])){
+   if ( isset($_POST["Uauthor"])){  
+      if( isset($_FILES["Uimage"]) ) {
+         if (isset($_POST["Udescription"])) {
+           if( isset($POST["Uis_borrowed"])){
+             $book = Admin::updateBook( $_POST["name"], $_POST["author"],   $_POST["Uname"], $_POST["Uauthor"], $_FILES["Uimage"], $_POST["Udescription"], $_POST["Uis_borrowed"]);
+             $message = json_decode($book);
+             echo $message->Message;
+           }
+           else{ 
+              $book = Admin::updateBook( $_POST["name"], $_POST["author"],$_POST["Uname"], $_POST["Uauthor"], $_FILES["Uimage"], $_POST["Udescription"]);
+              $message = json_decode($book);
+              echo $message->Message;
+             }}
+             else{ 
+               $book = Admin::updateBook( $_POST["name"], $_POST["author"],$_POST["Uname"], $_POST["Uauthor"], $_FILES["Uimage"]);
+               $message = json_decode($book);
+               echo $message->Message;
+              }}
+              else{ 
+               $book = Admin::updateBook( $_POST["name"], $_POST["author"],$_POST["Uname"], $_POST["Uauthor"]);
+               $message = json_decode($book);
+               echo $message->Message;
+              }}
+              else{ 
+               $book = Admin::updateBook( $_POST["name"], $_POST["author"],$_POST["Uname"]);
+               $message = json_decode($book);
+               echo $message->Message;
+              }}
+             

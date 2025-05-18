@@ -4,8 +4,10 @@ if ($_SERVER['REQUEST_URI'] === '/pages/header.php') {
   die();
 }
 
+
 use controller\Student;
 use controller\Admin;
+use controller\Friend;
 
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
@@ -13,19 +15,24 @@ if (session_status() === PHP_SESSION_NONE) {
 if (isset($_COOKIE["user"])) {
   $_SESSION["user"] = $_COOKIE["user"];
 }
-if (isset($_SESSION["user"]) && !isset($user)) {
-  try {
+if (isset($_SESSION["user"]) && !isset($user) && isset($_SESSION["role"])) {
+
+  if ($_SESSION["role"] == "student") {
     require_once(__DIR__ . "/../controller/Student.php");
     /**@var Student $user */
     $user = unserialize($_SESSION["user"]);
-  } catch (Exception $error) {
-    require_once(__DIR__ . "/../controller/Admin.php");
-    /**@var Admin $user */
+  } elseif ($_SESSION["role"] == "friend") {
+    require_once(__DIR__ . "/../controller/Friend.php");
+    /**@var Friend $user */
     $user = unserialize($_SESSION["user"]);
+  } elseif ($_SESSION["role"] == "admin") {
+    require_once(__DIR__ . "/../controller/Admin.php");
+    header("Location:admin/admin-users.php");
   }
-
-  $role = $user->role;
 }
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,12 +41,13 @@ if (isset($_SESSION["user"]) && !isset($user)) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BATU Library</title>
-  <link rel="stylesheet" href="/pages/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/pages/css/all.min.css">
-  <link rel="stylesheet" href="/pages/css/profile.css">
-  <link rel="stylesheet" href="/pages/css/Events.css">
-  <link rel="stylesheet" href="/pages/css/borrowed-style.css">
-  <link rel="stylesheet" href="/pages/css/contact.css">
+  <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="css/profile.css">
+  <link rel="stylesheet" href="css/Events.css">
+  <link rel="stylesheet" href="css/borrowed-style.css">
+  <link rel="stylesheet" href="css/contact.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -75,13 +83,13 @@ if (isset($_SESSION["user"]) && !isset($user)) {
         <!-- sidebar body -->
         <div class="offcanvas-body d-flex flex-column flex-lg-row p-lg-0 p-4">
           <ul class="navbar-nav justify-content-lg-end align-items-center fs-6 flex-grow-1 pe-3">
+
             <?php
-            if (isset($_SESSION["user"])) {
-              $role = $user->role;
-              if ($role == "student") {
+            if (isset($user) && isset($_SESSION["role"])) {
+              if ($_SESSION["role"] == "student") {
             ?>
                 <li class="nav-item d-flex align-items-center d-block d-lg-none mb-3">
-                  <a href="profile.php"><img src="<?= ($user->student_image) ? $user->student_image : "/pages/images/profile.png" ?>" alt="User" class="rounded-circle ms-3"
+                  <a href="profile.php"><img src="<?= ($user->profile_image) ? $user->profile_image : "images/profile.png" ?>" alt="User" class="profileImageDisplay rounded-circle ms-3"
                       width="40" height="40"></a><!--to do-->
                 </li>
             <?php
@@ -110,17 +118,25 @@ if (isset($_SESSION["user"]) && !isset($user)) {
                   <a class="dropdown-item" href="Events.php" id="events">Events</a><!--to do-->
                 </li>
                 <?php
-                if (isset($role) && $role == "student") {
+                if (isset($user) && isset($_SESSION["role"])) {
+                  if ($user->role == "student") {
                 ?>
-                  <li>
-                    <a class="dropdown-item" href="wishlist.php" id="wishlist">Wishlist</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="borrowed.php" id="borrowed">Borrowed</a>
-                  </li>
+                    <li>
+                      <a class="dropdown-item" href="wishlist.php" id="wishlist">Wishlist</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="borrowed.php" id="borrowed">Borrowed</a>
+                    </li>
+                    <?php
+                    if ($user->is_friend == 1) {
+                    ?>
+                      <li>
+                        <a class="dropdown-item" href="borrowed.php" id="borrowed">Request Event</a>
+                      </li>
                 <?php
+                    }
+                  }
                 }
-
                 ?>
               </ul>
             </li>
@@ -130,20 +146,20 @@ if (isset($_SESSION["user"]) && !isset($user)) {
           if (!isset($_SESSION["user"])) {
           ?>
             <div class="d-flex justify-content-center align-items-center">
-              <a href="/pages/login.php" id="log-in" class="btn primary-color main-btn">Log In</a>
+              <a href="login.php" id="log-in" class="btn primary-color main-btn">Log In</a>
             </div>
             <!-- removed the register  //omar -->
+
             <!-- profile -->
           <?php
           }
-          if (isset($_SESSION["user"])) {
-            $role = $user->role; ?>
+          if (isset($user)) {
+          ?>
             <div class="d-flex align-items-center mt-1 d-none d-lg-block">
-
               <?php
-              if ($role == "student") {
+              if (isset($user->role) && $user->role == "student") {
               ?>
-                <a href="profile.php"><img src="<?= ($user->student_image) ? $user->student_image : "/pages/images/profile.png" ?>" alt="User" class="rounded-circle ms-3"
+                <a href="profile.php"><img src="<?= ($user->profile_image) ? $user->profile_image : "images/profile.png" ?>" alt="User" class="profileImageDisplay rounded-circle ms-3"
                     width="40" height="40"></a><!--to do-->
               <?php } ?>
 
@@ -155,6 +171,7 @@ if (isset($_SESSION["user"]) && !isset($user)) {
           <?php
           }
           ?>
+
         </div>
       </div>
     </div>

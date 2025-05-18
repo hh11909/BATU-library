@@ -5,7 +5,7 @@ let stuTable = document.getElementById("stu-table");
 let stuSelectSearch = document.getElementById("select-read");
 let stuSearch = document.getElementById("search-students");
 let getStudentsData = async (x) => {
-	let api = "/api/student/read.php?".concat(x);
+	let api = "../../api/student/read.php?".concat(x);
 	console.log(api);
 	let res = await fetch(api, {
 		method: 'GET',
@@ -45,7 +45,7 @@ let handleDelBtn = (id) => {
 	let btn = document.getElementById("student-".concat(id));
 	btn.addEventListener("click", async () => {
 		try {
-			let res = await fetch("/api/student/delete.php?student_ID=".concat(id), {
+			let res = await fetch("../../api/student/delete.php?student_ID=".concat(id), {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json'

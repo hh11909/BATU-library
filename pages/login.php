@@ -1,3 +1,17 @@
+<?php
+
+use controller\Student;
+
+session_start();
+require_once(__DIR__ . "/../controller/Student.php");
+if (isset($_SESSION["role"])) {
+  if ($_SESSION['role'] == "student" || $_SESSION['role'] == "friend") {
+    header("Location:index.php");
+  } elseif ($role == "admin") {
+    header("Location:index.php"); //will be modified later!!!!!!!!!!!!!!!!!!
+  }
+}
+?>
 <?php require_once(__DIR__ . "/header.php") ?>
 <div style="height: 66px;"></div>
 <!-- navigation bar end -->

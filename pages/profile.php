@@ -44,31 +44,29 @@ if (!isset($_SESSION["user"])) {
       <div class="profile-content ">
 
         <div class=" position-relative ">
-          <input type="file" id="profileBigImage" name="profileBigImage" class="d-none" accept="image/*"
-            onchange="previewBigImage()">
+          <input type="file" id="bannerInput" name="bannerImage" class="d-none" accept="image/*">
           <div class="profile-big-picture d-block container-fluid p-0">
             <?php
-            if ($user->profile_image) {
+            if ($user->student_image) {
             ?>
-              <img src="<?= $user->profile_image ?>" alt="" id="BigImageDisplay" style="width:100%;height:100%;object-fit: cover;">
+              <img src="<?= $user->student_image ?>" alt="" class="profileImageDisplay" id="BigImageDisplay" style="width:100%;height:100%;object-fit: cover;">
             <?php
             }
             ?>
           </div>
           <a type="button" class="btn btn-main rounded-5 btn-add-img btn-profile-big-picture position-absolute z-1 "
-            onclick="document.getElementById('profileBigImage').click();">
+            onclick="document.getElementById('bannerInput').click();">
             <i class="fas fa-camera fs-3"></i>
           </a>
         </div>
         <div class="profile-card d-flex flex-column justify-content-center align-items-center position-relative">
           <div class=" position-relative user-profile-picture ">
             <div class="profile-picture-holder">
-              <input type="file" id="profileImage" name="profileImage" class="d-none" accept="image/*"
-                onchange="previewImage()">
-              <img src="<?= ($user->student_image) ? $user->student_image : 'images/profile.png' ?>" alt="" class="profile-picture" id="profileImageDisplay">
+              <input type="file" id="profileInput" name="profileImage" class="d-none" accept="image/*">
+              <img src="<?= ($user->profile_image) ? $user->profile_image : 'images/profile.png' ?>" alt="" class="profile-picture" id="profileImageDisplay">
             </div>
             <a type="button" class="btn btn-main rounded-5 btn-add-img btn-profile-picture position-absolute "
-              onclick="document.getElementById('profileImage').click();">
+              onclick="document.getElementById('profileInput').click();">
               <i class="fas fa-camera fs-3"></i>
             </a>
 
@@ -389,45 +387,15 @@ if (!isset($_SESSION["user"])) {
         </div>
       </div>
     </div>
-    <hr class="border-light">
-    <div class="row">
-
-      <div class="col-md-4 text-center">
-        <p class="mb-0">&copy; 2024 <span class="fw-bold" style="color: aquamarine;">BATU Library</span> . All rights
-          reserved.</p>
-      </div>
-    </div>
-  </div>
 </footer>
 <script>
-  function previewBigImage() {
-    const file = document.getElementById('profileBigImage').files[0];
-    const reader = new FileReader();
-    reader.onloadend = function() {
-      document.getElementById('BigImageDisplay').src = reader.result;
-    };
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  }
-
-  function previewImage() {
-    const file = document.getElementById('profileImage').files[0];
-    const reader = new FileReader();
-    reader.onloadend = function() {
-      document.getElementById('profileImageDisplay').src = reader.result;
-    };
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  }
-
-  function toggleEdit() {
-    var input = document.getElementById("bio");
-    input.readOnly = !input.readOnly;
-    input.focus();
-  }
+  // function toggleEdit() {
+  //   var input = document.getElementById("bio");
+  //   input.readOnly = !input.readOnly;
+  //   input.focus();
+  // }
 </script>
+<script src="js/profilePics.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/index.js"></script>
 <script src="js/all.min.js"></script>

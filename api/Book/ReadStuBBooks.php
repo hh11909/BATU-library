@@ -10,7 +10,6 @@ header("Access-Control-Allow-Headers:Content-Type,Authorization,X-Request-With")
 
 if (isset($_SESSION["user"])) {
   $user = unserialize($_SESSION["user"]);
-  $book = Student::readBBooks($user->$academy_number);
-  $message = json_decode($book);
-  echo $message->Message;
+  $book = Student::readBBooks($user->id);
+  echo $book;
 }

@@ -36,7 +36,7 @@
             <div class="row">
               <div class="col-lg-3 d-flex justify-content-center p-5">
                 <div class="image"
-                  style="padding: 90px;height: 150px;border-radius: 150px;background-image: url('<?= ($user->student_image) ? $user->student_image : "images/profile.png" ?>');background-size:cover;background-repeat: no-repeat;background-position-x: center;">
+                  style="padding: 90px;height: 150px;border-radius: 150px;background-image: url('<?= ($user->profile_image) ? $user->profile_image : "images/profile.png" ?>');background-size:cover;background-repeat: no-repeat;background-position-x: center;">
                   <!-- <img src=""  alt=""> -->
                 </div>
               </div>
@@ -61,12 +61,33 @@
                     class="profile-value fs-4 fw-semibold" id="lib-friend"><?= ($user->is_friend) ? "Yes" : "No" ?></span></p>
               </div>
             </div>
+            <div class="col-lg-5">
+              <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Name: </span><span
+                  class="profile-value fs-4 fw-semibold" id="first-name"><?= $user->name ?></span></p>
+              <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">College:</span><span
+                  class="profile-value fs-4 fw-semibold" id="last-name"> to do</span></p>
+              <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Department:</span><span
+                  class="profile-value fs-4 fw-semibold" id="department"> to do</span></p>
+              <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Phone:</span><span
+                  class="profile-value fs-4 fw-semibold" id="phone"><?= $user->phone ?></span></p>
+              <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Email:</span><span
+                  class="profile-value fs-4 fw-semibold" id="email"><?= $user->email ?></span></p>
+            </div>
+            <div class="col-lg-4">
+              <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Academy number:</span><span
+                  class="profile-value fs-4 fw-semibold" id="academy-number"> <?= $user->academy_number ?></span></p>
+              <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Gender: </span><span
+                  class="profile-value fs-4 fw-semibold" id="academy-number"><?= $user->gender ?></span></p>
+              <p class="profile-title py-4"><span class="profile-key fw-semibold fs-4">Library’s Friend: </span><span
+                  class="profile-value fs-4 fw-semibold" id="lib-friend"><?= ($user->is_friend) ? "Yes" : "No" ?></span></p>
+            </div>
           </div>
         </div>
-
       </div>
+
     </div>
   </div>
+</div>
 </div>
 <footer class="footer py-5 text-center text-md-start d-flex justify-content-end bottom-0"
   style="background-color: #08546d; color: #f6fbf2;">
