@@ -1,0 +1,72 @@
+@import url("style.css");
+  .main .container{
+    width: 100%;
+    max-width: 1920px;
+  }
+  .form-container {
+    
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+  }
+  h4{
+    color: #08546D;
+  }
+  /* Input field styles */
+
+  
+  textarea {
+    border-radius: 36px; /* Rounded for Comment */
+    border: 50px solid #A8D5BA;
+    padding: 10px;
+    outline-color:#A8D5BA ;
+  }
+  
+  /* Styled Submit Button */
+  .btn-submit {
+    background-color: #97E3FB; /* Button color */
+    border: none; /* Remove border */
+    border-radius: 30px; /* Rounded corners */
+    padding: 10px 20px; /* Add padding */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Bold text */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+    transition: all 0.3s ease; /* Smooth hover effect */
+    color: #3C5B65;
+  }
+  
+  .btn-submit:hover {
+    background-color: #83d1f0; /* Slightly darker blue on hover */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15); /* Hover shadow effect */
+  }
+
+  
+
+  .icon-label {
+    gap: 10px;
+    color: #08546D;
+    font-size: 28px;
+    font-weight: 500;
+  }
+  .icon-contact{
+    background-color: #A8D5BA;
+    border-left:20px solid #08546D;
+  }
+  .icon-contact svg{
+    color: #08546D;
+    margin: auto;
+  }
+  
+  @media (min-width: 768px) {
+  
+    .icon-contact svg{
+      max-width: 75%;
+    }
+  }
+  @media(max-width: 768px){
+    .icon-label, .icon-contact svg{
+      font-size: 18px;
+    }
+  }
