@@ -5,6 +5,7 @@ namespace controller;
 use model\Student as StudentModel;
 use model\Department as DepartmentModel;
 use model\College as CollegeModel;
+use model\WishlistItem;
 
 require_once(__DIR__ . "/../model/Student.php");
 require_once(__DIR__ . "/User.php");
@@ -25,7 +26,7 @@ class Student extends User
   public $profile_image;
   public $is_friend = 0;
   private $admin_ID;
-  function __construct($name, $academy_number,$academic_year, $phone, $gender, $department_ID, $email,$password, $is_friend, $admin_ID, $student_image = null, $profile_image = null, $id = null)
+  function __construct($name, $academy_number, $academic_year, $phone, $gender, $department_ID, $email, $password, $is_friend, $admin_ID, $student_image = null, $profile_image = null, $id = null)
   {
     if ($id != null) {
       $this->id = $id;
@@ -46,14 +47,14 @@ class Student extends User
   }
 
   function updatePassword($pass)
-  { 
-    $stu= new StudentModel();
-    $stu->update(["password"],[md5(htmlspecialchars($pass))],["academy_number"],[$this->academy_number]);
+  {
+    $stu = new StudentModel();
+    $stu->update(["password"], [md5(htmlspecialchars($pass))], ["academy_number"], [$this->academy_number]);
   }
   function updatePhone($phone)
-  { 
-    $stu= new StudentModel();
-    $stu->update(["phone"],[trim(htmlspecialchars(filter_var($phone, FILTER_SANITIZE_NUMBER_INT)))],["academy_number"],[$this->academy_number]);
+  {
+    $stu = new StudentModel();
+    $stu->update(["phone"], [trim(htmlspecialchars(filter_var($phone, FILTER_SANITIZE_NUMBER_INT)))], ["academy_number"], [$this->academy_number]);
   }
   function getPassword()
   {
@@ -80,7 +81,7 @@ class Student extends User
       if ($arr = $result[0]) {
         switch ($arr['is_friend']) {
           case 0:
-            $user = new Student($arr["name"], $arr["academy_number"],$arr["academic_year"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"],$arr["password"], $arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
+            $user = new Student($arr["name"], $arr["academy_number"], $arr["academic_year"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"], $arr["password"], $arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
             break;
           case 1:
            require_once(__DIR__."/Friend.php");
@@ -94,8 +95,8 @@ class Student extends User
   }
   function create()
   {
-      $model = new StudentModel();
-      return $model->create($this);
+    $model = new StudentModel();
+    return $model->create($this);
   }
   static function read($name="",$academy_number="",$academic_year="",$phone="",$email="",$page_num=1){
     $cols=['name','academy_number','academic_year','phone','email'];
@@ -117,24 +118,26 @@ class Student extends User
     }
     return json_encode($result);
   }
-  private static function totalStudentsCount(){
+  private static function totalStudentsCount()
+  {
     $model = new StudentModel();
-    $res = json_decode($model->read(),1);
-    $res["total-count"]=(isset($res["data"]))?count($res["data"]):0;
-    $res=$res["total-count"];
+    $res = json_decode($model->read(), 1);
+    $res["total-count"] = (isset($res["data"])) ? count($res["data"]) : 0;
+    $res = $res["total-count"];
     return $res;
   }
-   private static function totalFriendsCount(){
+  private static function totalFriendsCount()
+  {
     $model = new StudentModel();
-    $res = json_decode($model->read(["is_friend"],[1]),1);
-      $res["total-friend"]=(isset($res["data"]))?count($res["data"]):0;
-      $res=$res["total-friend"];
+    $res = json_decode($model->read(["is_friend"], [1]), 1);
+    $res["total-friend"] = (isset($res["data"])) ? count($res["data"]) : 0;
+    $res = $res["total-friend"];
     return $res;
-    
   }
-  static function delete($student_ID){
+  static function delete($student_ID)
+  {
     $model = new StudentModel();
-    return $model->delete(["student_ID",],[$student_ID]);
+    return $model->delete(["student_ID",], [$student_ID]);
   }
   public function sanitize()
   {
@@ -156,7 +159,7 @@ class Student extends User
       return error422("Invalid Email!");
     } elseif (!filter_var($this->academy_number, FILTER_VALIDATE_INT)) {
       return error422("Invalid Academy Number!");
-    } elseif ($this->academic_year!=""&&!filter_var($this->academic_year, FILTER_VALIDATE_INT)) {
+    } elseif ($this->academic_year != "" && !filter_var($this->academic_year, FILTER_VALIDATE_INT)) {
       return error422("Invalid Academic year!");
     } elseif (!preg_match("/^01[0-2,5]{1}[0-9]{8}$/", $this->phone)) {
       return error422("Invalid Academy Phone!");
@@ -173,7 +176,6 @@ class Student extends User
     $this->is_friend = (bool) $this->is_friend;
     return true;
   }
-  
   public static function readDepartment($department_ID)
   {
     $departmentModel = new DepartmentModel();
@@ -189,9 +191,7 @@ class Student extends User
         "department" => $departmentData["data"][0]["department_name"],
         "college" => isset($collegeData["data"][0]) ? $collegeData["data"][0]["college_name"] : null
       ];
-    } 
-    else 
-    {
+    } else {
       return error422("Department not found!");
     }
   }
@@ -246,4 +246,3 @@ class Student extends User
     }
   }
 }
-
