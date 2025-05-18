@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <?php require_once("../header.php"); ?>
+  <?php require_once("admin-header.php"); ?>
   <!-- Admin Sidebar -->
   <div class="sidebar" id="admin-sidebar">
     <div class="sidebar-header" id="admin-sidebar-header">

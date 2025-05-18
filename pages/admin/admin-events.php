@@ -10,13 +10,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-  <link rel='stylesheet' href='../css/Events.css'>
+  <link rel='stylesheet' href='../css/form.css'>
   <link rel='stylesheet' href='../css/admin-style.css'>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <?php require_once("../header.php") ?>
+  <?php require_once("admin-header.php") ?>
   <!-- Admin Sidebar -->
   <div class="sidebar" id="admin-sidebar">
     <div class="sidebar-header" id="admin-sidebar-header">
@@ -57,7 +57,7 @@
             </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0" id="eventsTable">
+                <table class="table align-items-center mb-0 overflow-scroll" id="eventsTable">
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image</th>
@@ -348,7 +348,7 @@
             <td>
               <div class="d-flex px-2 py-1">
                 <div>
-                  <img src="${event.image}" class="avatar avatar-sm me-3" alt="${event.title}">
+                  <img src="${event.image}" class="avatar avatar-sm me-3 w-25" alt="${event.title}">
                 </div>
               </div>
             </td>
