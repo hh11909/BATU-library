@@ -6,10 +6,14 @@ namespace controller;
 // require(__DIR__."/../model/errors.php");
 require(__DIR__ . "/../model/Book.php");
 require(__DIR__ . "/../model/BBooks.php");
+require(__DIR__ . "/../model/Likes.php");
 require("Images.php");
 
 use model\BBooks;
 use model\Book as BookModel;
+use model\Crud;
+use model\like;
+
 /*class Book
 {
   public $book_ID;
@@ -53,9 +57,19 @@ trait Book
         $bookModel = new BookModel();
         $filterCols = ['name', 'author','is_borrowed'];
         $filterVals = [$name, $author,$is_borrowed];
-        $result = $bookModel->read($filterCols, $filterVals);
-
-    return $result;
+        $result = json_decode($bookModel->read($filterCols, $filterVals),true);
+        if(isset($result["data"])){
+          for($i=0;$i<count($result["data"]);$i++){
+            if(isset($result["data"][$i])){
+              $like=new like();
+              $l=json_decode($like->read(["book_ID"],[$result["data"][$i]["book_ID"]]),true);
+              $result["data"][$i]["likes"]=(isset($l["data"])?$l["data"]:[null]);
+              $result["data"][$i]["total_likes"]=Book::totallikes($result["data"][$i]["book_ID"]);
+            }
+          }
+        }
+        
+    return json_encode($result);
   }
 
 
@@ -105,7 +119,43 @@ trait Book
     }
   }
 
-
+static function addBook($id){
+  $book=json_decode(Book::readBooById($id),true);
+  if(isset($book["data"])){
+    if(isset($book["data"][0])){
+      /**@var int $count*/
+      $count=$book["data"][0]["count"];
+      $count++;
+      $bookModel = new BookModel();
+      return $bookModel->update(["count"],[$count],["book_ID"],[$id]);
+    }else{
+      error422("no books there",404);
+    }
+  }else{
+    return json_encode($book);
+  }
+}
+static function subtractBook($id){
+  $book=json_decode(Book::readBooById($id),true);
+  if(isset($book["data"])){
+    if(isset($book["data"][0])){
+      /**@var int $count*/
+      $count=$book["data"][0]["count"];
+      if($count<0){
+        $count--;
+        $bookModel = new BookModel();
+        return $bookModel->update(["count"],[$count],["book_ID"],[$id]);
+      }
+      else{
+        error422("no books to subtract",404);
+      }
+    }else{
+      error422("no books there",404);
+    }
+  }else{
+    return json_encode($book);
+  }
+}
 
   static function updateBook($name, $author, $Uname, $Uauthor, $Uimage, $Udescription, $Uis_borrowed)
   {
@@ -172,13 +222,12 @@ trait Book
       return error422("this book did not originaly exist , please create one !");
     }
   }
-  static function deleteBook($name, $author)
+  static function deleteBook($id)
   {
-    $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-    $author = trim(filter_var($author, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+    $id = trim(filter_var($id, FILTER_SANITIZE_NUMBER_INT));
     $bookModel = new BookModel();
-    $filterCols = ['name', 'author'];
-    $filterVals = [$name, $author];
+    $filterCols = ['book_id'];
+    $filterVals = [$id];
     return $bookModel->delete($filterCols, $filterVals);
   }
 
@@ -188,6 +237,12 @@ trait Book
     $result = $bookModel->read($student_ID);
     return $result;
   }
+  static function totallikes ($bookID){
+    $likes = new like();
+    $totallikes = json_decode($likes->read(["book_ID"],[$bookID]),1);
+    $count =(isset($totallikes["data"]))?count($totallikes["data"]):0;
+    return json_encode($count) ;
+}
 }
 
 

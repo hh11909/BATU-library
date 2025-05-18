@@ -53,7 +53,6 @@ if ($requestMethod == "POST") {
           $Uis_borrowed = $_POST["Uname"];
         }
         $book = Admin::updateBook($_POST["name"], $_POST["author"], $Uname, $Uauthor, $Uimage, $Udescription, $Uis_borrowede);
-        $book = json_decode($book);
         echo $book;
       } else {
 

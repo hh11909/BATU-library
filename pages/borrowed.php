@@ -253,7 +253,7 @@
     el.classList.add('active');
     el2.classList.add('active');
   </script>
-  <script src="js/borrowed_books.js"></script>
+  <script src="js/borrowed_books_students.js"></script>
   <script src="borrowed-script.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/all.min.js"></script>

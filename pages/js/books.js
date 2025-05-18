@@ -1,6 +1,5 @@
 let exploreBooks=document.getElementById("books-container");
 let searchBar=document.getElementById("search-input");
-let searchBy=document.getElementById("dropdown-item-sort");
 let getAllBooks= async(x)=>{
   let api="http://localhost/Batu_library/api/Book/ReadAll.php?is_borrowed=0&".concat(x);
   let res= await  fetch(api,{
@@ -28,7 +27,8 @@ let getAllBooks= async(x)=>{
                 <!-- the span is a newly added line -->
                 <span class="badge ms-2">to do!!!</span>
                 <div class="ms-auto">
-                    <button class="btn btn-link"><i class="fa-solid fa-heart"></i></button>
+                <span>${record["total_likes"]}</span>
+                <button class="btn btn-link"  id="like-${record["book_ID"]}"><i class="fa-solid fa-heart"></i></button>
                     <button class="btn btn-link ms-2"><i class="fa-solid fa-bookmark"></i></button>
                 </div>
             </div>
@@ -66,9 +66,49 @@ let getAllBooks= async(x)=>{
         </div>
       </div>`;
       }
-      }
+}
+      
+let handlelike = (id,likes) => {
+  let btn = document.getElementById(id);
+  btn.addEventListener("click", async () => {
+    let check=false;
+    for(like of likes){
+      if(like["book_ID"]==id){
+        check=true;
         
+        break;
+      }
+    }
+
+      try{
+        if(check==false){
+          let res=await fetch("http://localhost/Batu_library/api/likes/create.php?id=".concat(id), {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        let data= await res.json();
+        console.log(data);
         getAllBooks();
+        }else{
+          let res=await fetch("http://localhost/Batu_library/api/likes/delete.php?id=".concat(id), {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        let data= await res.json();
+        console.log(data);
+        getAllBooks();
+        }
+    }
+    catch(err){
+      console.log("");
+    }
+  });
+}
+getAllBooks();
 // searchBy.Attribute().addEventListener('click',()=>{
 
 // });
@@ -92,4 +132,6 @@ searchBar.addEventListener("input",()=>{
       
   }
 );
+
+// make_like()
 

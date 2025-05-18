@@ -15,7 +15,7 @@ if (isset($_SESSION["user"])) {
   if($_SESSION["role"]=="student"){
     /**@var Student $user */
     $user = unserialize($_SESSION["user"]);
-    $book = Student::readBBooks($user->$student_ID);
+    $book = Student::readBBooks($user->student_ID);
   }
   elseif($_SESSION["role"]=="friend"){
     /**@var Friend $user */
@@ -26,7 +26,7 @@ if (isset($_SESSION["user"])) {
     echo $book;
   }
 }else{
-  return error422("you are not allowed to be here");
+  echo error422("you are not allowed to be here");
 }
 }else {
 

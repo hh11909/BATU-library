@@ -20,7 +20,7 @@ use controller\Friend;
 use controller\Student;
 use controller\User;
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || $_SERVER['REQUEST_METHOD'] !== 'GET') {
+if ( $_SERVER['REQUEST_METHOD'] !== 'GET') {
   echo error422('Only POST method is allowed', 405);
   die();
 }

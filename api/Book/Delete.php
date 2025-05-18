@@ -17,9 +17,8 @@ if ($requestMethod == "DELETE") {
       echo error422("you are not authorized to be here!");
       header("Location:../../pages/index.php");
     } else {
-      if (isset($_POST["name"]) && isset($_POST["author"])) {
-        $book = Admin::deleteBook($_POST["name"], $_POST["author"]);
-        $book = json_decode($book);
+      if (isset($_POST["id"])) {
+        $book = Admin::deleteBook($_POST["id"]);
         echo $book;
       } else {
         echo error422("please send data!");
