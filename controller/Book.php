@@ -63,7 +63,7 @@ trait Book
             if(isset($result["data"][$i])){
               $like=new like();
               $l=json_decode($like->read(["book_ID"],[$result["data"][$i]["book_ID"]]),true);
-              $result["data"][$i]["likes"]=(isset($l["data"])?$l["data"]:[null]);
+              $result["data"][$i]["likes"]=(isset($l["data"])?$l["data"]:[["book_ID"=>null,"student_ID"=>null],]);
               $result["data"][$i]["total_likes"]=Book::totallikes($result["data"][$i]["book_ID"]);
             }
           }

@@ -58,6 +58,9 @@ let getAllBooks= async(x)=>{
             </div>`;
           }
           exploreBooks.innerHTML=row;
+          for(record of data["data"]){
+            handlelike(record["book_ID"],record["likes"]);
+          }
         }
       else{
         exploreBooks.innerHTML=`<div class="row">
@@ -69,10 +72,11 @@ let getAllBooks= async(x)=>{
 }
       
 let handlelike = (id,likes) => {
-  let btn = document.getElementById(id);
+  let btn = document.getElementById("like-".concat(id));
   btn.addEventListener("click", async () => {
     let check=false;
     for(like of likes){
+      console.log(like);
       if(like["book_ID"]==id){
         check=true;
         
