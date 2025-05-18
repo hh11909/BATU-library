@@ -43,7 +43,7 @@ class Crud
       return json_encode($data);
     }
   }
-  static function read($tableName, $filterCols = array(), $filterVals = array(), $condition_state = 0)
+  static function read($tableName, $filterCols = array(), $filterVals = array(), $condition_state = 0, $limit = null, $offset = 0)
   {
     require('dbcon.php');
     $qry = "SELECT * from $tableName;";
@@ -60,6 +60,10 @@ class Crud
       }
       $filter = substr($filter, 0, -4);
       $qry = $qry . $filter . ";";
+      if ($limit != null) {
+        $qry = substr($qry, 0, -1);
+        $qry = $qry . "LIMIT $limit OFFSET $offset ;";
+      }
     }
     $qry_run = mysqli_query($cn, $qry);
     if ($qry_run) {
@@ -71,7 +75,7 @@ class Crud
           'data' => $res
         ];
         mysqli_close($cn);
-        header("HTTP/1.0 200 OK");
+        // header("HTTP/1.0 200 OK");
         return json_encode($data);
       } else {
         $data = [
@@ -79,7 +83,7 @@ class Crud
           'Message' => "Not Found"
         ];
         mysqli_close($cn);
-        header("HTTP/1.0 404 Not Found");
+        // header("HTTP/1.0 404 Not Found");
         return json_encode($data);
       }
     }

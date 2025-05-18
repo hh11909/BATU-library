@@ -10,19 +10,19 @@ $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 if ($requestMethod == "GET") {
   if (isset($_GET["name"]) && isset($_GET["author"])) {
-    $book = Student::searchForBooks($_GET["name"], $_GET["author"]);;
+    $book = Student::readBooks($_GET["name"], $_GET["author"]);
     echo $book;
   } elseif (isset($_GET["name"])) {
-    $book = Student::searchForBooks($_GET["name"]);
-
+    $book = Student::ReadBooks($_GET["name"]);
     echo $book;
   } elseif (isset($_GET["author"])) {
-    $book = Student::searchForBooks($_GET["author"]);
-
+    $book = Student::readBBooks($_GET["author"]);
     echo $book;
   } else {
-    $book = Student::searchForBooks();
-
+    $book = Student::readBBooks("");
     echo $book;
   }
+} else {
+
+  echo error422("method not allowed!");
 }

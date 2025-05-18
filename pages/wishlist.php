@@ -30,13 +30,13 @@
             <i class="fa-solid fa-right-left fa-rotate-90" style="color: #08546d;"></i> Sort By
           </button>
           <!-- Sort -->
-          <ul class="dropdown-menu sort" id="dropdown-menu-sort" aria-labelledby="sort-dropdown">
-            <li><a class="dropdown-item" id="dropdown-item-sort" href="#" data-value="1">Date Added</a></li>
-            <li><a class="dropdown-item" id="dropdown-item-sort" href="#" data-value="2">Title</a></li>
-            <li><a class="dropdown-item" id="dropdown-item-sort" href="#" data-value="3">Author</a></li>
-            <li><a class="dropdown-item" id="dropdown-item-sort" href="#" data-value="4">Popularity</a></li>
-            <li><a class="dropdown-item" id="dropdown-item-sort" href="#" data-value="5">Release Date</a></li>
-            <li><a class="dropdown-item" id="dropdown-item-sort" href="#" data-value="3">Random</a></li>
+         <ul class="dropdown-menu sort" id="dropdown-menu-sort" aria-labelledby="sort-dropdown">
+            <li><a class="dropdown-item dropdown-item-sort" href="#" data-value="1">Date Added</a></li>
+            <li><a class="dropdown-item dropdown-item-sort" href="#" data-value="2">Title</a></li>
+            <li><a class="dropdown-item dropdown-item-sort" href="#" data-value="3">Author</a></li>
+            <li><a class="dropdown-item dropdown-item-sort" href="#" data-value="4">Popularity</a></li>
+            <li><a class="dropdown-item dropdown-item-sort" href="#" data-value="5">Release Date</a></li>
+            <li><a class="dropdown-item dropdown-item-sort" href="#" data-value="6">Random</a></li>
           </ul>
         </div>
       </div>
@@ -135,7 +135,7 @@
 
   <!-- books section start -->
   <div class="container mt-5">
-    <div class="row justify-content-center" id='books-container'>
+    <div class="row justify-content-center" id='wishlist'>
       <div class="row">
         <div class="col">
           <h5 class="mb-1 ms-1 ms-sm-3 ms-md-4 ms-lg-1 ms-xl-2 fw-bold primary-color">Results Found: </h5>

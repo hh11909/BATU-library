@@ -53,9 +53,14 @@ if ($requestMethod == "POST") {
           $Uis_borrowed = $_POST["Uname"];
         }
         $book = Admin::updateBook($_POST["name"], $_POST["author"], $Uname, $Uauthor, $Uimage, $Udescription, $Uis_borrowede);
-
         echo $book;
+      } else {
+
+        echo error422("please select the book you want update!");
       }
     }
   }
+} else {
+
+  echo error422("method not allowed!");
 }

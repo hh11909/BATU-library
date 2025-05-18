@@ -72,7 +72,7 @@ if (!isset($_SESSION["user"])) {
 
           </div>
           <h3 class="user text-center"><?= $user->name ?></h3>
-          <h4 class="user-department text-center">to do!!!!!!!</h4>
+          <h4 class="user-department text-center"><?= ($user->readDepartment($user->department_ID)["department"]) ?></h4>
           <!-- <h3 class="user text-center">
 
               <div class="d-flex text-center">

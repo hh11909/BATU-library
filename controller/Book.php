@@ -6,9 +6,14 @@ namespace controller;
 // require(__DIR__."/../model/errors.php");
 require_once(__DIR__ . "/../model/Book.php");
 require_once(__DIR__ . "/../model/BBooks.php");
+require_once(__DIR__ . "/../model/Likes.php");
 require_once("Images.php");
 
+use model\BBooks;
 use model\Book as BookModel;
+use model\Crud;
+use model\like;
+
 /*class Book
 {
   public $book_ID;
@@ -44,50 +49,42 @@ use model\Book as BookModel;
 
 trait Book
 {
-  static function searchForBooks($name = null, $author = null)
+  static function readBooks($name = "", $author = "", $is_borrowed = "")
   {
-    if (!empty($name) || !empty($author)) {
-      if (!empty($name) && !empty($author)) {
-        $name = trim(htmlspecialchars($name));
-        $author = (htmlspecialchars($author));
-        $bookModel = new BookModel();
-        $filterCols = ['name', 'author'];
-        $filterVals = [$name, $author];
-        $result = $bookModel->read($filterCols, $filterVals);
-      } else if (empty($author)) {
-        $name = trim(htmlspecialchars($name));
-        $bookModel = new BookModel();
-        $result = $bookModel->read('name', $name);
-      } else {
-        $author = (htmlspecialchars($author));
-        $bookModel = new BookModel();
-        $result = $bookModel->read('author', $author);
+
+    $name = trim(htmlspecialchars($name));
+    $author = trim(htmlspecialchars($author));
+    $bookModel = new BookModel();
+    $filterCols = ['name', 'author', 'is_borrowed'];
+    $filterVals = [$name, $author, $is_borrowed];
+    $result = json_decode($bookModel->read($filterCols, $filterVals), true);
+    if (isset($result["data"])) {
+      for ($i = 0; $i < count($result["data"]); $i++) {
+        if (isset($result["data"][$i])) {
+          $like = new like();
+          $l = json_decode($like->read(["book_ID"], [$result["data"][$i]["book_ID"]]), true);
+          $result["data"][$i]["likes"] = (isset($l["data"]) ? $l["data"] : [null]);
+          $result["data"][$i]["total_likes"] = Book::totallikes($result["data"][$i]["book_ID"]);
+        }
       }
-    } else {
-      $result = error422("Enter book name or author");
     }
-    return $result;
+
+    return json_encode($result);
   }
 
 
-  static function readBooks($is_borrowed)
-  {
-    if ($is_borrowed = 0) {
-      $bookModel = new BookModel();
-      $result = $bookModel->read("is_borrowed", 0);
-    } else {
-      $bookModel = new BookModel();
-      $result = $bookModel->read("is_borrowed", 1);
-    }
-
-    return $result;
-  }
+  // static function readBooks($is_borrowed)
+  // {
+  //   $bookModel = new BookModel();
+  //   $result = $bookModel->read(["is_borrowed"], [$is_borrowed]);
+  //   return $result;
+  // }
 
 
   static function readBooById($book_ID)
   {
     $bookModel = new BookModel();
-    $result = $bookModel->read("book_ID", $book_ID);
+    $result = $bookModel->read(["book_ID"], [$book_ID]);
 
     return $result;
   }
@@ -122,7 +119,44 @@ trait Book
     }
   }
 
-
+  static function addBook($id)
+  {
+    $book = json_decode(Book::readBooById($id), true);
+    if (isset($book["data"])) {
+      if (isset($book["data"][0])) {
+        /**@var int $count*/
+        $count = $book["data"][0]["count"];
+        $count++;
+        $bookModel = new BookModel();
+        return $bookModel->update(["count"], [$count], ["book_ID"], [$id]);
+      } else {
+        error422("no books there", 404);
+      }
+    } else {
+      return json_encode($book);
+    }
+  }
+  static function subtractBook($id)
+  {
+    $book = json_decode(Book::readBooById($id), true);
+    if (isset($book["data"])) {
+      if (isset($book["data"][0])) {
+        /**@var int $count*/
+        $count = $book["data"][0]["count"];
+        if ($count < 0) {
+          $count--;
+          $bookModel = new BookModel();
+          return $bookModel->update(["count"], [$count], ["book_ID"], [$id]);
+        } else {
+          error422("no books to subtract", 404);
+        }
+      } else {
+        error422("no books there", 404);
+      }
+    } else {
+      return json_encode($book);
+    }
+  }
 
   static function updateBook($name, $author, $Uname, $Uauthor, $Uimage, $Udescription, $Uis_borrowed)
   {
@@ -130,7 +164,7 @@ trait Book
     $Fcol = ["name", "author"];
     $Fval = [$name, $author];
     $result = $bookModel->read($Fcol, $Fval);
-    $result = json_decode($result);
+    $result = json_decode($result, true);
     $result = $result["data"];
     if (isset($result)) {
       $result = $result[0];
@@ -150,7 +184,10 @@ trait Book
       if (!isset($_FILES['image'])) {
         $Uimage = $result["image"];
       }
-    } else {
+
+
+
+
       $Uname = trim(filter_var($Uname, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
       $Uauthor = trim(filter_var($Uauthor, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
       $Udescription = trim(filter_var($Udescription, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
@@ -166,38 +203,47 @@ trait Book
         $Uval = [$Uname, $Uauthor, $new_image, $Udescription, $Uis_borrowed];
 
         return $bookModel->update($Ucol, $Uval, $Fcol, $Fval);
-        //$result = json_decode($result);
-        //$result = $result["data"];
-        //if (isset($result)) {
-        //if ($arr = mysqli_fetch_assoc($result)) {
-        //switch ($arr["is_borrowed"]) {
-        //case 0:
-        //$book = new Book($arr["book_ID"], $arr["name"], $arr["author"], $arr["image"], $arr["description"], $arr["is_borrowed"], $arr["admin_ID"], $arr["created_at"], $arr["updated_at"]);
-        //break;
-        //case 1:
-        //$book = new BorrowedBook($arr["book_ID"], $arr["name"], $arr["author"], $arr["image"], $arr["description"], $arr["is_borrowed"], $arr["admin_ID"], $arr["created_at"], $arr["updated_at"]);
-        //break;
-        //  }
-        //}
-        // }
       }
+      //$result = json_decode($result);
+      //$result = $result["data"];
+      //if (isset($result)) {
+      //if ($arr = mysqli_fetch_assoc($result)) {
+      //switch ($arr["is_borrowed"]) {
+      //case 0:
+      //$book = new Book($arr["book_ID"], $arr["name"], $arr["author"], $arr["image"], $arr["description"], $arr["is_borrowed"], $arr["admin_ID"], $arr["created_at"], $arr["updated_at"]);
+      //break;
+      //case 1:
+      //$book = new BorrowedBook($arr["book_ID"], $arr["name"], $arr["author"], $arr["image"], $arr["description"], $arr["is_borrowed"], $arr["admin_ID"], $arr["created_at"], $arr["updated_at"]);
+      //break;
+      //  }
+      //}
+      // }
+
+    } else {
+      return error422("this book did not originaly exist , please create one !");
     }
   }
-  static function deleteBook($name, $author)
+  static function deleteBook($id)
   {
-    $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-    $author = trim(filter_var($author, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+    $id = trim(filter_var($id, FILTER_SANITIZE_NUMBER_INT));
     $bookModel = new BookModel();
-    $filterCols = ['name', 'author'];
-    $filterVals = [$name, $author];
+    $filterCols = ['book_id'];
+    $filterVals = [$id];
     return $bookModel->delete($filterCols, $filterVals);
   }
 
-  static function readBBooks($academy_number)
+  static function readBBooks($student_ID)
   {
-    $bookModel = new BookModel();
-    $result = $bookModel->read($academy_number);
+    $bookModel = new BBooks();
+    $result = $bookModel->read($student_ID);
     return $result;
+  }
+  static function totallikes($bookID)
+  {
+    $likes = new like();
+    $totallikes = json_decode($likes->read(["book_ID"], [$bookID]), 1);
+    $count = (isset($totallikes["data"])) ? count($totallikes["data"]) : 0;
+    return json_encode($count);
   }
 }
 
@@ -219,7 +265,7 @@ trait Book
 //   searchForBooks as public;
 //   readBooks as public;
 //   readBBooks as public;
-//  readBooById  as public;
+// readBooById  as public;
 //   createBook as private;
 //   updateBook as private;
 //   deleteBook as private;

@@ -33,7 +33,7 @@ bannerInput.addEventListener("change",async()=>{
   formData.append('bannerImage', file);
   try{
     const res = await fetch('../api/student/banner/update.php',{
-      method:'POST',
+      method:'PUT',
       body:formData,
       headers: {     
         'Accept': 'application/json'

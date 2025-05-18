@@ -11,10 +11,10 @@ class Book
 {
 
   private $table = "Books";
-  private $fields = ["name", "author", "image", "description", "admin_ID", "is_borrowed"];
-  function create($name, $author, $image, $description, $admin_ID, $is_borrowed = 0)
+  private $fields = ["name", "author", "image", "description", "admin_ID", "is_borrowed", "count"];
+  function create($name, $author, $image, $description, $admin_ID, $is_borrowed = 0, $count = 1)
   {
-    $vals = [$name, $author, $image, $description, $admin_ID, $is_borrowed];
+    $vals = [$name, $author, $image, $description, $admin_ID, $is_borrowed, $count];
     return Crud::create($this->table, $this->fields, $vals);
   }
 

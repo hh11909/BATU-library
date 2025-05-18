@@ -5,10 +5,7 @@ namespace controller;
 use model\Student as StudentModel;
 use model\Department as DepartmentModel;
 use model\College as CollegeModel;
-use controller\Book;
-use controller\Images;
-use controller\Contact;
-use controller\Friend;
+use model\WishlistItem;
 
 require_once(__DIR__ . "/Images.php");
 require_once(__DIR__ . "/../model/Student.php");
@@ -22,6 +19,7 @@ require_once(__DIR__ . "/Contact.php");
 
 class Student extends User
 {
+  public $student_ID;
   public $academy_number;
   public $academic_year;
   public $phone;
@@ -103,29 +101,22 @@ class Student extends User
     $model = new StudentModel();
     return $model->create($this);
   }
-  static function read($name = "", $academy_number = "", $academic_year = "", $phone = "", $email = "", $limit = 0, $offset = 0)
+  static function read($name = "", $academy_number = "", $academic_year = "", $phone = "", $email = "", $page_num = 1)
   {
     $cols = ['name', 'academy_number', 'academic_year', 'phone', 'email'];
-    $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-    $academy_number = trim(htmlspecialchars(filter_var($academy_number, FILTER_SANITIZE_NUMBER_INT)));
-    $academic_year = trim(htmlspecialchars(filter_var($academic_year, FILTER_SANITIZE_NUMBER_INT)));
-    $phone = trim(htmlspecialchars(filter_var($phone, FILTER_SANITIZE_NUMBER_INT)));
-    if ($email != "" && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      return error422("Invalid Email!");
-    } elseif ($academy_number != "" && !filter_var($academy_number, FILTER_VALIDATE_INT)) {
-      return error422("Invalid Academy Number!");
-    } elseif ($academic_year != "" && !filter_var($academic_year, FILTER_VALIDATE_INT)) {
-      return error422("Invalid Academy Number!");
-    } elseif ($phone != "" && !preg_match("/^01[0-2,5]{1}[0-9]{8}$/", $phone)) {
-      return error422("Invalid Academy Phone!");
-    }
     $vals = [$name, $academy_number, $academic_year, $phone, $email];
     $model = new StudentModel();
-    $result = $model->read($cols, $vals, 1);
+    $limit = 5;
+    $offset = ($page_num - 1) * $limit;
+    $result = $model->read($cols, $vals, 1, $limit, $offset);
     $result = json_decode($result, true);
     if (isset($result["data"])) {
       $count = count($result["data"]);
       $result["count"] = $count;
+      for ($i = 0; $i < $result["count"]; $i++) {
+        $result["data"][$i]["department_name"] = Student::readDepartment($result["data"][$i]["department_ID"])["department"];
+        $result["data"][$i]["college_name"] = Student::readDepartment($result["data"][$i]["department_ID"])["college"];
+      }
       $result["data"]["total-count"] = Student::totalStudentsCount();
       $result["data"]["total-friends"] = Student::totalFriendsCount();
     }
@@ -189,9 +180,7 @@ class Student extends User
     $this->is_friend = (bool) $this->is_friend;
     return true;
   }
-
-
-  public function readDepartment($department_ID)
+  public static function readDepartment($department_ID)
   {
     $departmentModel = new DepartmentModel();
     $filterCols = ["department_ID"];
@@ -199,19 +188,19 @@ class Student extends User
     $departmentData = $departmentModel->read($filterCols, $filterVals);
     $departmentData = json_decode($departmentData, true);
     if (isset($departmentData["data"][0])) {
-      $college_id = $departmentData["data"][0]["college_id"];
-      $collegeData = $this->readCollege($college_id);
+      $college_id = $departmentData["data"][0]["college_ID"];
+      $collegeData = Student::readCollege($college_id);
       $collegeData = json_decode($collegeData, true);
       return [
-        "department" => $departmentData["data"][0],
-        "college" => isset($collegeData["data"][0]) ? $collegeData["data"][0] : null
+        "department" => $departmentData["data"][0]["department_name"],
+        "college" => isset($collegeData["data"][0]) ? $collegeData["data"][0]["college_name"] : null
       ];
     } else {
       return error422("Department not found!");
     }
   }
 
-  public function readCollege($college_id)
+  public static function readCollege($college_id)
   {
     $collegeModel = new CollegeModel();
     $filterCols = ["college_id"];
@@ -223,9 +212,9 @@ class Student extends User
 
 
   use Book {
-    searchForBooks as public;
     readBooks as public;
     readBBooks as public;
+    readBooById as public;
     createBook as private;
     updateBook as private;
     deleteBook as private;
@@ -259,11 +248,5 @@ class Student extends User
     } else {
       return json_encode($res);
     }
-  }
-
-  public function createMessage(Contact $contact)
-  {
-    $contact->setStudent_ID($this->id);
-    return $contact->create();
   }
 }

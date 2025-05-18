@@ -114,11 +114,11 @@
             Academic year
           </button>
           <ul class="dropdown-menu dropdown-menu-end" id="borrowed-dropdown-menu" aria-labelledby="filterDropdown">
-            <li><a class="dropdown-item" href="#">all</a></li>
-            <li><a class="dropdown-item" href="#">1</a></li>
-            <li><a class="dropdown-item" href="#">2</a></li>
-            <li><a class="dropdown-item" href="#">3</a></li>
-            <li><a class="dropdown-item" href="#">4</a></li>
+            <li><a class="dropdown-item" href="http://localhost/Batu_library/pages/admin/admin-users.php">all</a></li>
+            <li><a class="dropdown-item" href="http://localhost/Batu_library/pages/admin/admin-users.php?academic_year=1">1</a></li>
+            <li><a class="dropdown-item" href="http://localhost/Batu_library/pages/admin/admin-users.php?academic_year=2">2</a></li>
+            <li><a class="dropdown-item" href="http://localhost/Batu_library/pages/admin/admin-users.php?academic_year=3">3</a></li>
+            <li><a class="dropdown-item" href="http://localhost/Batu_library/pages/admin/admin-users.php?academic_year=4">4</a></li>
           </ul>
         </div>
       </div>
