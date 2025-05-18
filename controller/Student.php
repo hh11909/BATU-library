@@ -7,12 +7,15 @@ use model\Department as DepartmentModel;
 use model\College as CollegeModel;
 use model\WishlistItem;
 
+require_once(__DIR__ . "/Images.php");
 require_once(__DIR__ . "/../model/Student.php");
 require_once(__DIR__ . "/User.php");
+require_once(__DIR__ . "/../model/errors.php");
 require_once(__DIR__ . "/../model/department.php");
 require_once(__DIR__ . "/../model/college.php");
-require_once("Book.php");
-// require(__DIR__ . "/../model/errors.php");
+require_once(__DIR__ . "/../model/Contact.php");
+require_once(__DIR__ . "/Book.php");
+require_once(__DIR__ . "/Contact.php");
 
 class Student extends User
 {
@@ -84,8 +87,8 @@ class Student extends User
             $user = new Student($arr["name"], $arr["academy_number"], $arr["academic_year"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"], $arr["password"], $arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
             break;
           case 1:
-           require_once(__DIR__."/Friend.php");
-            $user = new Friend($arr["name"], $arr["academy_number"],$arr["academic_year"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"],$arr["password"],$arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
+            require_once(__DIR__ . "/Friend.php");
+            $user = new Friend($arr["name"], $arr["academy_number"], $arr["academic_year"], $arr["phone"], $arr["gender"], $arr["department_ID"], $arr["email"], $arr["password"], $arr["is_friend"], $arr["admin_ID"], $arr["student_image"], $arr["profile_image"], $arr["student_ID"]);
             break;
         }
         return $user;
@@ -98,23 +101,24 @@ class Student extends User
     $model = new StudentModel();
     return $model->create($this);
   }
-  static function read($name="",$academy_number="",$academic_year="",$phone="",$email="",$page_num=1){
-    $cols=['name','academy_number','academic_year','phone','email'];
-    $vals=[$name,$academy_number,$academic_year,$phone,$email];
+  static function read($name = "", $academy_number = "", $academic_year = "", $phone = "", $email = "", $page_num = 1)
+  {
+    $cols = ['name', 'academy_number', 'academic_year', 'phone', 'email'];
+    $vals = [$name, $academy_number, $academic_year, $phone, $email];
     $model = new StudentModel();
-    $limit=5;
-    $offset=($page_num-1)*$limit;
-    $result = $model->read($cols, $vals,1,$limit,$offset);
+    $limit = 5;
+    $offset = ($page_num - 1) * $limit;
+    $result = $model->read($cols, $vals, 1, $limit, $offset);
     $result = json_decode($result, true);
     if (isset($result["data"])) {
       $count = count($result["data"]);
-      $result["count"]=$count;
-      for($i=0;$i<$result["count"];$i++){
-      $result["data"][$i]["department_name"]=Student::readDepartment($result["data"][$i]["department_ID"])["department"];
-      $result["data"][$i]["college_name"]=Student::readDepartment($result["data"][$i]["department_ID"])["college"];
+      $result["count"] = $count;
+      for ($i = 0; $i < $result["count"]; $i++) {
+        $result["data"][$i]["department_name"] = Student::readDepartment($result["data"][$i]["department_ID"])["department"];
+        $result["data"][$i]["college_name"] = Student::readDepartment($result["data"][$i]["department_ID"])["college"];
       }
-      $result["data"]["total-count"]=Student::totalStudentsCount();
-      $result["data"]["total-friends"]=Student::totalFriendsCount();
+      $result["data"]["total-count"] = Student::totalStudentsCount();
+      $result["data"]["total-friends"] = Student::totalFriendsCount();
     }
     return json_encode($result);
   }
@@ -207,41 +211,41 @@ class Student extends User
 
 
 
-  use Book{
-  readBooks as public;
-  readBBooks as public;
-  readBooById as public;
-  createBook as private;
-  updateBook as private;
-  deleteBook as private;   
+  use Book {
+    readBooks as public;
+    readBBooks as public;
+    readBooById as public;
+    createBook as private;
+    updateBook as private;
+    deleteBook as private;
   }
-  function updateProfileImage($image){
-    $prefix="profile_";
-    $path="profile/";
-    $res=json_decode(Images::createImage($prefix,$path,$image),true);
-    if(isset($res["data"])){
-      $this->profile_image=$res["data"];
-      $model=new StudentModel;
-      $update=json_decode($model->update(["profile_image"],[$this->profile_image],["student_ID"],[$this->id]),true);
-      $update["data"]=$res["data"];
+  function updateProfileImage($image)
+  {
+    $prefix = "profile_";
+    $path = "profile/";
+    $res = json_decode(Images::createImage($prefix, $path, $image), true);
+    if (isset($res["data"])) {
+      $this->profile_image = $res["data"];
+      $model = new StudentModel;
+      $update = json_decode($model->update(["profile_image"], [$this->profile_image], ["student_ID"], [$this->id]), true);
+      $update["data"] = $res["data"];
       echo json_encode($update);
-    }
-    else{
+    } else {
       return json_encode($res);
     }
   }
-  function updateBannerImage($image){
-    $prefix="banner_";
-    $path="banner/";
-    $res=json_decode(Images::createImage($prefix,$path,$image),true);
-    if(isset($res["data"])){
-      $this->student_image=$res["data"];
-      $model=new StudentModel;
-      $update=json_decode($model->update(["student_image"],[$this->student_image],["student_ID"],[$this->id]),true);
-      $update["data"]=$res["data"];
+  function updateBannerImage($image)
+  {
+    $prefix = "banner_";
+    $path = "banner/";
+    $res = json_decode(Images::createImage($prefix, $path, $image), true);
+    if (isset($res["data"])) {
+      $this->student_image = $res["data"];
+      $model = new StudentModel;
+      $update = json_decode($model->update(["student_image"], [$this->student_image], ["student_ID"], [$this->id]), true);
+      $update["data"] = $res["data"];
       echo json_encode($update);
-    }
-    else{
+    } else {
       return json_encode($res);
     }
   }
