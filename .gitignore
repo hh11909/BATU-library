@@ -8,3 +8,4 @@ vendor/
 .env
 composer*
 composer.json
+pages/images/events/*

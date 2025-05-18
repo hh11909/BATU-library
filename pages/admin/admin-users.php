@@ -1,5 +1,20 @@
-<?php require_once("admin-header.php");?>
-  <!-- Admin Sidebar -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin users</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/admin-style.css" />
+  <link rel="stylesheet" href="../css/form.css" />
+</head>
+<?php require_once("admin-header.php"); ?>
+<!-- Admin Sidebar -->
 <div class="sidebar" id="admin-sidebar">
   <div class="sidebar-header" id="admin-sidebar-header">
     <h3><i class="fas fa-book-open me-2"></i> Library Admin</h3>
@@ -8,7 +23,7 @@
     <li>
       <a href="admin-requests.php"><i class="fa-solid fa-bell"></i> <span>Requests</span></a>
     </li>
-    <li  class="active">
+    <li class="active">
       <a href="admin-users.php"><i class="fas fa-users"></i> <span>Users</span></a>
     </li>
     <li>
@@ -35,17 +50,17 @@
       <div class="d-flex">
         <div class="input-group me-3 mt-2" style="width: 300px;">
           <input type="text" id="search-students" class="form-control pe-5" placeholder="Search students">
-            <select id="select-read" class="form-select bg-primary-color text-light" type="button" style="width: auto; max-width: 100px; appearance: none;">
-              <option value="1">all</option>
-              <option value="2">id</option>
-              <option value="3">name</option>
-              <option value="4">phone</option>       
-            </select>
+          <select id="select-read" class="form-select bg-primary-color text-light" type="button" style="width: auto; max-width: 100px; appearance: none;">
+            <option value="1">all</option>
+            <option value="2">id</option>
+            <option value="3">name</option>
+            <option value="4">phone</option>
+          </select>
         </div>
       </div>
     </div>
 
-        <!-- Stats Cards -->
+    <!-- Stats Cards -->
     <div class="row">
       <div class="col-md-4 col-sm-6 col-6">
         <div class="stat-card">
@@ -136,34 +151,21 @@
                 </td>
               </tr>
 
-              
+
             </tbody>
           </table>
         </div>
       </div>
-      <div class="card-footer">
-        <nav aria-label="Page navigation">
-          <ul class="pagination justify-content-center mb-0">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1">Previous</a>
-            </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
     </div>
   </div>
 </div>
+</div>
 
- <?php require_once("admin-footer.php")?>
+<?php require_once("admin-footer.php") ?>
 
-  <!-- Bootstrap JS -->
-   <script src="../js/handle-user.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="../js/handle-user.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

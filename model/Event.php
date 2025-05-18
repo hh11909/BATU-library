@@ -5,19 +5,31 @@ namespace model;
 require_once("Crud.php");
 require_once("errors.php");
 
+use controller\Event as ControllerEvent;
 use model\Crud;
 
-class Book
+class Event
 {
-
-  private $table = "Books";
-  private $fields = ["name", "author", "image", "description", "admin_ID", "is_borrowed", "count"];
-  function create($name, $author, $image, $description, $admin_ID, $is_borrowed = 0, $count = 1)
+  private $table = "Events";
+  private $fields = ["title", "content", "image", "start_date", "end_date", "state", "admin_ID", "student_ID"];
+  function create(ControllerEvent $event)
   {
-    $vals = [$name, $author, $image, $description, $admin_ID, $is_borrowed, $count];
-    return Crud::create($this->table, $this->fields, $vals);
+    $vals = [$event->title, $event->content, $event->image, $event->start_date, $event->end_date, $event->state, $event->getAdmin_ID(), $event->student_ID];
+    $fls = $this->fields;
+    if (!$event->getAdmin_ID()) {
+      $studentkey = array_pop($fls);
+      array_pop($fls);
+      $studentVal = array_pop($vals);
+      array_pop($vals);
+      array_push($fls, $studentkey);
+      array_push($vals, $studentVal);
+    }
+    if (!$event->student_ID) {
+      array_pop($fls);
+      array_pop($vals);
+    }
+    return Crud::create($this->table, $fls, $vals);
   }
-
   function read($filterCols = array(), $filterVals = array())
   {
     if (empty($filterCols) && empty($filterVals)) {
@@ -31,14 +43,15 @@ class Book
   function update($updateCols = array(), $updateVals = array(), $filterCols = array(), $filterVals = array())
   {
     if (count($updateCols) == count($updateVals) && (!empty($updateCols) && !empty($updateVals))) {
-
-      if (count($filterCols) == count($filterVals) && (!empty($filterCols) && !empty($filterVals))) {
+      if (empty($filterCols) && empty($filterVals)) {
+        return Crud::update($this->table, $updateCols, $updateVals);
+      } elseif (count($filterCols) == count($filterVals) && (!empty($filterCols) && !empty($filterVals))) {
         return Crud::update($this->table, $updateCols, $updateVals, $filterCols, $filterVals);
-      } else {
-        return error422(" filteration columns count are not equal to their values count or it's empty!");
+      } elseif (count($filterCols) != count($filterVals)) {
+        return error422('filteration columns count are not equal to their values count!');
       }
-    } else {
-      return error422(" update columns count are not equal to their values count or it's empty!");
+    } elseif (empty($updateCols) || empty($updateVals)) {
+      return error422('update columns or values are empty');
     }
   }
   function delete($filterCols = array(), $filterVals = array())

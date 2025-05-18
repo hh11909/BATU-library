@@ -1,15 +1,22 @@
 <?php
+
 namespace controller;
 
 require_once("Book.php");
 require_once("User.php");
 require_once(__DIR__ . "/../model/Admin.php");
+require_once("Event.php");
+require_once("Book.php");
+
 use controller\Student;
 use controller\User;
+use controller\Event;
+use controller\Book;
 
 
 class Admin extends User
 {
+  use Book;
   public $role = "admin";
   public function __construct(
     string $name,
@@ -47,7 +54,7 @@ class Admin extends User
       $result = $stuModel->read($cols, $vals);
       $result = json_decode($result, true);
       if (isset($result["data"])) { //Men3em modified here
-      $result = $result["data"];
+        $result = $result["data"];
         if ($arr = $result[0]) {
           $user = new Admin(
             $arr["name"],
@@ -196,39 +203,125 @@ class Admin extends User
       die();
     }
   }
-   function storeStudent(Student $student)
+  function storeStudent(Student $student)
   {
     // Sanitization
     $student->sanitize();
     // Validation
     $student->validate();
     return $student->create();
-    
   }
-  function readStudents($name="",$academy_number=null,$academic_year="",$phone="",$email="",$page_num=null){
+  function readStudents($name = "", $academy_number = null, $academic_year = "", $phone = "", $email = "", $page_num = null)
+  {
 
-     $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+    $name = trim(filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
     $academy_number = trim(htmlspecialchars(filter_var($academy_number, FILTER_SANITIZE_NUMBER_INT)));
     $academic_year = trim(htmlspecialchars(filter_var($academic_year, FILTER_SANITIZE_NUMBER_INT)));
     $phone = trim(htmlspecialchars(filter_var($phone, FILTER_SANITIZE_NUMBER_INT)));
     $email = trim(htmlspecialchars(filter_var($email, FILTER_SANITIZE_EMAIL)));
-    if ($email!=""&&!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if ($email != "" && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
       return error422("Invalid Email!");
-    } elseif ($academy_number!=null&&!filter_var($academy_number, FILTER_VALIDATE_INT)) {
+    } elseif ($academy_number != "" && !filter_var($academy_number, FILTER_VALIDATE_INT)) {
       return error422("Invalid Academy Number!");
-    } elseif ($academic_year!=""&&!filter_var($academic_year, FILTER_VALIDATE_INT)) {
+    } elseif ($academic_year != "" && !filter_var($academic_year, FILTER_VALIDATE_INT)) {
       return error422("Invalid Academic year!");
-     }
-  
-    require_once(__DIR__."/Student.php");
-    return Student::read($name,$academy_number,$academic_year,$phone,$email,$page_num);
+    }
+
+    require_once(__DIR__ . "/Student.php");
+    return Student::read($name, $academy_number, $academic_year, $phone, $email, $page_num);
   }
-  function deleteStudent($student_ID){
-    $student_ID=trim(htmlspecialchars(filter_var($student_ID, FILTER_SANITIZE_NUMBER_INT)));
+  function deleteStudent($student_ID)
+  {
+    $student_ID = trim(htmlspecialchars(filter_var($student_ID, FILTER_SANITIZE_NUMBER_INT)));
     if (!filter_var($student_ID, FILTER_VALIDATE_INT)) {
       return error422("Invalid student_ID");
     }
     return Student::delete($student_ID);
   }
-  use Book;
+  public function createEvent(Event $event)
+  {
+    if ($event) {
+      $model = new \model\Event();
+      $event->state = "available";
+      $result = $model->create($event);
+      return $result;
+    }
+    return error422('Bad Request', 400);
+  }
+  /**
+   *@param ?int | ?int[] $id
+   */
+  public function readEvent($id)
+  {
+    $cols = [];
+    $vals = [];
+    $model = new \model\Event();
+    if (is_array($id)) {
+      $data = [];
+      $status = 0;
+      for ($i = 0; $i < count($id); $i++) {
+        $cols = ['event_ID'];
+        $vals = [$id[$i]];
+        $result = $model->read($cols, $vals);
+        $status = $result['status'];
+        $result = json_decode($result);
+        if (!empty($result['data']) && $result['data']) {
+          array_push($data, $result['data']);
+        }
+      }
+      if ($status == 0) {
+        $status = 200;
+      }
+      return json_encode([
+        "status" => $status,
+        "data" => $data
+      ]);
+    } else {
+      if ($id) {
+        $cols = ['event_ID'];
+        $vals = [$id];
+      }
+      $result = $model->read($cols, $vals);
+      return $result;
+    }
+  }
+  public function updateEvent(array $values, int $event_ID)
+  {
+    if (!empty($values) && $event_ID) {
+      $keys = array_keys($values);
+      if (in_array('image', $keys)) {
+        $url = json_decode(Images::createImage('event-', 'events/', $values['image']), true);;
+        $values['image'] = $url['data'];
+      }
+      $vals = array_values($values);
+      $filterKeys = ['admin_ID', 'event_ID'];
+      $filterVals = [$this->id, $event_ID];
+      $model = new \model\Event();
+      $result = $model->update($keys, $vals, $filterKeys, $filterVals);
+      return $result;
+    } else {
+      return error422('Bad Request', 400);
+    }
+  }
+  public function deleteEvent(int $id)
+  {
+    if ($id) {
+      $keys = ['event_ID'];
+      $vals = [$id];
+      $model = new \model\Event();
+      $result = $model->delete($keys, $vals);
+      return $result;
+    } else {
+      error422('Bad Request', 400);
+    }
+    return json_encode(['status' => 422, 'message' => 'No filter provided']);
+  }
+  public function readMessage(?int $id)
+  {
+    return Contact::read($id);
+  }
+  public function deleteMessage(?int $id)
+  {
+    return Contact::delete($id);
+  }
 }
