@@ -15,9 +15,11 @@ filterAva.addEventListener('click', () => {
 	getAllBooks(true);
 })
 
-
+const currentScriptUrl = document.currentScript.src;
+const scriptUrl = new URL(currentScriptUrl);
+const fileName = scriptUrl.pathname.split('/').pop();
 let getAllBooks = async (x = false) => {
-	let api = `/api/Book/ReadAll.php${x ? `?is_borrowed=${isBorrowed.value}` : ""}`;
+	let api = `${fileName}/../../api/Book/ReadAll.php${x ? `?is_borrowed=${isBorrowed.value}` : ""}`;
 	let res = await fetch(api, {
 		method: "GET",
 		header: {
@@ -37,7 +39,7 @@ let getAllBooks = async (x = false) => {
 	<div class="col-lg-2 col-md-4 col-sm-6 col-6 mb-4">
 		<div class="card h-100 border-0">
 			<!-- data-bs-toggle="modal" data-bs-target="#bookModal${record["book_ID"]}" is newly added -->
-			<img src="${record[" image"]}" class="card-img-top img-fluid mx-auto d-block border border-light" style="max-width: 150px; margin: 20px auto;" alt="Book Cover" data-bs-toggle="modal" data-bs-target="#bookModal${record["book_ID"]}">
+			<img src="${record["image"]}" class="card-img-top img-fluid mx-auto d-block border border-light" style="max-width: 150px; margin: 20px auto;" alt="Book Cover" data-bs-toggle="modal" data-bs-target="#bookModal${record["book_ID"]}">
 			<!-- justify-content-between align-items-center is newly added -->
 			<div class="d-flex pe-2 justify-content-between align-items-center">
 				<!-- the span is a newly added line -->
@@ -50,17 +52,17 @@ let getAllBooks = async (x = false) => {
 		</div>
 		<div class="card-body p-2">
 			<!-- data-bs-toggle="modal" data-bs-target="#bookModal${record["book_ID"]}" is newly added-->
-			<h5 class="card-title" data-bs-toggle="modal" data-bs-target="#bookModal${record[" book_ID"]}">${record["name"]}</h5>
+			<h5 class="card-title" data-bs-toggle="modal" data-bs-target="#bookModal${record["book_ID"]}">${record["name"]}</h5>
 		<p class="card-text">${record["author"]}</p>
 	</div>
         </div >
     </div >
     <!--Modal example for the books-->
-	<div class="modal fade" id="bookModal${record[" book_ID"]}" tabindex = "-1" aria - labelledby="bookModalLabel${record["book_ID"]}" aria - hidden="true" >
+	<div class="modal fade" id="bookModal${record["book_ID"]}" tabindex = "-1" aria - labelledby="bookModalLabel${record["book_ID"]}" aria - hidden="true" >
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-body">
-					<img src="${record[" image"]}" class="img-fluid rounded mx-auto d-block mt-4" style="max-width: 200px; margin-bottom: 20px;" alt="Book Cover">
+					<img src="${record["image"]}" class="img-fluid rounded mx-auto d-block mt-4" style="max-width: 200px; margin-bottom: 20px;" alt="Book Cover">
 					<h5 class="text-center mb-3">${record["name"]}</h5>
 					<p class="text-center mb-2">${record["author"]}</p>
 					<p class="text-center mb-3 primary-color fw-semibold">to do</p>
@@ -102,7 +104,7 @@ let handlelike = async (id, likes) => {
 
 		try {
 			if (check == false) {
-				let res = await fetch("/api/likes/create.php?id=".concat(id), {
+				let res = await fetch("${fileName}/../../api/likes/create.php?id=".concat(id), {
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json'
@@ -112,7 +114,7 @@ let handlelike = async (id, likes) => {
 				console.log(data);
 				getAllBooks();
 			} else {
-				let res = await fetch("/api/likes/delete.php?id=".concat(id), {
+				let res = await fetch("${fileName}/../../api/likes/delete.php?id=".concat(id), {
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json'
