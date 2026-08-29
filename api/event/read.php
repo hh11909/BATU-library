@@ -27,15 +27,18 @@ if ($requestMethod === "GET") {
   $user = unserialize($_SESSION['user']);
 
   if ($user instanceof Admin || $user instanceof Friend) {
-    $arr = explode(',', $_GET['id']);
-    if (count($arr) != 1) {
-      array_map(function ($e) {
-        return intval($e);
-      }, $arr);
-    } else {
-      $arr = intval($arr[0]);
+    if (isset($_GET['id']) && $_GET['id'] !== '') {
+        $arr = explode(',', $_GET['id']);
+      if (count($arr) != 1) {
+        array_map(function ($e) {
+          return intval($e);
+        }, $arr);
+      } else {
+        $arr = intval($arr[0]);
+      }
+    }else{
+      $arr=null;
     }
-
     $result = $user->readEvent($arr);
     $result = json_decode($result, true);
     if ($result['status'] != 200) {

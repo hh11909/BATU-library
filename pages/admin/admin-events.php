@@ -45,16 +45,19 @@
   </div>
 
   <div class="main-content">
-    <div class="container-fluid py-4">
+    <div class="container-fluid">
+      <header class="page-title-header text-center mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="primary-color fw-bold mt-1 mb-2"><i class="fas fa-envelope-open-text me-2 title-icon"></i>Event Management</h2>
+          <div class="d-flex">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEventModal">
+                <i class="fas fa-plus me-2"></i>Add New Event
+          </button>
+        </div>
+      </header>
       <div class="row">
         <div class="col-12">
-          <div class="card mb-4">
-            <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-              <h5>Event Management</h5>
-              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEventModal">
-                <i class="fas fa-plus me-2"></i>Add New Event
-              </button>
-            </div>
+          <div class=" mb-4">
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0 overflow-scroll" id="eventsTable">
@@ -157,58 +160,7 @@
   </div>
 
   <!-- Footer -->
-  <footer class="footer py-5 text-center text-md-start">
-    <div class="container-fluid">
-      <div class="row">
-        <!-- About Section -->
-        <div class="col-md-4 mb-4">
-          <div class="container">
-            <div class="mb-5 mt-0 align-items-center" href="#">
-              <img src="images/logo.png" alt="Logo" width="48" height="48" class="me-2 p-1 logo">
-              <span class="logo-title">BATU Library</span>
-            </div>
-            <h5 class="text-uppercase" style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">About Us</h5>
-            <p>
-              The BATU Library is dedicated to providing resources and spaces for learning, collaboration, and growth.
-              Join us in building a community of knowledge.
-            </p>
-          </div>
-        </div>
-        <!-- Quick Links -->
-        <div class="col-md-4 mb-4">
-          <h5 class="text-uppercase" style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">Quick Links</h5>
-          <ul class="list-unstyled">
-            <li><a href="../index.php" class="foorer-link text-decoration-none text-light">Home</a></li>
-            <li><a href="Explore.php" class="foorer-link text-decoration-none text-light">Categories</a></li>
-            <li><a href="wishlist.php" class="foorer-link text-decoration-none text-light">Wishlist</a></li>
-            <li><a href="../index.php#fqa" class="foorer-link text-decoration-none text-light">FAQs</a></li>
-            <li><a href="../" class="foorer-link text-decoration-none text-light">About Us</a></li>
-          </ul>
-        </div>
-        <!-- Contact Section -->
-        <div class="col-md-4 mb-4">
-          <h5 class="text-uppercase" style="font-family: 'Poppins'; font-size: 22px; font-weight: 600;">Contact Us</h5>
-          <p>
-            <strong>Email:</strong> @batulibrary.com<br>
-            <strong>Phone:</strong> +1 234 567 8900<br>
-            <strong>Address:</strong> BATU
-          </p>
-          <div class="social-icons">
-            <a href="#" class="text-light me-3 fs-4 p-2"><i class="fa-brands facebook fa-square-facebook"></i></a>
-            <a href="#" class="text-light me-3 fs-4 p-2"><i class="fa-brands youtube fa-square-youtube"></i></a>
-            <a href="#" class="text-light me-3 fs-4 p-2"><i class="fa-brands linkedin fa-linkedin"></i></a>
-            <a href="#" class="text-light me-3 fs-4 p-2"><i class="fa-brands instagram fa-instagram"></i></a>
-          </div>
-        </div>
-      </div>
-      <hr class="border-light">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <p class="mb-0">&copy; 2024 <span class="fw-bold" style="color: aquamarine;">BATU Library </span>. All rights reserved.</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <?php require_once("admin-footer.php")?>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -310,7 +262,7 @@
       // Load events function
       async function loadEvents() {
         try {
-          let _res = await fetch('/api/event/read.php');
+          let _res = await fetch('../../api/event/read.php');
           res = await _res.json();
           if (_res.ok && res.status === 200) {
             renderEvents(res.data);
@@ -362,7 +314,7 @@
               <p class="text-xs font-weight-bold mb-0">${new Date(event.end_date).toLocaleString()}</p>
             </td>
             <td>
-              <span class="badge ${event.state === 'requested' ? 'bg-secondary' : (event.state === 'available' ? 'bg-success' : 'bg-danger')}">
+              <span class="badge ${event.state === 'requested' ? 'bg-secondary' : (event.state === 'available' ? 'bg-success' : 'bg-danger')}" style="color:white!important;">
                 ${event.state[0].toUpperCase()}${event.state.slice(1)}
               </span>
             </td>
@@ -370,7 +322,7 @@
               <button class="btn btn-sm btn-info me-2 edit-btn" data-id="${event.event_ID}">
                 <i class="fas fa-edit"></i>
               </button>
-              <button class="btn btn-sm btn-danger delete-btn" data-id="${event.event_ID}">
+              <button class="btn btn-sm btn-danger" data-id="${event.event_ID}">
                 <i class="fas fa-trash"></i>
               </button>
             </td>

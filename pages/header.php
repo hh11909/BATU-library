@@ -61,7 +61,7 @@ if (isset($_SESSION["user"]) && !isset($user) && isset($_SESSION["role"])) {
   <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top p-1">
     <div class="container">
       <!-- logo -->
-      <a class="navbar-brand fs-4 " href="index.php"><img src="/pages/images/logo.png" alt="Logo" width="48" height="48"
+      <a class="navbar-brand fs-4 " href="index.php"><img src="images/logo.png" alt="Logo" width="48" height="48"
           class="me-2 p-1 logo">
         <span class="logo-title">
           BATU Library

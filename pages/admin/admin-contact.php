@@ -45,9 +45,11 @@
   </div>
 
   <div class="main-content">
-    <div class="container content-container my-5 pt-4">
+    <div class="container content-container ">
       <header class="page-title-header text-center mb-4">
-        <h1><i class="fas fa-envelope-open-text me-2 title-icon"></i>Contact Messages</h1>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="primary-color fw-bold mt-1 mb-2"><i class="fas fa-envelope-open-text me-2 title-icon"></i>Contact Messages</h2>
+        </div>
       </header>
 
       <main>
@@ -128,39 +130,7 @@
     </div>
   </div>
 
-  <footer class="admin-footer mt-auto">
-    <div class="container-fluid">
-      <div class="row justify-content-around">
-        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 footer-col">
-          <div class="d-flex align-items-center mb-2 footer-logo-group">
-            <img src="/pages/images/logo.png" alt="Logo" width="35" height="35" class="me-2 admin-logo">
-            <span class="footer-brand-text">BATU Library Admin</span>
-          </div>
-          <p class="footer-col-text">Admin panel for managing BATU Library resources and communications.</p>
-        </div>
-        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 footer-col">
-          <h5 class="footer-col-title">ADMIN LINKS</h5>
-          <ul class="list-unstyled footer-links-list">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Manage Messages</a></li>
-            <li><a href="#">User Management</a></li>
-            <li><a href="#">Site Settings</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-3 col-md-6 footer-col">
-          <h5 class="footer-col-title">SUPPORT</h5>
-          <p class="footer-col-text">
-            <strong>Email:</strong> admin@batulibrary.com<br>
-            <strong>Phone:</strong> +1 234 567 8901
-          </p>
-        </div>
-      </div>
-      <hr class="footer-divider">
-      <div class="text-center footer-copyright-text">
-        <p>&copy; 2025 BATU Library. All rights reserved. Admin Panel.</p>
-      </div>
-    </div>
-  </footer>
+  <?php require_once("admin-footer.php")?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
